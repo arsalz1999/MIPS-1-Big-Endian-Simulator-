@@ -7,9 +7,9 @@ memory::memory(std::string name_bin){
     ADDR_DATA.resize(0x4000000);
     std::fill(ADDR_DATA.begin(), ADDR_DATA.end(), 0);
 
-    //reading the binary file 
+    //reading the binary file
     std::ifstream input_file(name_bin.c_str(), std::ifstream::binary);
-    
+
     if(!input_file.is_open()){
         std::exit(-21);
     }
