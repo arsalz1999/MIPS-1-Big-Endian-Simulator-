@@ -31,8 +31,8 @@ memory::memory(std::string name_bin){
 
     //computes the number of instructions
     total_instructions = bin_size/4;
-    std::cout << "The memory class works with the makefile" << std::endl;
-    std::cout << "the number of instructions are : " << total_instructions << std::endl;
+    //std::cout << "The memory class works with the makefile" << std::endl;
+    //std::cout << "the number of instructions are : " << total_instructions << std::endl;
 }
 
 uint32_t memory::read_instruction(uint32_t pc){
