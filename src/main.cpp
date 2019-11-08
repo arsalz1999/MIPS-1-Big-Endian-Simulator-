@@ -1,4 +1,4 @@
-#include "compiler.hpp"
+#include "simulate.hpp"
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -11,8 +11,8 @@ int main(int argc, char* argv[]){
     if(argc>1) name_bin = argv[1];
     else std::exit(-21);
 
-    compiler comp(name_bin);
-    comp.run();
+    simulate mips(name_bin);
+    mips.run();
 
     return 0;
 

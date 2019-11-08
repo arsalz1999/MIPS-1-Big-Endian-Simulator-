@@ -1,14 +1,14 @@
-#ifndef COMPILER_HPP
-#define COMPILER_HPP
+#ifndef SIMULATE_HPP
+#define SIMULATE_HPP
 
 #include "memory.hpp"
 #include <stdlib.h>
 #include <string>
 #include "register.hpp"
 
-class compiler{
+class simulate{
     private:
-        
+
         //constructing objects
         memory mem;
         registers register_map;
@@ -19,7 +19,7 @@ class compiler{
         uint16_t rd;
         uint16_t rt;
         uint16_t rs;
-        
+
         uint16_t opcode;
 
         int32_t  op1_s;
@@ -28,7 +28,7 @@ class compiler{
         uint32_t op2;
 
     public:
-        compiler(std::string binaryfile);
+        simulate(std::string binaryfile);
         void run();
         void execute();
 
