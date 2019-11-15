@@ -14,6 +14,13 @@ class memory{
     public:
         memory(std::string binaryfile);
         uint32_t read_instruction(uint32_t pc);
+        int32_t load_from_memory(int pc_position);
+        int32_t load_byte_from_memory(int pc_position);
+        uint32_t load_unsigned_byte_from_memory(int pc_position);
+        int32_t load_half_word_from_memory(int pc_position);
+        uint32_t load_unsigned_half_word_from_memory(int pc_oosition);
+        int32_t load_word_right_from_memory(int pc_position);
+        int32_t memory::load_word_left_from_memory(int pc_position);
 };
 
 #endif
