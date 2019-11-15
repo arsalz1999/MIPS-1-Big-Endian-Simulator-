@@ -31,8 +31,16 @@ memory::memory(std::string name_bin){
 
     //computes the number of instructions
     total_instructions = bin_size/4;
-    //std::cout << "The memory class works with the makefile" << std::endl;
-    //std::cout << "the number of instructions are : " << total_instructions << std::endl;
+    
+    //loading the binary instructions 
+    int add_index=0;
+    for (int i = 0; i < total_instructions; i++){
+        add_index=i*4;
+        ADDR_INSTR.push_back(((bin_input[add_index]<<24)&0xFF000000)
+        |((bin_input[add_index+1]<<16)&0x00FF0000)|
+        ((bin_input[add_index+2]<<8)&0x0000FF00)|
+        ((bin_input[add_index+3])&0x000000FF));
+    }
 }
 
 uint32_t memory::read_instruction(uint32_t pc){
@@ -44,4 +52,3 @@ uint32_t memory::read_instruction(uint32_t pc){
     else std::exit(-11);
 }
 
-//testing git
