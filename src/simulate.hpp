@@ -13,14 +13,16 @@ class simulate{
         memory mem;
         registers register_map;
 
-        //creating needed variables for R type Instructions
-        uint16_t funct;
-        uint16_t shamt;
-        uint16_t rd;
-        uint16_t rt;
-        uint16_t rs;
-
-        uint16_t opcode;
+        //creating needed variables for RIJ type Instructions
+        uint6_t funct;
+        uint5_t shamt;
+        uint5_t rd;
+        uint5_t rt;
+        uint5_t rs;
+        uint6_t opcode;
+        int16_t immediate;
+        int32_t ext_immediate;
+        uin26_t target_address;
 
         int32_t  op1_s;
         int32_t  op2_s;
