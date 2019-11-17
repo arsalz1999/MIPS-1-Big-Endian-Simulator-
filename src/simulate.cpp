@@ -307,7 +307,7 @@ void simulate::LUI(){
 
 //Opcode = 4
 void simulate::BEQ(){
-  if(s_op1==s_op2){
+  if(op1_s==op2_s){
     int32_t offset = immediate;
     register_map.program_counter += 4;
     int32_t pc_copy = register_map.program_counter;
@@ -318,7 +318,7 @@ void simulate::BEQ(){
 
 //Opcode = 5
 void simulate::BNE(){
-  if(s_op1!=s_op2){
+  if(op1_s!=op2_s){
     int32_t offset = immediate;
     register_map.program_counter += 4;
     int32_t pc_copy = register_map.program_counter;
@@ -329,7 +329,7 @@ void simulate::BNE(){
 
 //Opcode = 6
 void simulate::BLEZ(){
-  if(s_op1<=0){
+  if(op1_s<=0){
     int32_t offset = immediate;
     register_map.program_counter += 4;
     int32_t pc_copy = register_map.program_counter;
@@ -340,7 +340,7 @@ void simulate::BLEZ(){
 
 //Opcode = 7
 void simulate::BGTZ(){
-  if(s_op1>0){
+  if(op1_s>0){
     int32_t offset = immediate;
     register_map.program_counter += 4;
     int32_t pc_copy = register_map.program_counter;
@@ -354,7 +354,7 @@ void simulate::BGTZ(){
 
 //opcode= 1 && rt = 0x0
 void simulate::BLTZ(){
-  if(s_op1<0){
+  if(op1_s<0){
     int32_t offset = immediate;
     register_map.program_counter += 4;
     int32_t pc_copy = register_map.program_counter;
@@ -364,7 +364,7 @@ void simulate::BLTZ(){
 }
 //opcode= 1 && rt = 0x1
 void simulate::BGEZ(){
-  if(s_op1>=0){
+  if(op1_s>=0){
     int32_t offset = immediate;
     register_map.program_counter += 4;
     int32_t pc_copy = register_map.program_counter;
@@ -375,7 +375,7 @@ void simulate::BGEZ(){
 
 //opcode= 1 && rt = 0x10
 void simulate::BLTZAL(){
-  if(s_op1<=0){
+  if(op1_s<=0){
     int32_t offset = immediate;
     register_map.program_counter += 4;
     register_map.write_register(31,(register_map.program_counter+4));
@@ -387,7 +387,7 @@ void simulate::BLTZAL(){
 
 //opcode= 1 && rt = 0x11
 void simulate::BGEZAL(){
-  if(s_op1>=0){
+  if(op1_s>=0){
     int32_t offset = immediate;
     register_map.program_counter += 4;
     register_map.write_register(31,(register_map.program_counter+4));
@@ -464,10 +464,6 @@ void simulate::LHU(){
     register_map.write_register(rt, int32_t(instr_half_word)&0x0000FFFF);
   }
   else register_map.write_register(rt, mem.load_unsigned_half_word_from_memory(address));
-}
-
-void simulate::LUI(){
-  register_map.write_register(rt,((uint32_t(immediate)<<16)&0xFFFF0000));
 }
 
 void simulate::LW(){
