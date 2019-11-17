@@ -242,9 +242,9 @@ void simulate::DIVU(){
 }
 
 void simulate::MULT(){
-  int64_t product = int64_t(op1_s) * int64_t(op2_s)
-  register_map.lo = product&0xFFFFFFFF;
-  register_map.hi = (product>>32)&0xFFFFFFFF;
+  int64_t product = int64_t(op1_s) * int64_t(op2_s);
+  register_map.lo = product & 0xFFFFFFFF;
+  register_map.hi = (product>>32) & 0xFFFFFFFF;
 }
 
 void simulate::MULTU(){
