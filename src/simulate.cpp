@@ -399,7 +399,7 @@ void simulate::BGEZAL(){
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //J type
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //opcode= 2
 void simulate::J(){
@@ -418,3 +418,112 @@ void simulate::JAL(){
     execute();
     register_map.program_counter = ((pc_copy&0xF000000)|(target_address<<2));
 }
+
+void simulate::LB(){
+  uint32_t address = (uint32_t)(op1_s + ext_immediate);
+  if((address < 0x11000000) && (address >= 0x10000000))
+  {
+    int8_t instr_byte = mem.load_byte_from_instruction(address);
+    int byte = (0x000000FF & instr_byte);
+    int  bitmask = 0x00000080;
+    if(bitmask & instr_byte)
+    {
+      byte += 0xFFFFFF00;
+    }
+    register_map.write_register(rt, byte);
+  }
+  else register_map.write_register(rt, mem.load_byte_from_memory(address));
+}
+
+void simulate::LBU(){
+  uint32_t address = (op1_s + ext_immediate);
+  if((address < 0x11000000) && (address >= 0x10000000)){
+    int8_t instr_byte = mem.load_byte_from_instruction(address);
+    register_map.write_register(rt,(uint32_t(instr_byte)&0x000000FF));
+  }
+  else{
+    register_map.write_register(rt, mem.load_unsigned_byte_from_memory(address));
+  }
+}
+
+void simulate::LH(){
+  uint32_t address = (op1_s + ext_immediate);
+  if((address < 0x11000000) && (address >= 0x10000000) && (address % 2 == 0))
+  {
+    int16_t instr_half_word = mem.load_half_word_from_instruction(address);
+    register_map.write_register(rt, (int32_t)instr_half_word);
+  }
+  else register_map.write_register(rt, mem.load_half_word_from_memory(address));
+}
+
+void simulate::LHU(){
+  uint32_t address = (op1_s + ext_immediate);
+  if((address < 0x11000000) && (address >= 0x10000000))
+  {
+    int16_t instr_half_word = mem.load_half_word_from_instruction(address);
+    register_map.write_register(rt, int32_t(instr_half_word)&0x0000FFFF);
+  }
+  else register_map.write_register(rt, mem.load_unsigned_half_word_from_memory(address));
+}
+
+void simulate::LUI(){
+  register_map.write_register(rt,((uint32_t(immediate)<<16)&0xFFFF0000));
+}
+
+void simulate::LW(){
+  uint32_t address = (op1_s + ext_immediate);
+  if((address < 0x11000000) && (address >= 0x10000000)) register_map.write_register(rt, mem.read_instruction(address));
+  else register_map.write_register(rt, mem.load_from_memory(address));
+}
+
+void simulate::LWL(){
+  uint32_t address = (op1_s + ext_immediate);
+  if((address < 0x11000000) && (address >= 0x10000000))
+  {
+    int32_t instr_word = mem.read_instruction(address-(address % 4));
+    switch ((address % 4)) {
+      case 0: register_map.write_register(rt,instr_word); break;
+      case 1: register_map.write_register(rt, (op2_s&0x000000FF)|((instr_word&0x00FFFFFF)<<8)); break;
+      case 2: register_map.write_register(rt, (op2_s&0x0000FFFF)|((instr_word&0x0000FFFF)<<16)); break;
+      case 3: register_map.write_register(rt, (op2_s&0x00FFFFFF)|((instr_word&0x000000FF)<<24)); break;
+    }
+  }
+  else
+  {
+    int32_t lwl_word = mem.load_word_left_from_memory(address);
+    switch ((address % 4)) {
+      case 0: register_map.write_register(rt,lwl_word); break;
+      case 1: register_map.write_register(rt, (op2_s&0x000000FF)|lwl_word); break;
+      case 2: register_map.write_register(rt, (op2_s&0x0000FFFF)|lwl_word); break;
+      case 3: register_map.write_register(rt, (op2_s&0x00FFFFFF)|lwl_word); break;
+    }
+  }
+}
+
+void simulate::LWR()
+{
+  uint32_t address = (op1_s+ext_immediate);
+  if((address < 0x11000000) && (address >= 0x10000000)){
+    int32_t instr_word = mem.read_instruction(address-(address % 4));
+    switch ((address % 4))
+    {
+      case 3: register_map.write_register(rt,instr_word); break;
+      case 0: register_map.write_register(rt, (op2_s&0xFFFFFF00)|((instr_word&0xFF000000)>>24)); break;
+      case 1: register_map.write_register(rt, (op2_s&0xFFFF0000)|((instr_word&0xFFFF0000)>>16)); break;
+      case 2: register_map.write_register(rt, (op2_s&0xFF000000)|((instr_word&0xFFFFFF00)>>8)); break;
+    }
+  }
+  else
+  {
+    int32_t lwr_word = mem.load_word_right_from_memory(address);
+    switch ((address % 4))
+    {
+      case 3: register_map.write_register(rt,lwr_word); break;
+      case 0: register_map.write_register(rt, (op2_s&0xFFFFFF00)|lwr_word); break;
+      case 1: register_map.write_register(rt, (op2_s&0xFFFF0000)|lwr_word); break;
+      case 2: register_map.write_register(rt, (op2_s&0xFF000000)|lwr_word); break;
+    }
+  }
+}
+
+

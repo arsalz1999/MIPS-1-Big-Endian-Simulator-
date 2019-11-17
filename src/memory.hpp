@@ -20,7 +20,9 @@ class memory{
         int32_t load_half_word_from_memory(int pc_position);
         uint32_t load_unsigned_half_word_from_memory(int pc_oosition);
         int32_t load_word_right_from_memory(int pc_position);
-        int32_t memory::load_word_left_from_memory(int pc_position);
+        int32_t load_word_left_from_memory(int pc_position);
+        int8_t load_byte_from_instruction(int pc_position);
+        int16_t load_half_word_from_instruction(int pc_position);
 };
 
 #endif

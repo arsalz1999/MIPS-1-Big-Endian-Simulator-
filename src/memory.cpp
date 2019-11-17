@@ -193,3 +193,27 @@ int32_t memory::load_word_left_from_memory(int pc_position){
   else std::exit(-11);
 }
 
+int8_t memory::load_byte_from_instruction(int pc_position){
+  uint32_t real_pc_position = (pc_position - (pc_position % 4) - 0x10000000)/4;
+  if(real_pc_position < ADDR_INSTR.size()){
+    switch (pc_position % 4) {
+      case 0: return((ADDR_INSTR[real_pc_position] & 0xFF000000)>>24); break;
+      case 1: return((ADDR_INSTR[real_pc_position] & 0x00FF0000)>>16); break;
+      case 2: return((ADDR_INSTR[real_pc_position] & 0x0000FF00)>>8); break;
+      case 3: return(ADDR_INSTR[real_pc_position] & 0x000000FF); break;
+    }
+  }
+  else return 0;
+}
+
+int16_t memory::load_half_word_from_instruction(int pc_position){
+  uint32_t real_pc_position = (pc_position - (pc_position % 4) - 0x10000000)/4;
+  if(real_pc_position < ADDR_INSTR.size()){
+    switch (pc_position % 4) {
+      case 0: return((ADDR_INSTR[real_pc_position]&0xFFFF0000)>>16); break;
+      case 2: return(ADDR_INSTR[real_pc_position]&0x0000FFFF); break;
+    }
+  }
+  else return 0;
+
+}

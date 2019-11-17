@@ -24,6 +24,7 @@ class simulate{
         
         int16_t immediate;
         int32_t ext_immediate;
+        
         uint32_t target_address;
 
         int32_t  op1_s;
@@ -82,6 +83,7 @@ class simulate{
         void BGTZ();
         void BLEZ();
         void BNE();
+
         void LB();
         void LBU();
         void LH();
@@ -90,6 +92,7 @@ class simulate{
         void LW();
         void LWL();
         void LWR();
+        
         void ORI();
         void SLTI();
         void SLTIU();
