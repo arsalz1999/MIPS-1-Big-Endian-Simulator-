@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string>
 #include "register.hpp"
+#include <stdint.h>
 
 class simulate{
     private:
@@ -14,15 +15,16 @@ class simulate{
         registers register_map;
 
         //creating needed variables for RIJ type Instructions
-        uint6_t funct;
-        uint5_t shamt;
-        uint5_t rd;
-        uint5_t rt;
-        uint5_t rs;
-        uint6_t opcode;
+        uint16_t funct;
+        uint16_t shamt;
+        uint16_t rd;
+        uint16_t rt;
+        uint16_t rs;
+        uint16_t opcode;
+        
         int16_t immediate;
         int32_t ext_immediate;
-        uin26_t target_address;
+        uint32_t target_address;
 
         int32_t  op1_s;
         int32_t  op2_s;
@@ -65,18 +67,18 @@ class simulate{
         void SUBU();
         void XOR();
 
-        void J(uint32_t instruction);
-        void JAL(uint32_t instruction);
+        void J();
+        void JAL();
 
         void ADDI();
         void ADDIU();
         void ANDI();
         void BEQ();
         void BRANCHES();
-        //void BLTZ();
-        //void BLTZAL();
-        //void BGEZ();
-        //void BGEZAL();
+        void BLTZ();
+        void BLTZAL();
+        void BGEZ();
+        void BGEZAL();
         void BGTZ();
         void BLEZ();
         void BNE();

@@ -248,7 +248,7 @@ void simulate::MULT(){
 }
 
 void simulate::MULTU(){
-  uint64_t product = int64_t(op1) * int64_t(op2)
+  uint64_t product = int64_t(op1) * int64_t(op2);
   register_map.lo = product&0xFFFFFFFF;
   register_map.hi = (product>>32)&0xFFFFFFFF;
 }
