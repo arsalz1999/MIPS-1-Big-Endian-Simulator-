@@ -23,6 +23,12 @@ class memory{
         int32_t load_word_left_from_memory(int pc_position);
         int8_t load_byte_from_instruction(int pc_position);
         int16_t load_half_word_from_instruction(int pc_position);
+
+        void store_to_memory(int pc_position, int32_t value);
+        void store_byte_to_memory(int pc_position, int8_t value);
+        void store_halfword_to_memory(int pc_position, int16_t value);
+
+
 };
 
 #endif

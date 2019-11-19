@@ -131,35 +131,33 @@ void simulate::execute_I(uint32_t instruction){
     }
 
   }
-  switch(opcode){
+    switch(opcode){
 
-  case 8: ADD();  break;
-  case 9: ADDU(); break;
-  case 10: AND();  break;
-  case 11: DIV();  break;
-  case 12: DIVU(); break;
-  case 13:  JALR(); break;
-  case 14:  JR();   break;
-  case 15: MFHI(); break;
-  case 4: MFLO(); break;
-  case 5: MTHI(); break;
-  case 6: MTLO(); break;
-  case 7: MULT(); break;
+    case 8: ADD();  break;
+    case 9: ADDU(); break;
+    case 10: AND();  break;
+    case 11: DIV();  break;
+    case 12: DIVU(); break;
+    case 13:  JALR(); break;
+    case 14:  JR();   break;
+    case 15: MFHI(); break;
+    case 4: MFLO(); break;
+    case 5: MTHI(); break;
+    case 6: MTLO(); break;
+    case 7: MULT(); break;
 
-  //Memory instructions
-  case 32: LB(); break;
-  case 33: LH(); break;
-  case 34: LWL(); break;
-  case 35: LW(); break;
-  case 36: LBU(); break;
-  case 37: LHU(); break;
-  case 38: LWR(); break;
-  case 40: SB(); break;
-  case 41: SH(); break;
-  case 43: SW(); break;
-
-}
-
+    //Memory instructions
+    case 32: LB(); break;
+    case 33: LH(); break;
+    case 34: LWL(); break;
+    case 35: LW(); break;
+    case 36: LBU(); break;
+    case 37: LHU(); break;
+    case 38: LWR(); break;
+    case 40: SB(); break;
+    case 41: SH(); break;
+    case 43: SW(); break;
+    }
 }
 
 

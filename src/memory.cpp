@@ -57,7 +57,7 @@ int32_t memory::load_from_memory(int pc_position){
     int data_in = std::getchar(); 
     if(std::cin.eof()) return 0xFFFFFFFF; 
     if(!std::cin.good()) std::exit(-21);
-    return data_in; 
+    return (data_in); 
   }
 
   if((pc_position % 4 == 0) && (pc_position >= 0x20000000) && (pc_position < 0x24000000)){
@@ -215,5 +215,82 @@ int16_t memory::load_half_word_from_instruction(int pc_position){
     }
   }
   else return 0;
+}
 
+void memory::store_to_memory(int pc_position, int32_t value)
+{
+  //CHECKING FOR PUTCHAR
+  if(pc_position==0x30000004){
+    char data_out= int8_t(value&0xFF);
+    if(!std::cout.good()) std::exit(-21);
+    std::putchar(data_out);//how to return char from the function
+    return;
+  }
+
+  //RUNNINNG NORMAL INSTRUCTION
+  if ((pc_position%4 == 0) && (pc_position>=0x20000000) && (pc_position<0x24000000))
+  {
+    uint32_t real_pc_position = (pc_position-0x20000000);
+    ADDR_DATA[real_pc_position] = int8_t((value&0xFF000000)>>24);
+    //std::cout<<"ADDR_DATA["<<Index_actual<<"]="<< static_cast<int16_t>(ADDR_DATA[Index_actual]) <<std::endl;
+    ADDR_DATA[real_pc_position+1] = int8_t((value&0xFF0000)>>16);
+    //std::cout<<"ADDR_DATA["<<Index_actual+1<<"]="<<static_cast<int16_t>(ADDR_DATA[Index_actual+1])<<std::endl;
+    ADDR_DATA[real_pc_position+2] = int8_t((value&0xFF00)>>8);
+    //std::cout<<"ADDR_DATA["<<Index_actual+2<<"]="<< static_cast<int16_t>(ADDR_DATA[Index_actual+2]) <<std::endl;
+    ADDR_DATA[real_pc_position+3] = int8_t(value&0xFF);
+    //std::cout<<"ADDR_DATA["<<Index_actual+3<<"]="<< static_cast<int16_t>(ADDR_DATA[Index_actual+3]) <<std::endl;
+  }
+  else  std::exit(-11); // memory exception
+}
+
+void memory::store_byte_to_memory(int pc_position, int8_t value)
+{
+  if((pc_position>=0x30000004)&&(pc_position<0x30000008))//putc
+  {
+      char data_out= value&0xFF;
+      if(!std::cout.good())
+      {
+        std::exit(-21);
+      }
+      if(pc_position==0x30000007)
+      {
+        std::putchar(data_out);
+      }
+      else
+      {
+        std::putchar(0);
+      }
+      return;
+  }
+
+
+  if ((pc_position>=0x20000000) && (pc_position<0x24000000))
+  {
+    uint32_t real_pc_position = (pc_position-0x20000000);
+    ADDR_DATA[real_pc_position] = value;
+  }
+  else
+  {
+    std::exit(-11); // memory exception
+  }
+}
+
+void memory::store_halfword_to_memory(int pc_position, int16_t value)
+{
+  if((pc_position==0x30000004) || (pc_position==0x30000006))
+  {
+    char data_out= int8_t(value&0xFF);
+    if(!std::cout.good()) std::exit(-21);
+    if(pc_position==0x30000006)   std::putchar(data_out);
+    else std::putchar(0);
+    return;
+  }
+
+  if ((pc_position>=0x20000000) && (pc_position<0x24000000) && (pc_position%2==0))
+  {
+    uint32_t real_pc_position = (pc_position-0x20000000);
+    ADDR_DATA[real_pc_position] = int8_t((value&0xFF00)>>8);
+    ADDR_DATA[real_pc_position+1] = int8_t((value&0xFF));
+  }
+  else std::exit(-11);
 }
