@@ -569,3 +569,15 @@ void simulate::LWR()
     }
   }
 }
+
+void simulate::SB(){
+  int8_t value = op2_s&0xFF;
+  mem.store_byte_to_memory((op1_s+ext_immediate),value);
+}
+
+void simulate::SH(){
+  int16_t val16 = op2_s&0xFFFF;
+  mem.store_halfword_to_memory((op1_s + ext_immediate), val16);
+}
+
+void simulate::SW() {mem.store_to_memory((op1_s+ext_immediate),op2_s);}
