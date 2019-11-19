@@ -99,7 +99,7 @@ void simulate::execute_J(uint32_t instruction){
 }
 
 void simulate::execute_I(uint32_t instruction){
-
+  opcode = (instruction & 0xFC000000) >> 26;
   immediate = instruction & 0xFFFF;
   ext_immediate = instruction & 0xFFFF;
   rt = (instruction>>16) & 0b11111;
@@ -109,6 +109,56 @@ void simulate::execute_I(uint32_t instruction){
   op1_s = register_map.read_register(rs);
   op2 = register_map.read_register(rt);
   op2_s = register_map.read_register(rt);
+
+  if(opcode == 1){
+    if(rt==0){
+      BLTZ();
+    }
+    else if(rt==0x01){
+      BGEZ();
+    }
+
+    else if(rt==0x10){
+      BLTZAL();
+    }
+
+    else if(rt==0x11){
+      BGEZAL();
+    }
+
+    else{
+      std::exit(-12);
+    }
+
+  }
+  switch(opcode){
+
+  case 8: ADD();  break;
+  case 9: ADDU(); break;
+  case 10: AND();  break;
+  case 11: DIV();  break;
+  case 12: DIVU(); break;
+  case 13:  JALR(); break;
+  case 14:  JR();   break;
+  case 15: MFHI(); break;
+  case 4: MFLO(); break;
+  case 5: MTHI(); break;
+  case 6: MTLO(); break;
+  case 7: MULT(); break;
+
+  //Memory instructions
+  case 32: LB(); break;
+  case 33: LH(); break;
+  case 34: LWL(); break;
+  case 35: LW(); break;
+  case 36: LBU(); break;
+  case 37: LHU(); break;
+  case 38: LWR(); break;
+  case 40: SB(); break;
+  case 41: SH(); break;
+  case 43: SW(); break;
+
+}
 
 }
 
@@ -403,20 +453,20 @@ void simulate::BGEZAL(){
 
 //opcode= 2
 void simulate::J(){
-    register_map.program_counter += 4;
-    int32_t pc_copy = register_map.program_counter;
-    execute();
-    register_map.program_counter = ((pc_copy&0xF000000)|(target_address<<2));
+  register_map.program_counter += 4;
+  int32_t pc_copy = register_map.program_counter;
+  execute();
+  register_map.program_counter = ((pc_copy&0xF000000)|(target_address<<2));
 }
 
 //opcode= 3
 void simulate::JAL(){
-    uint32_t op1copy = op1;
-    register_map.program_counter += 4;
-    int32_t pc_copy = register_map.program_counter;
-    register_map.write_register(31,(register_map.program_counter+4));
-    execute();
-    register_map.program_counter = ((pc_copy&0xF000000)|(target_address<<2));
+  uint32_t op1copy = op1;
+  register_map.program_counter += 4;
+  int32_t pc_copy = register_map.program_counter;
+  register_map.write_register(31,(register_map.program_counter+4));
+  execute();
+  register_map.program_counter = ((pc_copy&0xF000000)|(target_address<<2));
 }
 
 void simulate::LB(){
@@ -521,5 +571,3 @@ void simulate::LWR()
     }
   }
 }
-
-

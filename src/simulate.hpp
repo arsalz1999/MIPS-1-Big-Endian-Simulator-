@@ -21,10 +21,10 @@ class simulate{
         uint16_t rt;
         uint16_t rs;
         uint16_t opcode;
-        
+
         int16_t immediate;
         int32_t ext_immediate;
-        
+
         uint32_t target_address;
 
         int32_t  op1_s;
@@ -92,7 +92,7 @@ class simulate{
         void LW();
         void LWL();
         void LWR();
-        
+
         void ORI();
         void SLTI();
         void SLTIU();

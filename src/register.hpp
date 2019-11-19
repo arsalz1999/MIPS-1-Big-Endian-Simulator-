@@ -5,7 +5,7 @@ class registers{
         int32_t register_vector[32];
     public:
         registers();
-        
+
         //setting counter
         uint32_t program_counter = 0x10000000;
         uint32_t hi = 0;
