@@ -29,7 +29,7 @@ void simulate::execute(){
       execute_I(instruction_current);
     }
     std::cout << "pc is " << register_map.program_counter << std::endl;
-    register_map.program_counter += 4; //increment PC
+    register_map.program_counter = register_map.program_counter + 4;
   }
   else{
     std::cout<<"here";
@@ -268,7 +268,7 @@ void simulate::JR(){
     std::cout<< "called JR" <<std::endl;
     int32_t op1copy = op1_s;
     register_map.program_counter += 4;
-    execute();
+    simulate::execute();
     register_map.program_counter = op1copy-4;
     std::cout<< "end JR" <<std::endl;
 }
@@ -277,8 +277,8 @@ void simulate::JALR(){
     int32_t op1copy = op1_s;
     register_map.program_counter += 4;
     register_map.write_register(rd,(register_map.program_counter+4));
-    execute();
-    register_map.program_counter = op1copy;
+    simulate::execute();
+    register_map.program_counter = op1copy - 4;
 }
 
 void simulate::DIV(){
@@ -372,9 +372,8 @@ void simulate::BEQ(){
     int32_t offset = immediate;
     register_map.program_counter += 4;
     int32_t pc_copy = register_map.program_counter;
-    execute();
-    register_map.program_counter = pc_copy + (offset<<2);
-  }
+    simulate::execute();
+    register_map.program_counter = (pc_copy + (offset<<2))-4;  }
 }
 
 //Opcode = 5
@@ -383,8 +382,8 @@ void simulate::BNE(){
     int32_t offset = immediate;
     register_map.program_counter += 4;
     uint32_t pc_copy = register_map.program_counter;
-    execute();
-    register_map.program_counter = pc_copy + (offset<<2);
+    simulate::execute();
+    register_map.program_counter = (pc_copy + (offset<<2))-4;
   }
 }
 
@@ -394,8 +393,8 @@ void simulate::BLEZ(){
     int32_t offset = immediate;
     register_map.program_counter += 4;
     int32_t pc_copy = register_map.program_counter;
-    execute();
-    register_map.program_counter = pc_copy + (offset<<2);
+    simulate::execute();
+    register_map.program_counter = (pc_copy + (offset<<2))-4;
   }
 }
 
@@ -405,8 +404,8 @@ void simulate::BGTZ(){
     int32_t offset = immediate;
     register_map.program_counter += 4;
     int32_t pc_copy = register_map.program_counter;
-    execute();
-    register_map.program_counter = pc_copy + (offset<<2);
+    simulate::execute();
+    register_map.program_counter = (pc_copy + (offset<<2))-4;
   }
 }
 
@@ -419,8 +418,8 @@ void simulate::BLTZ(){
     int32_t offset = immediate;
     register_map.program_counter += 4;
     int32_t pc_copy = register_map.program_counter;
-    execute();
-    register_map.program_counter = pc_copy + (offset<<2);
+    simulate::execute();
+    register_map.program_counter = (pc_copy + (offset<<2))-4;
   }
 }
 //opcode= 1 && rt = 0x1
@@ -429,8 +428,8 @@ void simulate::BGEZ(){
     int32_t offset = immediate;
     register_map.program_counter += 4;
     int32_t pc_copy = register_map.program_counter;
-    execute();
-    register_map.program_counter = pc_copy + (offset<<2);
+    simulate::execute();
+    register_map.program_counter = (pc_copy + (offset<<2))-4;
   }
 }
 
@@ -441,8 +440,8 @@ void simulate::BLTZAL(){
     register_map.program_counter += 4;
     register_map.write_register(31,(register_map.program_counter+4));
     int32_t pc_copy = register_map.program_counter;
-    execute();
-    register_map.program_counter = pc_copy + (offset<<2);
+    simulate::execute();
+    register_map.program_counter = (pc_copy + (offset<<2))-4;
   }
 }
 
@@ -453,8 +452,8 @@ void simulate::BGEZAL(){
     register_map.program_counter += 4;
     register_map.write_register(31,(register_map.program_counter+4));
     int32_t pc_copy = register_map.program_counter;
-    execute();
-    register_map.program_counter = pc_copy + (offset<<2);
+    simulate::execute();
+    register_map.program_counter = (pc_copy + (offset<<2))-4;
   }
 }
 
@@ -466,7 +465,7 @@ void simulate::BGEZAL(){
 void simulate::J(){
   register_map.program_counter += 4;
   int32_t pc_copy = register_map.program_counter;
-  execute();
+  simulate::execute();
   register_map.program_counter = ((pc_copy&0xF000000)|(target_address<<2))-4;
 }
 
@@ -476,7 +475,7 @@ void simulate::JAL(){
   register_map.program_counter += 4;
   int32_t pc_copy = register_map.program_counter;
   register_map.write_register(31,(register_map.program_counter+4));
-  execute();
+  simulate::execute();
   register_map.program_counter = ((pc_copy&0xF000000)|(target_address<<2))-4;
 }
 

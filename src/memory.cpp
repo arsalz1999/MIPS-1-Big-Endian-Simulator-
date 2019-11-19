@@ -73,7 +73,10 @@ int32_t memory::load_from_memory(int pc_position){
     ((int32_t(ADDR_DATA[real_pc_position+2])<<8)&0x0000FF00)|
     (int32_t(ADDR_DATA[pc_position+3])&0x000000FF));
   }
-  else std::exit(-11); 
+  else {
+    std::cout << "exits at load from memory" << std::endl;
+    std::exit(-11);
+    } 
 }
 
 int32_t memory::load_byte_from_memory(int pc_position){
@@ -225,7 +228,6 @@ int16_t memory::load_half_word_from_instruction(int pc_position){
 
 void memory::store_to_memory(int pc_position, int32_t value)
 {
-  //CHECKING FOR PUTCHAR
   if(pc_position==0x30000004){
     char data_out= int8_t(value&0xFF);
     if(!std::cout.good()) std::exit(-21);
@@ -241,7 +243,10 @@ void memory::store_to_memory(int pc_position, int32_t value)
     ADDR_DATA[real_pc_position+2] = int8_t((value&0xFF00)>>8);
     ADDR_DATA[real_pc_position+3] = int8_t(value&0xFF);
   }
-  else  std::exit(-11); // memory exception
+  else  {
+    std::cout << "exits store to memory" << std::endl;
+    std::exit(-11);
+    }
 }
 
 void memory::store_byte_to_memory(int pc_position, int8_t value)
@@ -272,6 +277,7 @@ void memory::store_byte_to_memory(int pc_position, int8_t value)
   }
   else
   {
+    std::cout << "exits store byte to memory" << std::endl;
     std::exit(-11);
   }
 }
@@ -293,5 +299,8 @@ void memory::store_halfword_to_memory(int pc_position, int16_t value)
     ADDR_DATA[real_pc_position] = int8_t((value&0xFF00)>>8);
     ADDR_DATA[real_pc_position+1] = int8_t((value&0xFF));
   }
-  else std::exit(-11);
+  else {
+    std::cout << "exits store halfword to memory" <<std::endl;
+    std::exit(-11);
+  }
 }
