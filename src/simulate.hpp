@@ -23,7 +23,6 @@ class simulate{
         uint16_t opcode;
 
         int16_t immediate;
-        uint32_t u_immediate;
         int32_t ext_immediate;
 
         uint32_t target_address;
