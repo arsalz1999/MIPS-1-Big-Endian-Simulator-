@@ -32,7 +32,7 @@ memory::memory(std::string name_bin){
     input_file.close();
 
     //computes the number of instructions
-    total_instructions = bin_size/4;
+    total_instructions = sizeof(bin_input)/4;
     
     //loading the binary instructions 
     int add_index=0;
@@ -42,6 +42,7 @@ memory::memory(std::string name_bin){
         |((bin_input[add_index+1]<<16)&0x00FF0000)|
         ((bin_input[add_index+2]<<8)&0x0000FF00)|
         ((bin_input[add_index+3])&0x000000FF));
+        std::cout << "loaded instruction is "<<std::hex << ADDR_INSTR[i] <<std::endl;
     }
 }
 
