@@ -348,17 +348,17 @@ void simulate::SLTIU(){
 
 //Opcode = 12
 void simulate::ANDI(){
-  register_map.write_register(rt,(op1&immediate));
+  register_map.write_register(rt,(op1&u_immediate));
 }
 
 //Opcode = 13
 void simulate::ORI(){
-  register_map.write_register(rt,(op1|immediate));
+  register_map.write_register(rt,(op1|(immediate&0xFFFF)));
 }
 
 //Opcode = 14
 void simulate::XORI(){
-  register_map.write_register(rt,(op1^immediate));
+  register_map.write_register(rt,(op1^immediate&0xFFFF));
 }
 
 //Opcode = 15
@@ -594,3 +594,6 @@ void simulate::SH(){
 }
 
 void simulate::SW() {mem.store_to_memory((op1_s+ext_immediate),op2_s);}
+
+
+//merge conflict dont know how to fix lol
