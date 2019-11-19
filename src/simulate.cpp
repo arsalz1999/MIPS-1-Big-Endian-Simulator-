@@ -1,7 +1,7 @@
 #include "simulate.hpp"
 #include <iostream>
 
-simulate::simulate(std::string binaryfile) : mem(binaryfile){
+simulate::simulate(std::string binaryfile) : mem(binaryfile), register_map(){
 
 }
 
