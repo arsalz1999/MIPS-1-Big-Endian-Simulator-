@@ -15,18 +15,24 @@ void simulate::execute(){
     if((register_map.program_counter >= 0x10000000) && (register_map.program_counter < 0x11000000)){
     uint32_t instruction_current = mem.read_instruction(register_map.program_counter);
     opcode = (instruction_current & 0xFC000000) >> 26;
+    std::cout << "opcode is "<<opcode <<std::endl;
     if((opcode & 0b111111) == 0){
+      std::cout<<"executed R type"<<std::endl;
       execute_R(instruction_current);
     }
     else if( (opcode & 0b111111) == 3 || (opcode & 0b111111) == 2 ){
+      std::cout<<"executed J type"<<std::endl;
       execute_J(instruction_current);
     }
     else{
+      std::cout<<"executed I type"<<std::endl;
       execute_I(instruction_current);
     }
+    std::cout << "pc is " << register_map.program_counter << std::endl;
     register_map.program_counter += 4; //increment PC
   }
   else{
+    std::cout<<"here";
     std::exit(-11);
   }
 }
@@ -34,6 +40,7 @@ void simulate::execute(){
 void simulate::run(){
   while((register_map.program_counter != 0) && ((register_map.program_counter >= 0x10000000) && (register_map.program_counter <= 0x11000000)))
   {
+    std::cout << "execute called" << std::endl;
     simulate::execute();
   }
   if(register_map.program_counter==0)
@@ -42,7 +49,7 @@ void simulate::run(){
     std::cerr<<"exitcode is = "<< static_cast<int16_t>(exitCode) <<std::endl;
     std::exit(exitCode);
   }
-  else std::exit(-11);
+  else { std::cout<<"here1"; std::exit(-11);}
 }
 
 void simulate::execute_R(uint32_t instruction){
@@ -57,7 +64,7 @@ void simulate::execute_R(uint32_t instruction){
     op2 = register_map.read_register(rt);
     op1_s = register_map.read_register(rs);
     op2_s = register_map.read_register(rt);
-
+    std::cout << "funct is "<<funct << std::endl;
     switch(funct){
 
     case 32: ADD();  break;
@@ -133,18 +140,18 @@ void simulate::execute_I(uint32_t instruction){
   }
     switch(opcode){
 
-    case 8: ADD();  break;
-    case 9: ADDU(); break;
-    case 10: AND();  break;
-    case 11: DIV();  break;
-    case 12: DIVU(); break;
-    case 13:  JALR(); break;
-    case 14:  JR();   break;
-    case 15: MFHI(); break;
-    case 4: MFLO(); break;
-    case 5: MTHI(); break;
-    case 6: MTLO(); break;
-    case 7: MULT(); break;
+    case 8: ADDI();  break;
+    case 9: ADDIU(); break;
+    case 10: SLTI();  break;
+    case 11: SLTIU();  break;
+    case 12: ANDI(); break;
+    case 13: ORI(); break;
+    case 14: XORI();   break;
+    case 15: LUI(); break;
+    case 4: BEQ(); break;
+    case 5: BNE(); break;
+    case 6: BLEZ(); break;
+    case 7: BGTZ(); break;
 
     //Memory instructions
     case 32: LB(); break;
@@ -254,10 +261,12 @@ void simulate::MTLO(){
 }
 
 void simulate::JR(){
+    std::cout<< "called JR" <<std::endl;
     uint32_t op1copy = op1;
     register_map.program_counter += 4;
     execute();
     register_map.program_counter = op1copy;
+    std::cout<< "end JR" <<std::endl;
 }
 
 void simulate::JALR(){

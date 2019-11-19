@@ -11,6 +11,7 @@ memory::memory(std::string name_bin){
     std::ifstream input_file(name_bin.c_str(), std::ifstream::binary);
 
     if(!input_file.is_open()){
+        std::cout<< "file not open" << std::endl;
         std::exit(-21);
     }
 
@@ -20,6 +21,7 @@ memory::memory(std::string name_bin){
     input_file.seekg(0, std::ios::beg);
 
     if(bin_size > 0x1000000){
+        std::cout << "file too big" << std::endl;
         std::exit(-11);
     }
 
@@ -49,7 +51,10 @@ uint32_t memory::read_instruction(uint32_t pc){
         if(pc_position < ADDR_INSTR.size()) return ADDR_INSTR[pc_position];
         else return 0;
     }
-    else std::exit(-11);
+    else{
+      std::cout<< "mem read instr" << std::endl;
+      std::exit(-11);
+    }
 }
 
 int32_t memory::load_from_memory(int pc_position){
@@ -227,18 +232,13 @@ void memory::store_to_memory(int pc_position, int32_t value)
     return;
   }
 
-  //RUNNINNG NORMAL INSTRUCTION
   if ((pc_position%4 == 0) && (pc_position>=0x20000000) && (pc_position<0x24000000))
   {
     uint32_t real_pc_position = (pc_position-0x20000000);
     ADDR_DATA[real_pc_position] = int8_t((value&0xFF000000)>>24);
-    //std::cout<<"ADDR_DATA["<<Index_actual<<"]="<< static_cast<int16_t>(ADDR_DATA[Index_actual]) <<std::endl;
     ADDR_DATA[real_pc_position+1] = int8_t((value&0xFF0000)>>16);
-    //std::cout<<"ADDR_DATA["<<Index_actual+1<<"]="<<static_cast<int16_t>(ADDR_DATA[Index_actual+1])<<std::endl;
     ADDR_DATA[real_pc_position+2] = int8_t((value&0xFF00)>>8);
-    //std::cout<<"ADDR_DATA["<<Index_actual+2<<"]="<< static_cast<int16_t>(ADDR_DATA[Index_actual+2]) <<std::endl;
     ADDR_DATA[real_pc_position+3] = int8_t(value&0xFF);
-    //std::cout<<"ADDR_DATA["<<Index_actual+3<<"]="<< static_cast<int16_t>(ADDR_DATA[Index_actual+3]) <<std::endl;
   }
   else  std::exit(-11); // memory exception
 }
@@ -271,7 +271,7 @@ void memory::store_byte_to_memory(int pc_position, int8_t value)
   }
   else
   {
-    std::exit(-11); // memory exception
+    std::exit(-11);
   }
 }
 
