@@ -1,12 +1,12 @@
-#ifndef SIMULATE_HPP
-#define SIMULATE_HPP
+#ifndef SIMULATOR_HPP
+#define SIMULATOR_HPP
 
 #include "memory.hpp"
 #include <stdlib.h>
 #include <string>
 #include "register.hpp"
 
-class simulate{
+class simulator{
     private:
 
         //constructing objects
@@ -28,7 +28,7 @@ class simulate{
         uint32_t op2;
 
     public:
-        simulate(std::string binaryfile);
+        simulator(std::string binaryfile);
         void run();
         void execute();
 

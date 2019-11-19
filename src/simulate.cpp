@@ -1,13 +1,13 @@
-#include "simulate.hpp"
+#include "simulator.hpp"
 #include <iostream>
 
-simulate::simulate(std::string binaryfile) : mem(binaryfile){
+simulator::simulator(std::string binaryfile) : mem(binaryfile){
 
 }
 
 //all the functions go here
 
-void simulate::execute(){
+void simulator::execute(){
     if((register_map.program_counter >= 0x10000000) && (register_map.program_counter < 0x11000000)){
     uint32_t instruction_current = mem.read_instruction(register_map.program_counter);
     opcode = (instruction_current & 0xFC000000) >> 26;
@@ -27,10 +27,10 @@ void simulate::execute(){
   }
 }
 
-void simulate::run(){
+void simulator::run(){
   while((register_map.program_counter != 0) && ((register_map.program_counter >= 0x10000000) && (register_map.program_counter <= 0x11000000)))
   {
-    simulate::execute();
+    simulator::execute();
   }
   if(register_map.program_counter==0)
   {
@@ -41,7 +41,7 @@ void simulate::run(){
   else std::exit(-11);
 }
 
-void simulate::execute_R(uint32_t instruction){
+void simulator::execute_R(uint32_t instruction){
 
     funct = instruction & 0b111111;
     shamt = (instruction>>6) & 0b11111;
@@ -84,16 +84,16 @@ void simulate::execute_R(uint32_t instruction){
   }
 }
 
-void simulate::execute_J(uint32_t instruction){
+void simulator::execute_J(uint32_t instruction){
 
 }
 
-void simulate::execute_I(uint32_t instruction){
+void simulator::execute_I(uint32_t instruction){
 
 }
 
 
-void simulate::ADD(){
+void simulator::ADD(){
     if((op1_s>0 && op2_s>0 && op1_s+op2_s<=0) || (op1_s<0 && op2_s<0 && op1_s+op2_s>=0)){
         exit(-10);
     }
@@ -103,11 +103,11 @@ void simulate::ADD(){
 }
 
 
-void simulate::ADDU(){
+void simulator::ADDU(){
   register_map.write_register(rd, (op1 + op2));
 }
 
-void simulate::SUB(){
+void simulator::SUB(){
   if((op1_s>=0 && op2_s<0 && op1_s-op2_s<=0) || (op1_s<0 && op2_s>0 && op1_s-op2_s>=0)){
     exit(-10);
   }
@@ -116,83 +116,83 @@ void simulate::SUB(){
   }
 }
 
-void simulate::SUBU(){
+void simulator::SUBU(){
   register_map.write_register(rd, (op1 - op2));
 }
 
-void simulate::AND(){
+void simulator::AND(){
   register_map.write_register(rd,(op1&op2));
 }
 
-void simulate::OR(){
+void simulator::OR(){
   register_map.write_register(rd,(op1|op2));
 }
 
-void simulate::XOR(){
+void simulator::XOR(){
     register_map.write_register(rd,(op1^op2));
 }
 
-void simulate::SLL(){
+void simulator::SLL(){
     register_map.write_register(rd,(op2<<shamt));
 }
 
-void simulate::SRL(){
+void simulator::SRL(){
     register_map.write_register(rd,(op2>>shamt));
 }
 
-void simulate::SRA(){
+void simulator::SRA(){
     register_map.write_register(rd,(op2_s>>shamt));
 }
 
-void simulate::SLLV(){
+void simulator::SLLV(){
     register_map.write_register(rd,(op2<<op1));
 }
 
-void simulate::SRLV(){
+void simulator::SRLV(){
     register_map.write_register(rd,(op2>>op1));
 }
 
-void simulate::SRAV(){
+void simulator::SRAV(){
     register_map.write_register(rd,(op2_s>>op1));
 }
 
 
-void simulate::SLT(){
+void simulator::SLT(){
     if(op1_s<op2_s) register_map.write_register(rd,1);
     else register_map.write_register(rd,0);
 }
 
 
-void simulate::SLTU(){
+void simulator::SLTU(){
      if(op1<op2) register_map.write_register(rd,1);
     else register_map.write_register(rd,0);
 }
 
-void simulate::MFHI(){
+void simulator::MFHI(){
     register_map.write_register(rd,register_map.hi);
 }
 
-void simulate::MTHI(){
+void simulator::MTHI(){
     register_map.hi = op1;
 }
 
 
-void simulate::MFLO(){
+void simulator::MFLO(){
     register_map.write_register(rd,register_map.lo);
 }
 
-void simulate::MTLO(){
+void simulator::MTLO(){
     register_map.lo = op1;
 }
 
-void simulate::JR(){
+void simulator::JR(){
     uint32_t op1copy = op1;
     register_map.program_counter += 4;
     execute();
     register_map.program_counter = op1copy;
 }
 
-void simulate::JALR(){
+void simulator::JALR(){
     uint32_t op1copy = op1;
     register_map.program_counter += 4;
     execute();
@@ -200,18 +200,18 @@ void simulate::JALR(){
     register_map.program_counter = op1copy;
 }
 
-void simulate::DIV(){
+void simulator::DIV(){
 
 }
 
-void simulate::DIVU(){
+void simulator::DIVU(){
 
 }
 
-void simulate::MULT(){
+void simulator::MULT(){
 
 }
 
-void simulate::MULTU(){
+void simulator::MULTU(){
 
 }
