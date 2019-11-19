@@ -14,6 +14,7 @@ simulate::simulate(std::string binaryfile) : mem(binaryfile), register_map(){
 void simulate::execute(){
     if((register_map.program_counter >= 0x10000000) && (register_map.program_counter < 0x11000000)){
     uint32_t instruction_current = mem.read_instruction(register_map.program_counter);
+    std::cout << "instruction_current is " <<std::hex << instruction_current << std::endl;
     opcode = (instruction_current & 0xFC000000) >> 26;
     std::cout << "opcode is "<<opcode <<std::endl;
     if((opcode & 0b111111) == 0){
@@ -28,8 +29,9 @@ void simulate::execute(){
       std::cout<<"executed I type"<<std::endl;
       execute_I(instruction_current);
     }
-    std::cout << "pc is " << register_map.program_counter << std::endl;
+
     register_map.program_counter += 4; //increment PC
+    std::cout << "pc is " << register_map.program_counter << std::endl;
   }
   else{
     std::cout<<"here";
@@ -111,6 +113,7 @@ void simulate::execute_J(uint32_t instruction){
 void simulate::execute_I(uint32_t instruction){
   opcode = (instruction & 0xFC000000) >> 26;
   immediate = instruction & 0xFFFF;
+  u_immediate = instruction & 0xFFFF;
   ext_immediate = instruction & 0xFFFF;
   rt = (instruction>>16) & 0b11111;
   rs = (instruction>>21) & 0b11111;
@@ -173,16 +176,21 @@ void simulate::execute_I(uint32_t instruction){
 
 
 void simulate::ADD(){
+
     if((op1_s>0 && op2_s>0 && op1_s+op2_s<=0) || (op1_s<0 && op2_s<0 && op1_s+op2_s>=0)){
         std::exit(-10);
     }
     else{
       register_map.write_register(rd, (op1_s + op2_s));
     }
+    std::cout << "HEY" << std::endl;
 }
 
 
 void simulate::ADDU(){
+  std::cout << "op1 is" << op1 << std::endl;
+  std::cout << "op2 is" << op2 << std::endl;
+  std::cout << "rd is " << rd << std::endl;
   register_map.write_register(rd, (op1 + op2));
 }
 
@@ -353,7 +361,12 @@ void simulate::ANDI(){
 
 //Opcode = 13
 void simulate::ORI(){
-  register_map.write_register(rt,(op1|immediate));
+
+  std::cout << "op1 is " << op1 <<std::endl;
+  std::cout << "immediate is " << immediate << std::endl;
+  std::cout << (u_immediate|op1) << std::endl;
+  register_map.write_register(rt,(op1|u_immediate));
+  std::cout <<"reg rt = " << register_map.read_register(rt)<< std::endl;
 }
 
 //Opcode = 14
@@ -364,6 +377,7 @@ void simulate::XORI(){
 //Opcode = 15
 void simulate::LUI(){
   register_map.write_register(rt, uint32_t(immediate)<<16);
+  std::cout <<"reg rt = " << register_map.read_register(rt)<< std::endl;
 }
 
 //Opcode = 4
@@ -380,11 +394,13 @@ void simulate::BEQ(){
 //Opcode = 5
 void simulate::BNE(){
   if(op1_s!=op2_s){
+    std::cout << " CALLED BNE " << std::endl;
     int32_t offset = immediate;
     register_map.program_counter += 4;
     uint32_t pc_copy = register_map.program_counter;
     execute();
-    register_map.program_counter = pc_copy + (offset<<2);
+    register_map.program_counter = (pc_copy + (offset<<2))-4;
+    std::cout << " LEAVING BNE " << std::endl;
   }
 }
 
