@@ -55,10 +55,10 @@ void simulate::run(){
 void simulate::execute_R(uint32_t instruction){
 
     funct = instruction & 0b111111;
-    shamt = (instruction>>6) & 0b11111;
-    rd = (instruction>>11) & 0b11111;
-    rt = (instruction>>16) & 0b11111;
-    rs = (instruction>>21) & 0b11111;
+    shamt = (instruction >> 6 & 0b11111);
+    rd = (instruction >>11 & 0b11111);
+    rt = (instruction >>16 & 0b11111);
+    rs = (instruction>>21 & 0b11111);
 
     op1 = register_map.read_register(rs);
     op2 = register_map.read_register(rt);
