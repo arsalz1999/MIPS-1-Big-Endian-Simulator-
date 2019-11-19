@@ -348,17 +348,17 @@ void simulate::SLTIU(){
 
 //Opcode = 12
 void simulate::ANDI(){
-  register_map.write_register(rt,(op1&immediate));
+  register_map.write_register(rt,(op1&u_immediate));
 }
 
 //Opcode = 13
 void simulate::ORI(){
-  register_map.write_register(rt,(op1|immediate));
+  register_map.write_register(rt,(op1|(immediate&0xFFFF)));
 }
 
 //Opcode = 14
 void simulate::XORI(){
-  register_map.write_register(rt,(op1^immediate));
+  register_map.write_register(rt,(op1^immediate&0xFFFF));
 }
 
 //Opcode = 15
