@@ -60,11 +60,14 @@ void simulate::execute_R(uint32_t instruction){
     rt = (instruction >>16 & 0b11111);
     rs = (instruction>>21 & 0b11111);
 
+    std::cout << "funct is "<<funct << std::endl;
+
+
     op1 = register_map.read_register(rs);
     op2 = register_map.read_register(rt);
     op1_s = register_map.read_register(rs);
     op2_s = register_map.read_register(rt);
-    std::cout << "funct is "<<funct << std::endl;
+
     switch(funct){
 
     case 32: ADD();  break;
@@ -164,6 +167,7 @@ void simulate::execute_I(uint32_t instruction){
     case 40: SB(); break;
     case 41: SH(); break;
     case 43: SW(); break;
+    default: std::exit(-12);
     }
 }
 
@@ -262,15 +266,15 @@ void simulate::MTLO(){
 
 void simulate::JR(){
     std::cout<< "called JR" <<std::endl;
-    uint32_t op1copy = op1;
+    int32_t op1copy = op1_s;
     register_map.program_counter += 4;
     execute();
-    register_map.program_counter = op1copy;
+    register_map.program_counter = op1copy-4;
     std::cout<< "end JR" <<std::endl;
 }
 
 void simulate::JALR(){
-    uint32_t op1copy = op1;
+    int32_t op1copy = op1_s;
     register_map.program_counter += 4;
     register_map.write_register(rd,(register_map.program_counter+4));
     execute();
@@ -378,7 +382,7 @@ void simulate::BNE(){
   if(op1_s!=op2_s){
     int32_t offset = immediate;
     register_map.program_counter += 4;
-    int32_t pc_copy = register_map.program_counter;
+    uint32_t pc_copy = register_map.program_counter;
     execute();
     register_map.program_counter = pc_copy + (offset<<2);
   }
@@ -463,7 +467,7 @@ void simulate::J(){
   register_map.program_counter += 4;
   int32_t pc_copy = register_map.program_counter;
   execute();
-  register_map.program_counter = ((pc_copy&0xF000000)|(target_address<<2));
+  register_map.program_counter = ((pc_copy&0xF000000)|(target_address<<2))-4;
 }
 
 //opcode= 3
@@ -473,7 +477,7 @@ void simulate::JAL(){
   int32_t pc_copy = register_map.program_counter;
   register_map.write_register(31,(register_map.program_counter+4));
   execute();
-  register_map.program_counter = ((pc_copy&0xF000000)|(target_address<<2));
+  register_map.program_counter = ((pc_copy&0xF000000)|(target_address<<2))-4;
 }
 
 void simulate::LB(){
