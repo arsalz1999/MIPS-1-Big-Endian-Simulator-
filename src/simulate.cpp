@@ -593,3 +593,6 @@ void simulate::SH(){
 }
 
 void simulate::SW() {mem.store_to_memory((op1_s+ext_immediate),op2_s);}
+
+
+//merge conflict dont know how to fix lol
