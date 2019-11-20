@@ -572,9 +572,3 @@ void simulate::SH(){
 }
 
 void simulate::SW() {mem.store_to_memory((op1_s+ext_immediate),op2_s);}
-<<<<<<< HEAD
-
-
-//merge conflict dont know how to fix lol
-=======
->>>>>>> c7442ddc32bd12fee77e0533e9d56e27e9506032
