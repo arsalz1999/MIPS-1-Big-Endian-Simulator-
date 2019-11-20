@@ -16,12 +16,13 @@ class simulator{
 
         //creating needed variables for RIJ type Instructions
         uint16_t funct;
-        uint16_t shamt;
+        uint16_t shift_amount;
         uint16_t rd;
         uint16_t rt;
         uint16_t rs;
         uint16_t opcode;
 
+        uint32_t u_immediate;
         int32_t immediate;
         int16_t imm_16;
         int32_t ext_immediate;
@@ -45,36 +46,41 @@ class simulator{
         //R type instrucrions
         void ADD(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2);
         void ADDU(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2);
-        void AND();
-        void DIV();
-        void DIVU();
-        void JALR();
-        void JR();
-        void MFHI();
-        void MFLO();
-        void MTHI();
-        void MTLO();
-        void MULT();
-        void MULTU();
-        void OR();
-        void SLL();
-        void SLLV();
-        void SLT();
-        void SLTU();
-        void SRA();
-        void SRAV();
-        void SRL();
-        void SRLV();
+        void AND(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2);
+        void DIV(int32_t& operand1, int32_t& operand2);
+        void DIVU(uint32_t& operand1, uint32_t& operand2);
+        void JALR(uint16_t& dest_reg, int32_t& operand1);
+        void JR(int32_t& operand1);
+        void MFHI(uint16_t& dest_reg);
+        void MFLO(uint16_t& dest_reg);
+        void MTHI(uint32_t& operand1);
+        void MTLO(uint32_t& operand1);
+        void MULT(int32_t& operand1, int32_t& operand2);
+        void MULTU(uint32_t& operand1, uint32_t& operand2);
+        void OR(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2);
+        void SLL(uint16_t& dest_reg, uint32_t& operand2, uint16_t& shamt);
+        void SLLV(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2);
+        void SLT(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2);
+        void SLTU(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2);
+        void SRA(uint16_t& dest_reg, int32_t& operand2, uint16_t& shamt);
+        void SRAV(uint16_t& dest_reg, uint32_t& operand1, int32_t& operand2);
+        void SRL(uint16_t& dest_reg, uint32_t& operand2, uint16_t& shamt);
+        void SRLV(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2);
         void SUB(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2);
         void SUBU(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2);
-        void XOR();
+        void XOR(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2);
 
-        void J();
-        void JAL();
+        //J type instrucrions
+        void J(uint32_t& target);
+        void JAL(uint32_t& target);
 
-        void ADDI();
-        void ADDIU();
+        //I type instrucrions
+        void ADDI(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2);
+        void ADDIU(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2);
         void ANDI(uint16_t& dest_reg, uint32_t& operand1, int32_t& imm);
+        void ORI(uint16_t& dest_reg, uint32_t& operand1, int32_t& imm);
+        void XORI(uint16_t& dest_reg, uint32_t& operand1, int32_t& imm);
+
         void BEQ(int32_t& operand1, int32_t& operand2, int16_t& offset);
         void BLTZ(int32_t& operand1,int16_t& offset);
         void BLTZAL(int32_t& operand1,int16_t& offset);
@@ -83,24 +89,27 @@ class simulator{
         void BGTZ(int32_t& operand1,int16_t& offset);
         void BLEZ(int32_t& operand1,int16_t& offset);
         void BNE(int32_t& operand1, int32_t& operand2, int16_t& offset);
-        void BRANCH(int16_t offset);
+        void BRANCH(int16_t& offset);
 
+        void SLTI(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2);
+        void SLTIU(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2);
+        void LUI(uint16_t& dest_reg, uint32_t& imm);
+
+
+
+
+        //memory instructions
         void LB();
         void LBU();
         void LH();
         void LHU();
-        void LUI();
         void LW();
         void LWL();
         void LWR();
-
-        void ORI(uint16_t& dest_reg, uint32_t& operand1, int32_t& imm);
-        void SLTI();
-        void SLTIU();
         void SB();
         void SH();
         void SW();
-        void XORI(uint16_t& dest_reg, uint32_t& operand1, int32_t& imm);
+
 
 
 };
