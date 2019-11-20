@@ -1,7 +1,7 @@
-#include "simulate.hpp"
+#include "simulator.hpp"
 #include <iostream>
 
-simulate::simulate(std::string binaryfile) : mem(binaryfile), register_map(){
+simulator::simulator(std::string binaryfile) : mem(binaryfile), register_map(){
 
 }
 
@@ -11,7 +11,7 @@ simulate::simulate(std::string binaryfile) : mem(binaryfile), register_map(){
 //R type
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void simulate::execute(){
+void simulator::execute(){
     if((register_map.program_counter >= 0x10000000) && (register_map.program_counter < 0x11000000)){
     uint32_t instruction_current = mem.read_instruction(register_map.program_counter);
     opcode = (instruction_current & 0xFC000000) >> 26;
@@ -29,7 +29,7 @@ void simulate::execute(){
       execute_I(instruction_current);
     }
     std::cout << "pc is " << register_map.program_counter << std::endl;
-    register_map.program_counter = register_map.program_counter + 4;
+    register_map.program_counter += 4; //increment PC
   }
   else{
     std::cout<<"here";
@@ -37,11 +37,11 @@ void simulate::execute(){
   }
 }
 
-void simulate::run(){
+void simulator::run(){
   while((register_map.program_counter != 0) && ((register_map.program_counter >= 0x10000000) && (register_map.program_counter <= 0x11000000)))
   {
     std::cout << "execute called" << std::endl;
-    simulate::execute();
+    simulator::execute();
   }
   if(register_map.program_counter==0)
   {
@@ -52,10 +52,10 @@ void simulate::run(){
   else { std::cout<<"here1"; std::exit(-11);}
 }
 
-void simulate::execute_R(uint32_t instruction){
+void simulator::execute_R(uint32_t instruction){
 
     funct = instruction & 0b111111;
-    shamt = (instruction >> 6 & 0b11111);
+    shift_amount = (instruction >> 6 & 0b11111);
     rd = (instruction >>11 & 0b11111);
     rt = (instruction >>16 & 0b11111);
     rs = (instruction>>21 & 0b11111);
@@ -70,47 +70,50 @@ void simulate::execute_R(uint32_t instruction){
 
     switch(funct){
 
-    case 32: ADD();  break;
-    case 33: ADDU(); break;
-    case 36: AND();  break;
-    case 26: DIV();  break;
-    case 27: DIVU(); break;
-    case 9:  JALR(); break;
-    case 8:  JR();   break;
-    case 16: MFHI(); break;
-    case 18: MFLO(); break;
-    case 17: MTHI(); break;
-    case 19: MTLO(); break;
-    case 24: MULT(); break;
-    case 25: MULTU();break;
-    case 37: OR();   break;
-    case 0:  SLL();  break;
-    case 4:  SLLV(); break;
-    case 42: SLT();  break;
-    case 43: SLTU(); break;
-    case 3:  SRA();  break;
-    case 7:  SRAV(); break;
-    case 2:  SRL();  break;
-    case 6:  SRLV(); break;
-    case 34: SUB();  break;
-    case 35: SUBU(); break;
-    case 38: XOR();  break;
+    case 32: ADD(rd,op1_s,op2_s);  break;
+    case 33: ADDU(rd,op1,op2); break;
+    case 36: AND(rd,op1,op2);  break;
+    case 26: DIV(op1_s,op2_s);  break;
+    case 27: DIVU(op1,op2); break;
+    case 9:  JALR(rd,op1_s); break;
+    case 8:  JR(op1_s);   break;
+    case 16: MFHI(rd); break;
+    case 18: MFLO(rd); break;
+    case 17: MTHI(op1); break;
+    case 19: MTLO(op1); break;
+    case 24: MULT(op1_s,op2_s); break;
+    case 25: MULTU(op1,op2);break;
+    case 37: OR(rt,op1,op2);   break;
+    case 0:  SLL(rd,op2,shift_amount);  break;
+    case 4:  SLLV(rd,op1,op2); break;
+    case 42: SLT(rd,op1_s,op2_s);  break;
+    case 43: SLTU(rd,op1,op2); break;
+    case 3:  SRA(rd,op2_s,shift_amount);  break;
+    case 7:  SRAV(rd,op1,op2_s); break;
+    case 2:  SRL(rd,op2,shift_amount);  break;
+    case 6:  SRLV(rd,op1,op2); break;
+    case 34: SUB(rd,op1_s,op2_s);  break;
+    case 35: SUBU(rd,op1,op2); break;
+    case 38: XOR(rd,op1,op2);  break;
+    default: std::exit(-12);
   }
 }
 
-void simulate::execute_J(uint32_t instruction){
+void simulator::execute_J(uint32_t instruction){
   target_address = instruction & 0x03FFFFFFF;
   if(opcode == 2){
-    J();
+    J(target_address);
   }
   else{
-    JAL();
+    JAL(target_address);
   }
 }
 
-void simulate::execute_I(uint32_t instruction){
+void simulator::execute_I(uint32_t instruction){
   opcode = (instruction & 0xFC000000) >> 26;
+  u_immediate = instruction & 0xFFFF;
   immediate = instruction & 0xFFFF;
+  imm_16 = instruction & 0xFFFF;
   ext_immediate = instruction & 0xFFFF;
   rt = (instruction>>16) & 0b11111;
   rs = (instruction>>21) & 0b11111;
@@ -122,18 +125,18 @@ void simulate::execute_I(uint32_t instruction){
 
   if(opcode == 1){
     if(rt==0){
-      BLTZ();
+      BLTZ(op1_s,imm_16);
     }
     else if(rt==0x01){
-      BGEZ();
+      BGEZ(op1_s,imm_16);
     }
 
     else if(rt==0x10){
-      BLTZAL();
+      BLTZAL(op1_s,imm_16);
     }
 
     else if(rt==0x11){
-      BGEZAL();
+      BGEZAL(op1_s,imm_16);
     }
 
     else{
@@ -143,18 +146,18 @@ void simulate::execute_I(uint32_t instruction){
   }
     switch(opcode){
 
-    case 8: ADDI();  break;
-    case 9: ADDIU(); break;
-    case 10: SLTI();  break;
-    case 11: SLTIU();  break;
-    case 12: ANDI(); break;
-    case 13: ORI(); break;
-    case 14: XORI();   break;
-    case 15: LUI(); break;
-    case 4: BEQ(); break;
-    case 5: BNE(); break;
-    case 6: BLEZ(); break;
-    case 7: BGTZ(); break;
+    case 8: ADDI(rt,op1_s,immediate);  break;
+    case 9: ADDIU(rt,op1_s,immediate); break;
+    case 10: SLTI(rt,op1_s,immediate);  break;
+    case 11: SLTIU(rt,op1,u_immediate);  break;
+    case 12: ANDI(rt,op1,immediate); break;
+    case 13: ORI(rt,op1,immediate); break;
+    case 14: XORI(rt,op1,immediate); break;
+    case 15: LUI(rt,u_immediate); break;
+    case 4: BEQ(op1_s,op2_s,imm_16); break;
+    case 5: BNE(op1_s,op2_s,imm_16); break;
+    case 6: BLEZ(op1_s,imm_16); break;
+    case 7: BGTZ(op1_s,imm_16); break;
 
     //Memory instructions
     case 32: LB(); break;
@@ -172,144 +175,140 @@ void simulate::execute_I(uint32_t instruction){
 }
 
 
-void simulate::ADD(){
-    if((op1_s>0 && op2_s>0 && op1_s+op2_s<=0) || (op1_s<0 && op2_s<0 && op1_s+op2_s>=0)){
+void simulator::ADD(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2){
+    if((operand1>0 && operand2>0 && operand1+operand2<=0) || (operand1<0 && operand2<0 && operand1+operand2>=0)){
         std::exit(-10);
     }
     else{
-      register_map.write_register(rd, (op1_s + op2_s));
+      register_map.write_register(dest_reg, (operand1 + operand2));
     }
 }
 
-
-void simulate::ADDU(){
-  register_map.write_register(rd, (op1 + op2));
+void simulator::ADDU(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2){
+  register_map.write_register(dest_reg, (operand1 + operand2));
 }
 
-void simulate::SUB(){
-  if((op1_s>0 && op2_s<0 && op1_s-op2_s<=0) || (op1_s<0 && op2_s>0 && op1_s-op2_s>=0)){
+void simulator::SUB(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2){
+  if((operand1>0 && operand2<0 && operand1-operand2<=0) || (operand1<0 && operand2>0 && operand1-operand2>=0)){
     std::exit(-10);
   }
   else{
-    register_map.write_register(rd, (op1_s - op2_s));
+    register_map.write_register(dest_reg, (operand1 - operand2));
   }
 }
 
-void simulate::SUBU(){
-  register_map.write_register(rd, (op1 - op2));
+void simulator::SUBU(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2){
+  register_map.write_register(dest_reg, (operand1 - operand2));
 }
 
-void simulate::AND(){
-  register_map.write_register(rd,(op1&op2));
+void simulator::AND(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2){
+  register_map.write_register(dest_reg,(operand1&operand2));
 }
 
-void simulate::OR(){
-  register_map.write_register(rd,(op1|op2));
+void simulator::OR(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2){
+  register_map.write_register(dest_reg,(operand1|operand2));
 }
 
-void simulate::XOR(){
-    register_map.write_register(rd,(op1^op2));
+void simulator::XOR(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2){
+    register_map.write_register(dest_reg,(operand1^operand2));
 }
 
-void simulate::SLL(){
-    register_map.write_register(rd,(op2<<shamt));
+void simulator::SLL(uint16_t& dest_reg, uint32_t& operand2, uint16_t& shamt){
+    register_map.write_register(dest_reg,(operand2<<shamt));
 }
 
-void simulate::SRL(){
-    register_map.write_register(rd,(op2>>shamt));
+void simulator::SRL(uint16_t& dest_reg, uint32_t& operand2, uint16_t& shamt){
+    register_map.write_register(dest_reg,(operand2>>shamt));
 }
 
-void simulate::SRA(){
-    register_map.write_register(rd,(op2_s>>shamt));
+void simulator::SRA(uint16_t& dest_reg, int32_t& operand2, uint16_t& shamt){
+    register_map.write_register(dest_reg,(operand2>>shamt));
 }
 
-void simulate::SLLV(){
-    register_map.write_register(rd,(op2<<op1));
+void simulator::SLLV(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2){
+    register_map.write_register(dest_reg,(operand2<<operand1));
 }
 
-void simulate::SRLV(){
-    register_map.write_register(rd,(op2>>op1));
+void simulator::SRLV(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2){
+    register_map.write_register(dest_reg,(operand2>>operand1));
 }
 
-void simulate::SRAV(){
-    register_map.write_register(rd,(op2_s>>op1));
+void simulator::SRAV(uint16_t& dest_reg, uint32_t& operand1, int32_t& operand2){
+    register_map.write_register(dest_reg,(operand2>>operand1));
 }
 
-
-void simulate::SLT(){
-    if(op1_s<op2_s) register_map.write_register(rd,1);
-    else register_map.write_register(rd,0);
+void simulator::SLT(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2){
+    if(operand1<operand2) register_map.write_register(dest_reg,1);
+    else register_map.write_register(dest_reg,0);
 }
 
-
-void simulate::SLTU(){
-     if(op1<op2) register_map.write_register(rd,1);
-    else register_map.write_register(rd,0);
+void simulator::SLTU(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2){
+     if(operand1<operand2) register_map.write_register(dest_reg,1);
+    else register_map.write_register(dest_reg,0);
 }
 
-void simulate::MFHI(){
-    register_map.write_register(rd,register_map.hi);
+void simulator::MFHI(uint16_t& dest_reg){
+    register_map.write_register(dest_reg,register_map.hi);
 }
 
-void simulate::MTHI(){
-    register_map.hi = op1;
+void simulator::MTHI(uint32_t& operand1){
+    register_map.hi = operand1;
 }
 
-
-void simulate::MFLO(){
-    register_map.write_register(rd,register_map.lo);
+void simulator::MFLO(uint16_t& dest_reg){
+    register_map.write_register(dest_reg,register_map.lo);
 }
 
-void simulate::MTLO(){
-    register_map.lo = op1;
+void simulator::MTLO(uint32_t& operand1){
+    register_map.lo = operand1;
 }
 
-void simulate::JR(){
+void simulator::JR(int32_t& operand1){
     std::cout<< "called JR" <<std::endl;
-    int32_t op1copy = op1_s;
+    int32_t op1copy = operand1;
     register_map.program_counter += 4;
-    simulate::execute();
+    execute();
     register_map.program_counter = op1copy-4;
     std::cout<< "end JR" <<std::endl;
 }
 
-void simulate::JALR(){
-    int32_t op1copy = op1_s;
+void simulator::JALR(uint16_t& dest_reg, int32_t& operand1){
+    int32_t op1copy = operand1;
     register_map.program_counter += 4;
-    register_map.write_register(rd,(register_map.program_counter+4));
-    simulate::execute();
-    register_map.program_counter = op1copy - 4;
+    register_map.write_register(dest_reg,(register_map.program_counter+4));
+    execute();
+    register_map.program_counter = op1copy -4;
 }
 
-void simulate::DIV(){
-  if(op2_s==0){
+void simulator::DIV(int32_t& operand1, int32_t& operand2){
+  if(operand2==0){
     std::exit(-10);
   }
   else{
-    register_map.hi = op1_s / op2_s;
-    register_map.lo = op1_s % op2_s;
+    register_map.hi = operand1 / operand2;
+    register_map.lo = operand1 % operand2;
   }
 
 }
 
-void simulate::DIVU(){
-  if(op2==0){
+void simulator::DIVU(uint32_t& operand1, uint32_t& operand2){
+  if(operand2==0){
     std::exit(-10);
   }
   else{
-    register_map.hi = op1 / op2;
-    register_map.lo = op1 % op2;
+    register_map.hi = op1 / operand2;
+    register_map.lo = op1 % operand2;
   }
 }
 
-void simulate::MULT(){
-  int64_t product = int64_t(op1_s) * int64_t(op2_s);
+void simulator::MULT(int32_t& operand1, int32_t& operand2){
+  int64_t product = int64_t(operand1) * int64_t(operand2);
   register_map.lo = product & 0xFFFFFFFF;
   register_map.hi = (product>>32) & 0xFFFFFFFF;
 }
 
-void simulate::MULTU(){
-  uint64_t product = int64_t(op1) * int64_t(op2);
+void simulator::MULTU(uint32_t& operand1, uint32_t& operand2){
+  uint64_t product = int64_t(op1) * int64_t(operand2);
   register_map.lo = product&0xFFFFFFFF;
   register_map.hi = (product>>32)&0xFFFFFFFF;
 }
@@ -320,93 +319,78 @@ void simulate::MULTU(){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Opcode = 8
-void simulate::ADDI(){
-  if((op1_s>0 && ext_immediate>0 && op1_s+ext_immediate<=0) || (op1_s<0 && ext_immediate<0 && op1_s+ext_immediate>=0)){
+void simulator::ADDI(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2){
+  if((operand1>0 && operand2>0 && operand1+operand2<=0) || (operand1<0 && operand2<0 && operand1+operand2>=0)){
     std::exit(-10);
   }
   else{
-    register_map.write_register(rt, (op1_s + ext_immediate));
+    register_map.write_register(rt, (operand1 + operand2));
   }
 }
 
 //Opcode = 9
-void simulate::ADDIU(){
-  register_map.write_register(rt, (op1_s + ext_immediate));
+void simulator::ADDIU(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2){
+  register_map.write_register(rt, (operand1 + operand2));
 }
 
 //Opcode = 10
-void simulate::SLTI(){
-  if(op1_s<ext_immediate) register_map.write_register(rt,1);
+void simulator::SLTI(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2){
+  if(op1_s<immediate) register_map.write_register(rt,1);
   else register_map.write_register(rt,0);
 }
 
 //Opcode = 11
-void simulate::SLTIU(){
+void simulator::SLTIU(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2){
   if(op1<uint32_t(immediate)) register_map.write_register(rt,1);
   else register_map.write_register(rt,0);
 }
 
 //Opcode = 12
-void simulate::ANDI(){
-  register_map.write_register(rt,(op1&u_immediate));
+void simulator::ANDI(uint16_t& dest_reg, uint32_t& operand1, int32_t& imm){
+  register_map.write_register(dest_reg,(operand1&imm));
 }
 
 //Opcode = 13
-void simulate::ORI(){
-  register_map.write_register(rt,(op1|(immediate&0xFFFF)));
+void simulator::ORI(uint16_t& dest_reg, uint32_t& operand1, int32_t& imm){
+  register_map.write_register(dest_reg,(operand1|imm));
 }
 
 //Opcode = 14
-void simulate::XORI(){
-  register_map.write_register(rt,(op1^immediate&0xFFFF));
+void simulator::XORI(uint16_t& dest_reg, uint32_t& operand1, int32_t& imm){
+  register_map.write_register(dest_reg,(operand1^imm));
 }
 
 //Opcode = 15
-void simulate::LUI(){
-  std::cout<<"gets to here"<<std::endl;
-  register_map.write_register(rt, ((uint32_t(immediate)<<16)&0xFFFF0000));
+void simulator::LUI(uint16_t& dest_reg, uint32_t& imm){
+  register_map.write_register(dest_reg, (imm<<16));
 }
 
 //Opcode = 4
-void simulate::BEQ(){
-  if(op1_s==op2_s){
-    int32_t offset = immediate;
-    register_map.program_counter += 4;
-    int32_t pc_copy = register_map.program_counter;
-    simulate::execute();
-    register_map.program_counter = (pc_copy + (offset<<2))-4;  }
+void simulator::BEQ(int32_t& operand1, int32_t& operand2, int16_t& offset){
+  if(operand1==operand2){
+    BRANCH(offset);
+  }
 }
 
 //Opcode = 5
-void simulate::BNE(){
-  if(op1_s!=op2_s){
-    int32_t offset = immediate;
-    register_map.program_counter += 4;
-    uint32_t pc_copy = register_map.program_counter;
-    simulate::execute();
-    register_map.program_counter = (pc_copy + (offset<<2))-4;
+void simulator::BNE(int32_t& operand1, int32_t& operand2, int16_t& offset){
+  //std::cout << "offset is "<< (offset<<2) << std::endl;
+  if(operand1!=operand2){
+    BRANCH(offset);
   }
 }
 
 //Opcode = 6
-void simulate::BLEZ(){
-  if(op1_s<=0){
-    int32_t offset = immediate;
-    register_map.program_counter += 4;
-    int32_t pc_copy = register_map.program_counter;
-    simulate::execute();
-    register_map.program_counter = (pc_copy + (offset<<2))-4;
+void simulator::BLEZ(int32_t& operand1,int16_t& offset){
+  if(operand1<=0){
+    BRANCH(offset);
   }
 }
 
 //Opcode = 7
-void simulate::BGTZ(){
-  if(op1_s>0){
-    int32_t offset = immediate;
-    register_map.program_counter += 4;
-    int32_t pc_copy = register_map.program_counter;
-    simulate::execute();
-    register_map.program_counter = (pc_copy + (offset<<2))-4;
+void simulator::BGTZ(int32_t& operand1,int16_t& offset){
+  if(operand1>0){
+    BRANCH(offset);
   }
 }
 
@@ -414,48 +398,39 @@ void simulate::BGTZ(){
 //opcode = 1 for these 4 BRANCHES
 
 //opcode= 1 && rt = 0x0
-void simulate::BLTZ(){
-  if(op1_s<0){
-    int32_t offset = immediate;
-    register_map.program_counter += 4;
-    int32_t pc_copy = register_map.program_counter;
-    simulate::execute();
-    register_map.program_counter = (pc_copy + (offset<<2))-4;
+void simulator::BLTZ(int32_t& operand1,int16_t& offset){
+  if(operand1<0){
+    BRANCH(offset);
   }
 }
 //opcode= 1 && rt = 0x1
-void simulate::BGEZ(){
-  if(op1_s>=0){
-    int32_t offset = immediate;
-    register_map.program_counter += 4;
-    int32_t pc_copy = register_map.program_counter;
-    simulate::execute();
-    register_map.program_counter = (pc_copy + (offset<<2))-4;
+void simulator::BGEZ(int32_t& operand1,int16_t& offset){
+  if(operand1>=0){
+    BRANCH(offset);
   }
 }
 
 //opcode= 1 && rt = 0x10
-void simulate::BLTZAL(){
-  if(op1_s<=0){
-    int32_t offset = immediate;
-    register_map.program_counter += 4;
-    register_map.write_register(31,(register_map.program_counter+4));
-    int32_t pc_copy = register_map.program_counter;
-    simulate::execute();
-    register_map.program_counter = (pc_copy + (offset<<2))-4;
+void simulator::BLTZAL(int32_t& operand1,int16_t& offset){
+  if(operand1<0){
+    register_map.write_register(31,(register_map.program_counter+8));
+    BRANCH(offset);
   }
 }
 
 //opcode= 1 && rt = 0x11
-void simulate::BGEZAL(){
-  if(op1_s>=0){
-    int32_t offset = immediate;
-    register_map.program_counter += 4;
+void simulator::BGEZAL(int32_t& operand1,int16_t& offset){
+  if(operand1>=0){
     register_map.write_register(31,(register_map.program_counter+4));
-    int32_t pc_copy = register_map.program_counter;
-    simulate::execute();
-    register_map.program_counter = (pc_copy + (offset<<2))-4;
+    BRANCH(offset);
   }
+}
+
+void simulator::BRANCH(int16_t& offset){
+  register_map.program_counter += 4;
+  int32_t pc_copy = register_map.program_counter;
+  execute();
+  register_map.program_counter = (pc_copy + (offset<<2))-4;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -463,24 +438,23 @@ void simulate::BGEZAL(){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //opcode= 2
-void simulate::J(){
+void simulator::J(uint32_t& target){
   register_map.program_counter += 4;
   int32_t pc_copy = register_map.program_counter;
-  simulate::execute();
-  register_map.program_counter = ((pc_copy&0xF000000)|(target_address<<2))-4;
+  execute();
+  register_map.program_counter = ((pc_copy&0xF000000)|(target<<2))-4;
 }
 
 //opcode= 3
-void simulate::JAL(){
-  uint32_t op1copy = op1;
+void simulator::JAL(uint32_t& target){
   register_map.program_counter += 4;
   int32_t pc_copy = register_map.program_counter;
   register_map.write_register(31,(register_map.program_counter+4));
-  simulate::execute();
+  execute();
   register_map.program_counter = ((pc_copy&0xF000000)|(target_address<<2))-4;
 }
 
-void simulate::LB(){
+void simulator::LB(){
   uint32_t address = (uint32_t)(op1_s + ext_immediate);
   if((address < 0x11000000) && (address >= 0x10000000))
   {
@@ -496,7 +470,7 @@ void simulate::LB(){
   else register_map.write_register(rt, mem.load_byte_from_memory(address));
 }
 
-void simulate::LBU(){
+void simulator::LBU(){
   uint32_t address = (op1_s + ext_immediate);
   if((address < 0x11000000) && (address >= 0x10000000)){
     int8_t instr_byte = mem.load_byte_from_instruction(address);
@@ -507,7 +481,7 @@ void simulate::LBU(){
   }
 }
 
-void simulate::LH(){
+void simulator::LH(){
   uint32_t address = (op1_s + ext_immediate);
   if((address < 0x11000000) && (address >= 0x10000000) && (address % 2 == 0))
   {
@@ -517,7 +491,7 @@ void simulate::LH(){
   else register_map.write_register(rt, mem.load_half_word_from_memory(address));
 }
 
-void simulate::LHU(){
+void simulator::LHU(){
   uint32_t address = (op1_s + ext_immediate);
   if((address < 0x11000000) && (address >= 0x10000000))
   {
@@ -527,18 +501,17 @@ void simulate::LHU(){
   else register_map.write_register(rt, mem.load_unsigned_half_word_from_memory(address));
 }
 
-void simulate::LW(){
-  std::cout << "does lW" << std::endl;
+void simulator::LW(){
   uint32_t address = (op1_s + ext_immediate);
   std::cout<<"this is the adress its accessing " << address <<std::endl;
-  if((address < 0x11000000) && (address >= 0x10000000)){ 
+  if((address < 0x11000000) && (address >= 0x10000000)){
     std::cout << "fails at mem read or reg write" << std::endl;
     register_map.write_register(rt, mem.read_instruction(address));
     }
   else register_map.write_register(rt, mem.load_from_memory(address));
 }
 
-void simulate::LWL(){
+void simulator::LWL(){
   uint32_t address = (op1_s + ext_immediate);
   if((address < 0x11000000) && (address >= 0x10000000))
   {
@@ -562,7 +535,7 @@ void simulate::LWL(){
   }
 }
 
-void simulate::LWR()
+void simulator::LWR()
 {
   uint32_t address = (op1_s+ext_immediate);
   if((address < 0x11000000) && (address >= 0x10000000)){
@@ -588,14 +561,14 @@ void simulate::LWR()
   }
 }
 
-void simulate::SB(){
+void simulator::SB(){
   int8_t value = op2_s&0xFF;
   mem.store_byte_to_memory((op1_s+ext_immediate),value);
 }
 
-void simulate::SH(){
+void simulator::SH(){
   int16_t val16 = op2_s&0xFFFF;
   mem.store_halfword_to_memory((op1_s + ext_immediate), val16);
 }
 
-void simulate::SW() {mem.store_to_memory((op1_s+ext_immediate),op2_s);}
+void simulator::SW() {mem.store_to_memory((op1_s+ext_immediate),op2_s);}
