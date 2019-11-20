@@ -95,6 +95,7 @@ void simulate::execute_R(uint32_t instruction){
     case 34: SUB();  break;
     case 35: SUBU(); break;
     case 38: XOR();  break;
+    default: std::exit(-12);
   }
 }
 
@@ -111,6 +112,7 @@ void simulate::execute_J(uint32_t instruction){
 void simulate::execute_I(uint32_t instruction){
   opcode = (instruction & 0xFC000000) >> 26;
   immediate = instruction & 0xFFFF;
+  imm_16 = instruction & 0xFFFF;
   ext_immediate = instruction & 0xFFFF;
   rt = (instruction>>16) & 0b11111;
   rs = (instruction>>21) & 0b11111;
@@ -122,18 +124,18 @@ void simulate::execute_I(uint32_t instruction){
 
   if(opcode == 1){
     if(rt==0){
-      BLTZ();
+      BLTZ(op1_s,imm_16);
     }
     else if(rt==0x01){
-      BGEZ();
+      BGEZ(op1_s,imm_16);
     }
 
     else if(rt==0x10){
-      BLTZAL();
+      BLTZAL(op1_s,imm_16);
     }
 
     else if(rt==0x11){
-      BGEZAL();
+      BGEZAL(op1_s,imm_16);
     }
 
     else{
@@ -147,14 +149,14 @@ void simulate::execute_I(uint32_t instruction){
     case 9: ADDIU(); break;
     case 10: SLTI();  break;
     case 11: SLTIU();  break;
-    case 12: ANDI(); break;
-    case 13: ORI(); break;
-    case 14: XORI();   break;
+    case 12: ANDI(rt,op1,immediate); break;
+    case 13: ORI(rt,op1,immediate); break;
+    case 14: XORI(rt,op1,immediate); break;
     case 15: LUI(); break;
-    case 4: BEQ(); break;
-    case 5: BNE(); break;
-    case 6: BLEZ(); break;
-    case 7: BGTZ(); break;
+    case 4: BEQ(op1_s,op2_s,imm_16); break;
+    case 5: BNE(op1_s,op2_s,imm_16); break;
+    case 6: BLEZ(op1_s,imm_16); break;
+    case 7: BGTZ(op1_s,imm_16); break;
 
     //Memory instructions
     case 32: LB(); break;
@@ -347,18 +349,18 @@ void simulate::SLTIU(){
 }
 
 //Opcode = 12
-void simulate::ANDI(){
-  register_map.write_register(rt,(op1&u_immediate));
+void simulate::ANDI(uint16_t& dest_reg, uint32_t& operand1, int32_t& imm){
+  register_map.write_register(dest_reg,(operand1&imm));
 }
 
 //Opcode = 13
-void simulate::ORI(){
-  register_map.write_register(rt,(op1|(immediate&0xFFFF)));
+void simulate::ORI(uint16_t& dest_reg, uint32_t& operand1, int32_t& imm){
+  register_map.write_register(dest_reg,(operand1|imm));
 }
 
 //Opcode = 14
-void simulate::XORI(){
-  register_map.write_register(rt,(op1^immediate&0xFFFF));
+void simulate::XORI(uint16_t& dest_reg, uint32_t& operand1, int32_t& imm){
+  register_map.write_register(dest_reg,(operand1^imm));
 }
 
 //Opcode = 15
@@ -367,46 +369,31 @@ void simulate::LUI(){
 }
 
 //Opcode = 4
-void simulate::BEQ(){
-  if(op1_s==op2_s){
-    int32_t offset = immediate;
-    register_map.program_counter += 4;
-    int32_t pc_copy = register_map.program_counter;
-    execute();
-    register_map.program_counter = pc_copy + (offset<<2);
+void simulate::BEQ(int32_t& operand1, int32_t& operand2, int16_t& offset){
+  if(operand1==operand2){
+    BRANCH(offset);
   }
 }
 
 //Opcode = 5
-void simulate::BNE(){
-  if(op1_s!=op2_s){
-    int32_t offset = immediate;
-    register_map.program_counter += 4;
-    uint32_t pc_copy = register_map.program_counter;
-    execute();
-    register_map.program_counter = pc_copy + (offset<<2);
+void simulate::BNE(int32_t& operand1, int32_t& operand2, int16_t& offset){
+  //std::cout << "offset is "<< (offset<<2) << std::endl;
+  if(operand1!=operand2){
+    BRANCH(offset);
   }
 }
 
 //Opcode = 6
-void simulate::BLEZ(){
-  if(op1_s<=0){
-    int32_t offset = immediate;
-    register_map.program_counter += 4;
-    int32_t pc_copy = register_map.program_counter;
-    execute();
-    register_map.program_counter = pc_copy + (offset<<2);
+void simulate::BLEZ(int32_t& operand1,int16_t& offset){
+  if(operand1<=0){
+    BRANCH(offset);
   }
 }
 
 //Opcode = 7
-void simulate::BGTZ(){
-  if(op1_s>0){
-    int32_t offset = immediate;
-    register_map.program_counter += 4;
-    int32_t pc_copy = register_map.program_counter;
-    execute();
-    register_map.program_counter = pc_copy + (offset<<2);
+void simulate::BGTZ(int32_t& operand1,int16_t& offset){
+  if(operand1>0){
+    BRANCH(offset);
   }
 }
 
@@ -414,48 +401,39 @@ void simulate::BGTZ(){
 //opcode = 1 for these 4 BRANCHES
 
 //opcode= 1 && rt = 0x0
-void simulate::BLTZ(){
-  if(op1_s<0){
-    int32_t offset = immediate;
-    register_map.program_counter += 4;
-    int32_t pc_copy = register_map.program_counter;
-    execute();
-    register_map.program_counter = pc_copy + (offset<<2);
+void simulate::BLTZ(int32_t& operand1,int16_t& offset){
+  if(operand1<0){
+    BRANCH(offset);
   }
 }
 //opcode= 1 && rt = 0x1
-void simulate::BGEZ(){
-  if(op1_s>=0){
-    int32_t offset = immediate;
-    register_map.program_counter += 4;
-    int32_t pc_copy = register_map.program_counter;
-    execute();
-    register_map.program_counter = pc_copy + (offset<<2);
+void simulate::BGEZ(int32_t& operand1,int16_t& offset){
+  if(operand1>=0){
+    BRANCH(offset);
   }
 }
 
 //opcode= 1 && rt = 0x10
-void simulate::BLTZAL(){
-  if(op1_s<=0){
-    int32_t offset = immediate;
-    register_map.program_counter += 4;
-    register_map.write_register(31,(register_map.program_counter+4));
-    int32_t pc_copy = register_map.program_counter;
-    execute();
-    register_map.program_counter = pc_copy + (offset<<2);
+void simulate::BLTZAL(int32_t& operand1,int16_t& offset){
+  if(operand1<0){
+    register_map.write_register(31,(register_map.program_counter+8));
+    BRANCH(offset);
   }
 }
 
 //opcode= 1 && rt = 0x11
-void simulate::BGEZAL(){
-  if(op1_s>=0){
-    int32_t offset = immediate;
-    register_map.program_counter += 4;
+void simulate::BGEZAL(int32_t& operand1,int16_t& offset){
+  if(operand1>=0){
     register_map.write_register(31,(register_map.program_counter+4));
-    int32_t pc_copy = register_map.program_counter;
-    execute();
-    register_map.program_counter = pc_copy + (offset<<2);
+    BRANCH(offset);
   }
+}
+
+void simulate::BRANCH(int16_t offset){
+  register_map.program_counter += 4;
+  int32_t pc_copy = register_map.program_counter;
+  execute();
+  register_map.program_counter = (pc_copy + (offset<<2))-4;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

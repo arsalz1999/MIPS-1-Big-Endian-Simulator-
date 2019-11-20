@@ -22,8 +22,8 @@ class simulate{
         uint16_t rs;
         uint16_t opcode;
 
-        int16_t immediate;
-        uint16_t u_immediate;
+        int32_t immediate;
+        int16_t imm_16;
         int32_t ext_immediate;
 
         uint32_t target_address;
@@ -74,16 +74,16 @@ class simulate{
 
         void ADDI();
         void ADDIU();
-        void ANDI();
-        void BEQ();
-        void BRANCHES();
-        void BLTZ();
-        void BLTZAL();
-        void BGEZ();
-        void BGEZAL();
-        void BGTZ();
-        void BLEZ();
-        void BNE();
+        void ANDI(uint16_t& dest_reg, uint32_t& operand1, int32_t& imm);
+        void BEQ(int32_t& operand1, int32_t& operand2, int16_t& offset);
+        void BLTZ(int32_t& operand1,int16_t& offset);
+        void BLTZAL(int32_t& operand1,int16_t& offset);
+        void BGEZ(int32_t& operand1,int16_t& offset);
+        void BGEZAL(int32_t& operand1,int16_t& offset);
+        void BGTZ(int32_t& operand1,int16_t& offset);
+        void BLEZ(int32_t& operand1,int16_t& offset);
+        void BNE(int32_t& operand1, int32_t& operand2, int16_t& offset);
+        void BRANCH(int16_t offset);
 
         void LB();
         void LBU();
@@ -94,13 +94,13 @@ class simulate{
         void LWL();
         void LWR();
 
-        void ORI();
+        void ORI(uint16_t& dest_reg, uint32_t& operand1, int32_t& imm);
         void SLTI();
         void SLTIU();
         void SB();
         void SH();
         void SW();
-        void XORI();
+        void XORI(uint16_t& dest_reg, uint32_t& operand1, int32_t& imm);
 
 
 };
