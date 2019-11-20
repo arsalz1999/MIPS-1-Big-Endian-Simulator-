@@ -43,8 +43,8 @@ class simulator{
         void execute_I(uint32_t instruction);
 
         //R type instrucrions
-        void ADD();
-        void ADDU();
+        void ADD(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2);
+        void ADDU(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2);
         void AND();
         void DIV();
         void DIVU();
@@ -65,8 +65,8 @@ class simulator{
         void SRAV();
         void SRL();
         void SRLV();
-        void SUB();
-        void SUBU();
+        void SUB(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2);
+        void SUBU(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2);
         void XOR();
 
         void J();

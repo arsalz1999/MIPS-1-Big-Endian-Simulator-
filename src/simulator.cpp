@@ -70,8 +70,8 @@ void simulator::execute_R(uint32_t instruction){
 
     switch(funct){
 
-    case 32: ADD();  break;
-    case 33: ADDU(); break;
+    case 32: ADD(rd,op1_s,op2_s);  break;
+    case 33: ADDU(rd,op1,op2); break;
     case 36: AND();  break;
     case 26: DIV();  break;
     case 27: DIVU(); break;
@@ -92,8 +92,8 @@ void simulator::execute_R(uint32_t instruction){
     case 7:  SRAV(); break;
     case 2:  SRL();  break;
     case 6:  SRLV(); break;
-    case 34: SUB();  break;
-    case 35: SUBU(); break;
+    case 34: SUB(rd,op1_s,op2_s);  break;
+    case 35: SUBU(rd,op1,op2); break;
     case 38: XOR();  break;
     default: std::exit(-12);
   }
@@ -174,31 +174,31 @@ void simulator::execute_I(uint32_t instruction){
 }
 
 
-void simulator::ADD(){
-    if((op1_s>0 && op2_s>0 && op1_s+op2_s<=0) || (op1_s<0 && op2_s<0 && op1_s+op2_s>=0)){
+void simulator::ADD(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2){
+    if((operand1>0 && operand2>0 && operand1+operand2<=0) || (operand1<0 && operand2<0 && operand1+operand2>=0)){
         std::exit(-10);
     }
     else{
-      register_map.write_register(rd, (op1_s + op2_s));
+      register_map.write_register(dest_reg, (operand1 + operand2));
     }
 }
 
 
-void simulator::ADDU(){
-  register_map.write_register(rd, (op1 + op2));
+void simulator::ADDU(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2){
+  register_map.write_register(dest_reg, (operand1 + operand2));
 }
 
-void simulator::SUB(){
-  if((op1_s>0 && op2_s<0 && op1_s-op2_s<=0) || (op1_s<0 && op2_s>0 && op1_s-op2_s>=0)){
+void simulator::SUB(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2){
+  if((operand1>0 && operand2<0 && operand1-operand2<=0) || (operand1<0 && operand2>0 && operand1-operand2>=0)){
     std::exit(-10);
   }
   else{
-    register_map.write_register(rd, (op1_s - op2_s));
+    register_map.write_register(dest_reg, (operand1 - operand2));
   }
 }
 
-void simulator::SUBU(){
-  register_map.write_register(rd, (op1 - op2));
+void simulator::SUBU(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2){
+  register_map.write_register(dest_reg, (operand1 - operand2));
 }
 
 void simulator::AND(){

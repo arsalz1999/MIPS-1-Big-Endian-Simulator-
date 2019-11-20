@@ -1,4 +1,4 @@
-bin/mips_simulator: main.o memory.o simulator.o register.o
+simulator: main.o memory.o simulator.o register.o
 	mkdir -p bin
 	g++ main.o memory.o simulator.o register.o -o bin/mips_simulator
 
@@ -13,11 +13,6 @@ memory.o: memory.cpp memory.hpp
 
 register.o: register.cpp register.hpp
 	g++ -c register.cpp
-
-simulator: bin/mips_simulator
-
-#run:
-#	./simulator.exe
 
 clean:
 	rm *.o bin/mips_simulator -f
