@@ -2,11 +2,11 @@
 #include <iostream>
 #include <fstream>
 
+
 memory::memory(std::string name_bin){
 
     ADDR_DATA.resize(0x4000000);
     std::fill(ADDR_DATA.begin(), ADDR_DATA.end(), 0);
-
     //reading the binary file
     std::ifstream input_file(name_bin.c_str(), std::ifstream::binary);
 
@@ -48,7 +48,7 @@ memory::memory(std::string name_bin){
 
 uint32_t memory::read_instruction(uint32_t pc){
     if((pc >= 0x10000000) && (pc < 0x11000000) && (pc % 4 == 0)){
-        uint32_t pc_position = 0.25*(pc-0x10000000);
+        uint32_t pc_position = (pc-0x10000000)/4;
         if(pc_position < ADDR_INSTR.size()) return ADDR_INSTR[pc_position];
         else return 0;
     }
@@ -68,10 +68,8 @@ int32_t memory::load_from_memory(int pc_position){
 
   if((pc_position % 4 == 0) && (pc_position >= 0x20000000) && (pc_position < 0x24000000)){
     uint32_t real_pc_position = (pc_position-0x20000000);
-    return (((int32_t(ADDR_DATA[real_pc_position]<<24))&0xFF000000)|
-    ((int32_t(ADDR_DATA[real_pc_position+1]<<16))&0x00FF0000)|
-    ((int32_t(ADDR_DATA[real_pc_position+2])<<8)&0x0000FF00)|
-    (int32_t(ADDR_DATA[pc_position+3])&0x000000FF));
+    std::cout<<"real pc position is " << real_pc_position << std::endl;
+     return (((int32_t(ADDR_DATA[real_pc_position]<<24))&0xFF000000)|((int32_t(ADDR_DATA[real_pc_position+1]<<16))&0x00FF0000)|((int32_t(ADDR_DATA[real_pc_position+2])<<8)&0x0000FF00)|(int32_t(ADDR_DATA[real_pc_position+3])&0x000000FF));
   }
   else {
     std::cout << "exits at load from memory" << std::endl;

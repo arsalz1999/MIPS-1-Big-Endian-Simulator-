@@ -363,7 +363,8 @@ void simulate::XORI(){
 
 //Opcode = 15
 void simulate::LUI(){
-  register_map.write_register(rt, uint32_t(immediate)<<16);
+  std::cout<<"gets to here"<<std::endl;
+  register_map.write_register(rt, ((uint32_t(immediate)<<16)&0xFFFF0000));
 }
 
 //Opcode = 4
@@ -527,8 +528,13 @@ void simulate::LHU(){
 }
 
 void simulate::LW(){
+  std::cout << "does lW" << std::endl;
   uint32_t address = (op1_s + ext_immediate);
-  if((address < 0x11000000) && (address >= 0x10000000)) register_map.write_register(rt, mem.read_instruction(address));
+  std::cout<<"this is the adress its accessing " << address <<std::endl;
+  if((address < 0x11000000) && (address >= 0x10000000)){ 
+    std::cout << "fails at mem read or reg write" << std::endl;
+    register_map.write_register(rt, mem.read_instruction(address));
+    }
   else register_map.write_register(rt, mem.load_from_memory(address));
 }
 

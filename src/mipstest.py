@@ -10,13 +10,6 @@ os.system("make simulator -s")
 
 tests = [
     {
-        'path': 'tb/test1.bin',
-        'instruction': 'SW/LW',
-        'retcode': 0, # expected retcode
-        'stdin': 'w',
-        'stdout': 'Aw' # expected stdout
-    },
-    {
         'path': 'tb/ADD-wrap.mips.bin',
         'instruction': 'ADD',
         'retcode': 246,

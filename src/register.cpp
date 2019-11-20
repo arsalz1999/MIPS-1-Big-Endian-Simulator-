@@ -13,7 +13,10 @@ void registers::write_register(int current, uint32_t data){
 
     else if((current > 0) && (current < 32)) register_vector[current] = data;
 
-    else std::exit(-11);
+    else{ 
+    std::cout << "write register failed" << std::endl;
+    std::exit(-11);
+    }
 }
 
 uint32_t registers::read_register(int current){
