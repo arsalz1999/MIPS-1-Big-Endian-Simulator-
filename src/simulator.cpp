@@ -503,7 +503,11 @@ void simulator::LHU(){
 
 void simulator::LW(){
   uint32_t address = (op1_s + ext_immediate);
-  if((address < 0x11000000) && (address >= 0x10000000)) register_map.write_register(rt, mem.read_instruction(address));
+  std::cout<<"this is the adress its accessing " << address <<std::endl;
+  if((address < 0x11000000) && (address >= 0x10000000)){
+    std::cout << "fails at mem read or reg write" << std::endl;
+    register_map.write_register(rt, mem.read_instruction(address));
+    }
   else register_map.write_register(rt, mem.load_from_memory(address));
 }
 
