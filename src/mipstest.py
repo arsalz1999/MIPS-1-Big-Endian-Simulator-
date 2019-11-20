@@ -98,8 +98,8 @@ for index, test in enumerate(tests):
         print('{}\t{}  \tFailed'.format(index, test['instruction']))
         L = [str(index),"\t", test['instruction'],"\t", "-----\n"]
         file1.writelines(L)
-        #if (p.stdout.decode('utf-8') != test['stdout']):
-         #   print('\t\t\tExpected stdout {} but got {}'.format(test['stdout'], p.stdout.decode('utf-8')))
+        if (p.stdout.decode('utf-8') != test['stdout']):
+            print('\t\t\tExpected stdout {} but got {}'.format(test['stdout'], p.stdout.decode('utf-8')))
         if (p.returncode != test['retcode']):
             print('\t\t\tExpected retcode {} but got {}'.format(test['retcode'], p.returncode))
 file1.close()
