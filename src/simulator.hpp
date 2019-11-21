@@ -22,7 +22,7 @@ class simulator{
         uint16_t rs;
         uint16_t opcode;
 
-        uint32_t u_immediate;
+        int32_t u_immediate;
         int32_t immediate;
         int16_t imm_16;
         int32_t ext_immediate;
@@ -92,8 +92,8 @@ class simulator{
         void BRANCH(int16_t& offset);
 
         void SLTI(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2);
-        void SLTIU(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2);
-        void LUI(uint16_t& dest_reg, uint32_t& imm);
+        void SLTIU(uint16_t& dest_reg, uint32_t& operand1, int32_t& operand2);
+        void LUI(uint16_t& dest_reg, int32_t& imm);
 
 
 
