@@ -1,0 +1,11 @@
+#sw5
+#sw
+#245
+#ha6017
+#above data limit
+
+lui $1, 0x2400
+addi $3, $3, 0xF0F1
+sw $3, 0($1)
+lb $2, 3($1)
+jr $0

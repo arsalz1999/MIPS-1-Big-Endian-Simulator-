@@ -1,0 +1,26 @@
+#multu3
+#multu
+#63
+#ca2217
+#most +ve x most +ve
+
+addiu $1, $0, 0xFFFF
+srl $1, $1, 1
+lui $6, 0x7FFF
+or $5, $6, $1
+bltz $5, 48
+nop
+multu $5, $5
+nop
+nop
+mfhi $8
+mflo $7
+addi $1, $0, 1
+beq $7, $1, 12 
+nop
+addi $2, $0, -1
+jr $0
+nop
+srl $2, $8, 24
+jr $0
+

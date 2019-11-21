@@ -1,0 +1,12 @@
+#lwl8
+#lwl
+#148
+#ha6017
+#Instr unalighnned 3
+
+lui $1, 0x1000
+addi $3, $3, 0xA294
+lwl $2, 7($1)
+nop
+srl $2, $2, 24
+jr $0

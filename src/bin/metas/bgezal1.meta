@@ -1,0 +1,14 @@
+#bgezal1
+#bgezal
+#12
+#ca2217
+#should branch positive rt
+
+addi $1, $2, 3
+bgezal $1, 16
+nop
+addi $2, $3, 5
+jr $0
+nop
+addi $2, $31, 0
+jr $0

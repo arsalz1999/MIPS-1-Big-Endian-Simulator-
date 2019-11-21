@@ -1,0 +1,11 @@
+#lhu1
+#lhu
+#1
+#ha6017
+#top half of word loaded check last 8 bits
+
+lui $1, 0x7F01
+lui $3, 0x2000
+sw $1, 0($3)
+lhu $2, 0($3)
+jr $0

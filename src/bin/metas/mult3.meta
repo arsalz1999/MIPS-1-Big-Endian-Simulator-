@@ -1,0 +1,15 @@
+#mult3
+#mult
+#1
+#ca2217
+#neg x neg
+
+addi $3, $0, -1
+addi $2, $2, -1
+mult $2, $3
+nop
+nop
+mflo $2
+
+jr $0
+

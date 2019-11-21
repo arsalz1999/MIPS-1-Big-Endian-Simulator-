@@ -1,0 +1,8 @@
+#sb9
+#sb
+#245
+#ha6017
+#null address
+
+sb $2, 0($1)
+jr $0

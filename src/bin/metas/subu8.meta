@@ -1,0 +1,13 @@
+#subu8
+#subu
+#0
+#ca2217
+#neg - pos = pos
+
+lui $1, 0x8000
+addiu $3, $0, 1
+subu $2, $1, $3
+lui $4, 0x7FFF
+ori $4, $4, 0xFFFF
+sub $2, $4, $2
+jr $0

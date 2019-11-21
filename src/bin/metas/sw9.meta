@@ -1,0 +1,10 @@
+#sw9
+#sw
+#245
+#ha6017
+#instr access
+
+lui $1, 0x1000
+ori $1, $1, 0x4
+sw $3, 1($1)
+jr $0

@@ -1,0 +1,9 @@
+#lh13
+#lh
+#255
+#ha6017
+#getc null eof
+
+lui $3, 0x3000
+lh $2, 2($3)
+jr $0

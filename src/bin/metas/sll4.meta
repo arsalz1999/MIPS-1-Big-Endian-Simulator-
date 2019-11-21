@@ -1,0 +1,11 @@
+#sll4
+#sll
+#0
+#ca2217
+#increasing value
+
+addi $3, $0, 0x7FFF
+sll $1, $3, 1
+slt $2, $1, $3
+jr $0
+

@@ -1,0 +1,10 @@
+#lw9
+#lw
+#245
+#ha6017
+#null address
+
+lui $1, 0x1000
+addi $1, $1, 0x7ADA
+lw $2, 2($0)
+jr $0

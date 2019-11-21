@@ -1,0 +1,18 @@
+#bltzal6
+#bltzal
+#12
+#ca2217
+#don’t take second branch
+
+addi $1, $0, -3
+bltzal $1, 20
+nop
+addi $5, $31, 0
+add $2, $4, $5
+jr $0
+nop
+addi $4, $31, 0
+addi $3, $0, 1
+bltzal $3, -20
+add $2, $5, $4
+jr $0

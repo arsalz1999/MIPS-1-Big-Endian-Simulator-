@@ -1,0 +1,10 @@
+#sltiu4
+#sltiu
+#1
+#ca2217
+# num1 < num2
+
+addi $1, $0, 5
+sltiu $2, $1, 7
+jr $0
+

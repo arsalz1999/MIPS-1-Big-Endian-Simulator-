@@ -1,0 +1,11 @@
+#lh10
+#lh
+#0
+#ha6017
+#instr mem no-ops
+
+lui $1, 0x7F01
+lui $3, 0x1000
+ori $3, $3, 0x1220
+lh $2, 2($3)
+jr $0

@@ -1,0 +1,13 @@
+#divu5
+#divu
+#0
+#ca2217
+# +ve / 0
+
+
+addiu $3, $0, 8
+divu $0, $3
+mfhi $4
+mflo $1
+add $2, $4, $1
+jr $0

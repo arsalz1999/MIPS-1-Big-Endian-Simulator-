@@ -1,0 +1,10 @@
+#andi2
+#andi
+#0
+#ca2217
+#anding upper 16 bits
+
+lui $3, 0x7FF6
+andi $2, $3, 0xFFFF
+jr $0
+

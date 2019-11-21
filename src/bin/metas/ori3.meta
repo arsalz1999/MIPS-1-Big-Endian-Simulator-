@@ -1,0 +1,10 @@
+#ori3
+#ori
+#119
+#ca2217
+#changing register contents
+ 
+addi $3, $0, 0x3452 
+ori $2, $3, 0x3875
+jr $0
+

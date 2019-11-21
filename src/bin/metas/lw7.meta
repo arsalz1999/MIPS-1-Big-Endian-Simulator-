@@ -1,0 +1,10 @@
+#lw7
+#lw
+#218
+#ha6017
+#instr mem access
+
+addi $3, $3, 0xFADA
+lui $1, 0x1000
+lw $2, 0($1)
+jr $0

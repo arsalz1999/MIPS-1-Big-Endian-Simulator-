@@ -1,0 +1,11 @@
+#lh5
+#lh
+#245
+#ha6017
+#unalighned offset
+
+lui $1, 0x7F01
+lui $3, 0x2000
+sw $1, 0($3)
+lh $2, 1($3)
+jr $0

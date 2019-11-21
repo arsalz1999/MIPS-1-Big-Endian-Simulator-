@@ -1,0 +1,13 @@
+#lwr3
+#lwr
+#162
+#ha6017
+#unalighned word at 03 byte shifted by 8
+
+lui $1, 0x2000
+addi $3, $3, 0xA294
+sw $3, 0($1)
+lwr $2, 3($1)
+nop
+srl $2, $2, 8
+jr $0

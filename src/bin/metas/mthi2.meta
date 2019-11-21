@@ -1,0 +1,13 @@
+#mthi2
+#mthi
+#1
+#ca2217
+#neg
+
+addi $4, $0, -4
+mthi $4
+nop
+mfhi $5
+slt $2, $5, $0
+
+jr $0

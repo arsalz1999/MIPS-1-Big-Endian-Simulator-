@@ -1,0 +1,10 @@
+#lb8
+#lb
+#245
+#ha6017
+#putc out of range
+
+lui $1, 0x3000
+addi $1, $1, 0x0004
+lb $2, 0($1)
+jr $0

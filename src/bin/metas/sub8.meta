@@ -1,0 +1,10 @@
+#sub8
+#sub
+#246
+#ca2217
+#neg - pos = pos OVERFLOW
+
+lui $1, 0x8000
+addiu $3, $0, 1
+sub $2, $1, $3
+jr $0

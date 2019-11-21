@@ -1,0 +1,10 @@
+#lbu12
+#lbu
+#0
+#ha6017
+#instr no-ops
+
+lui $1, 0x1000
+addi $1, $1, 0x0FF3
+lbu $2, 0($1)
+jr $0

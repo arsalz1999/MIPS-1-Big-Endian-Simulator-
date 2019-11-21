@@ -1,0 +1,11 @@
+#sh1
+#sh
+#161
+#ha6017
+#normal store word
+
+lui $1, 0x2222
+addi $3, $3, 0x3FA1
+sh $3, 0($1)
+lh $2, 0($1)
+jr $0

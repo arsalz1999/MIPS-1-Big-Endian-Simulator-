@@ -1,0 +1,13 @@
+#mtlo1
+#mtlo
+#1
+#ca2217
+#pos
+
+addi $4, $0, 0xF
+mtlo $4
+nop
+mflo $5
+slt $2, $0, $5
+
+jr $0

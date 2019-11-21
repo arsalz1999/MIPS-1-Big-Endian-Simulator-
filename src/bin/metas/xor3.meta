@@ -1,0 +1,11 @@
+#xor3
+#xor
+#39
+#ca2217
+#changing register contents
+ 
+addi $3, $0, 0x3452
+addi $4, $0, 0x3875
+xor $2, $3, $4
+jr $0
+

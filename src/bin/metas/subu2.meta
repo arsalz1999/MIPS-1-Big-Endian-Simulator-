@@ -1,0 +1,10 @@
+#subu2
+#subu
+#250
+#ca2217
+#neg - neg = neg
+
+addiu $1, $0, -8
+addiu $3, $0, -2
+subu $2, $1, $3
+jr $0

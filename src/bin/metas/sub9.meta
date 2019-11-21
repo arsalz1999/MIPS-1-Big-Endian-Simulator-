@@ -1,0 +1,12 @@
+#sub9
+#sub
+#1
+#ca2217
+#0 - most pos = neg
+
+lui $1, 0x7FFF
+ori $1, $1, 0xFFFF
+
+sub $3, $0, $1
+slt $2, $3, $0 
+jr $0

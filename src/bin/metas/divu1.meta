@@ -1,0 +1,12 @@
+#divu1
+#divu
+#0
+#ca2217
+# num / num no R
+
+addiu $1, $0, 4
+addiu $3, $0, 8
+divu $3, $1
+mfhi $2
+jr $0
+

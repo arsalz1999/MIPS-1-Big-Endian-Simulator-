@@ -1,0 +1,14 @@
+#srl3
+#srl
+#250
+#ca2217
+#zeros added
+
+addi $1, $0, 0xFFAC
+srl $2, $1, 4
+bgtz $2, 8
+nop
+addi $2, $0, -1
+jr $0
+
+

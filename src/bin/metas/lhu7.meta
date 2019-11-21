@@ -1,0 +1,16 @@
+#lhu7
+#lhu
+#0
+#ha6017
+#zero extension
+
+lui $1, 0x8F01
+ori $1, $1, 0xF2E0
+lui $3, 0x2000
+sw $1, 0($3)
+lhu $4, 0($3)
+ori $6, $6, 0x8F01
+beq $4, $6, 8
+nop
+addi $2, $2, 2
+jr $0

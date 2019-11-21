@@ -1,0 +1,16 @@
+#jalr1
+#jalr
+#24
+#ca2217
+#Jump and save link
+
+addi $1, $0, 16
+bgezal $1, 4
+nop
+add $3, $31, $1
+jalr $3
+nop
+addi $4, $0, 5
+add $2, $4, $31
+jr $0
+

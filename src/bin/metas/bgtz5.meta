@@ -1,0 +1,15 @@
+#bgtz5
+#bgtz
+#3
+#ca2217
+#take both branches
+
+addi $1, $0, 1
+addi $3, $0, 2 
+bgtz $1, 12
+nop
+add $2, $3, $1
+jr $0
+nop
+bgtz $3, -16
+nop

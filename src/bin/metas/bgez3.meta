@@ -1,0 +1,13 @@
+#bgez3
+#bgez
+#3
+#ca2217
+#should branch rt zero
+
+addi $1, $2, 0
+bgez $1, 8
+addi $3, $2, 3
+addi $4, $2, 5
+add $2, $1, $4
+add $2, $2, $3
+jr $0

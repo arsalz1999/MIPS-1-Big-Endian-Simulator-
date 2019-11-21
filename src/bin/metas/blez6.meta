@@ -1,0 +1,15 @@
+#blez6
+#blez
+#254
+#ca2217
+#correct negative offset
+
+addi $1, $2, 0
+addi $3, $2, -1 
+blez $1, 12
+nop
+add $2, $3, $3
+jr $0
+nop
+blez $3, -16
+nop

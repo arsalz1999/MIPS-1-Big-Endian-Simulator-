@@ -1,0 +1,18 @@
+#sllv3
+#sllv
+#1
+#ca2217
+#zeros added
+
+lui $1, 0xF7AC
+addi $4, $0, 4
+sllv $2, $1, $4
+bgtz $2, 16
+nop
+addi $2, $0, -1
+jr $0
+nop
+addi $2, $0, 1
+jr $0
+
+

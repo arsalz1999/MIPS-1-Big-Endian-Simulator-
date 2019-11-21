@@ -1,0 +1,17 @@
+#bltzal7
+#bltzal
+#44
+#ca2217
+#linker
+
+addi $1, $0, -1
+bltzal $1, 8
+nop
+addi $31, $0, 4
+addi $3, $31, 0
+addi $4, $0, 1
+bltzal $4, 4
+nop
+addi $2, $31, 0
+add $2, $2, $3
+jr $0

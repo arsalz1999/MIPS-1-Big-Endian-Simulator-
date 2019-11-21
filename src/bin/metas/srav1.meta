@@ -1,0 +1,14 @@
+#srav1
+#srav
+#172
+#ca2217
+#byte shift
+
+lui $2, 0x4567
+addi $16, $0, 16
+addi $24 $0, 24
+srav $3, $2, $16
+srav $4, $2, $24
+add $2, $3, $4
+jr $0
+

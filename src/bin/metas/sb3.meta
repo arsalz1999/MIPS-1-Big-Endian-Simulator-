@@ -1,0 +1,9 @@
+#sb3
+#sb
+#245
+#ha6017
+#above mem range
+
+lui $1, 0x2400
+sb $2, 0($1)
+jr $0

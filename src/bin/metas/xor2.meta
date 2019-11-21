@@ -1,0 +1,10 @@
+#xor2
+#xor
+#82
+#ca2217
+#xor all 0s
+ 
+addi $3, $0, 0x3452
+xor $2, $3, $0
+jr $0
+

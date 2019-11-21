@@ -1,0 +1,13 @@
+#multu1
+#multu
+#20
+#ca2217
+#LO register must 2 positive
+
+addiu $1, $0, 4
+addiu $3, $0, 5
+multu $1, $3
+nop
+nop
+mflo $2
+jr $0

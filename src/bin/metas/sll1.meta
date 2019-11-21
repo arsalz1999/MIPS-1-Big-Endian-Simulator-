@@ -1,0 +1,12 @@
+#sll1
+#sll
+#112
+#ca2217
+#byte shift
+
+addi $2, $0, 0x4567
+sll $3, $2, 4
+sll $4, $2, 8
+add $2, $3, $4
+jr $0
+

@@ -1,0 +1,10 @@
+#sll2
+#sll
+#206
+#ca2217
+#odd shift
+
+addi $3, $0, 0x4567
+sll $2, $3, 1
+jr $0
+

@@ -1,0 +1,16 @@
+#bgezal5
+#bgezal
+#52
+#ca2217
+#take both branches +ve and -ve
+
+addi $1, $0, 3
+bgezal $1, 20
+nop
+addi $5, $31, 0
+add $2, $4, $5
+jr $0
+nop
+addi $4, $31, 0
+bgezal $1, -24
+nop
