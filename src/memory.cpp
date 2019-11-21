@@ -53,176 +53,11 @@ uint32_t memory::read_instruction(uint32_t pc){
       std::exit(-11);
     }
 }
-
-int32_t memory::load_from_memory(int pc_position){
-  if(pc_position==0x30000000){
-    int data_in = std::getchar(); 
-    if(std::cin.eof()) return 0xFFFFFFFF; 
-    if(!std::cin.good()) std::exit(-21);
-    return (data_in); 
-  }
-
-  if((pc_position % 4 == 0) && (pc_position >= 0x20000000) && (pc_position < 0x24000000)){
-    uint32_t real_pc_position = (pc_position-0x20000000);
-     return (((int32_t(ADDR_DATA[real_pc_position]<<24))&0xFF000000)|((int32_t(ADDR_DATA[real_pc_position+1]<<16))&0x00FF0000)|((int32_t(ADDR_DATA[real_pc_position+2])<<8)&0x0000FF00)|(int32_t(ADDR_DATA[real_pc_position+3])&0x000000FF));
-  }
-  else std::exit(-11); 
-}
-
-int32_t memory::load_byte_from_memory(int pc_position){
-  if((pc_position >= 0x30000000)&&(pc_position < 0x30000004)){
-    char data_in = std::getchar();
-    if(std::cin.eof() || feof(stdin)) return -1;
-    if(!std::cin.good()) std::exit(-21);
-    if(pc_position==0x30000003) return int32_t(data_in);
-    return 0x00000000;
-  }
-  if((pc_position >= 0x20000000) && (pc_position < 0x24000000)){
-    uint32_t real_pc_position = (pc_position-0x20000000);
-    int byte = (0x000000FF & ADDR_DATA[real_pc_position]);
-    int bitmask = 0x00000080;
-    if(bitmask & ADDR_DATA[real_pc_position]){
-      byte += 0xFFFFFF00;
-    }
-    return byte;
-  }
-  else std::exit(-11);
-}
-
-
-uint32_t memory::load_unsigned_byte_from_memory(int pc_position){
-  if((pc_position >= 0x30000000) && (pc_position < 0x30000004)){
-    char data_in = std::getchar();
-    if(std::cin.eof() || feof(stdin)) return 0x000000FF;
-    if(!std::cin.good()) std::exit(-21);
-    if(pc_position==0x30000003) return (int32_t(data_in) & 0x000000FF);
-    return 0;
-  }
-  if((pc_position >= 0x20000000) && (pc_position < 0x24000000)){
-    uint32_t real_pc_position = (pc_position - 0x20000000);
-    return uint32_t(int32_t(ADDR_DATA[real_pc_position])&0x000000FF);
-  }
-  else std::exit(-11);
-}
-
-int32_t memory::load_half_word_from_memory(int pc_position){
-  
-  if((pc_position == 0x30000000) || (pc_position == 0x30000002)){
-    char data_in = std::getchar();
-    if(std::cin.eof() || feof(stdin))   return 0xFFFFFFFF;
-    if(!std::cin.good()) std::exit(-21);
-    if(pc_position == 0x30000002) return (int32_t)(data_in) & 0xFF;
-    return 0;
-  }
-  if((pc_position >= 0x20000000) && (pc_position < 0x24000000) && (pc_position % 2 == 0))
-  {
-    uint32_t real_pc_position = (pc_position - 0x20000000);
-    int16_t sextend_halfword = (((ADDR_DATA[real_pc_position]<<8)&0xFF00)|
-    (ADDR_DATA[real_pc_position+1]&0xFF));
-    return (int32_t)sextend_halfword;
-  }
-  else std::exit(-11);
-  
-}
-
-uint32_t memory::load_unsigned_half_word_from_memory(int pc_position){
-  if((pc_position == 0x30000000) || (pc_position == 0x30000002)){
-    char data_in = std::getchar();
-    if(std::cin.eof() || feof(stdin)) return 0x0000FFFF;
-    if(!std::cin.good()) std::exit(-21);
-    if(pc_position == 0x30000002) return (int32_t(data_in) & 0x000000FF);
-    return 0;
-  }
-  if((pc_position >= 0x20000000) && (pc_position < 0x24000000) && (pc_position % 2 == 0)){
-    uint32_t real_pc_position = (pc_position - 0x20000000);
-    return (int32_t((int16_t(ADDR_DATA[real_pc_position]<<8)&0xFF00)|
-    (int16_t(ADDR_DATA[real_pc_position+1])&0xFF))&0xFFFF);
-  }
-  else std::exit(-11);
-}
-
-int32_t memory::load_word_right_from_memory(int pc_position){
-  if(pc_position >= 0x30000000 && pc_position < 0x30000004){
-    int data_in = std::getchar();
-    if(std::cin.eof() || feof(stdin)) return 0xFFFFFFFF;
-    if(!std::cin.good()) std::exit(-21);
-    if(pc_position == 0x30000003) return (data_in);
-    else return 0;
-  }
-  if((pc_position >= 0x20000000) && (pc_position < 0x24000000)){
-    uint32_t real_pc_position = (pc_position - 0x20000000);
-    switch (real_pc_position % 4) {
-      case 0: return(int32_t(ADDR_DATA[real_pc_position])&0x000000FF); break;
-      case 1: return(int32_t(((ADDR_DATA[real_pc_position-1]<<8)&0x0000FF00)
-      |(ADDR_DATA[real_pc_position]&0x000000FF))); break;
-      case 2: return(int32_t(((ADDR_DATA[real_pc_position-2]<<16)&0x00FF0000)|
-      ((ADDR_DATA[real_pc_position-1]<<8)&0x0000FF00)|(ADDR_DATA[real_pc_position]&0x000000FF))); break;
-      case 3: return(int32_t(((ADDR_DATA[real_pc_position-3]<<24)&0xFF000000)|
-      ((ADDR_DATA[real_pc_position-2]<<16)&0x00FF0000)|((ADDR_DATA[real_pc_position-1]<<8)&0x0000FF00)|
-      (ADDR_DATA[real_pc_position]&0x000000FF))); break;
-    }
-  }
-  else std::exit(-11);
-}
-
-int32_t memory::load_word_left_from_memory(int pc_position){
-  if(pc_position >= 0x30000000 && pc_position < 0x30000004){
-    int data_in = std::getchar();
-    if(std::cin.eof() || feof(stdin)) return 0xFFFFFFFF;
-    if(!std::cin.good()) std::exit(-21);
-    if(pc_position == 0x30000000) return (data_in);
-    else return 0;
-  }
-
-  if((pc_position >= 0x20000000) && (pc_position < 0x24000000)){
-    uint32_t real_pc_position = (pc_position-0x20000000);
-    switch (real_pc_position % 4) {
-      case 0: return (((ADDR_DATA[real_pc_position]<<24)&0xFF000000)|
-      ((ADDR_DATA[real_pc_position+1]<<16)&0x00FF0000)|
-      ((ADDR_DATA[real_pc_position+2]<<8)&0x0000FF00)|
-      (ADDR_DATA[real_pc_position+3]&0x000000FF)); break;
-      case 1: return (int32_t(((ADDR_DATA[real_pc_position]<<24)&0xFF000000)|
-      ((ADDR_DATA[real_pc_position+1]<<16)&0x00FF0000)|
-      ((ADDR_DATA[real_pc_position+2]<<8)&0x0000FF00))&0xFFFFFF00); break;
-      case 2: return (int32_t(((ADDR_DATA[real_pc_position]<<24)&0xFF000000)|
-      ((ADDR_DATA[real_pc_position+1]<<16)&0x00FF0000))&0xFFFF0000); break;
-      case 3: return(int32_t(ADDR_DATA[real_pc_position]<<24)&0xFF000000); break;
-      }
-  }
-  else std::exit(-11);
-}
-
-int8_t memory::load_byte_from_instruction(int pc_position){
-  uint32_t real_pc_position = (pc_position - (pc_position % 4) - 0x10000000)/4;
-  if(real_pc_position < ADDR_INSTR.size()){
-    switch (pc_position % 4) {
-      case 0: return((ADDR_INSTR[real_pc_position] & 0xFF000000)>>24); break;
-      case 1: return((ADDR_INSTR[real_pc_position] & 0x00FF0000)>>16); break;
-      case 2: return((ADDR_INSTR[real_pc_position] & 0x0000FF00)>>8); break;
-      case 3: return(ADDR_INSTR[real_pc_position] & 0x000000FF); break;
-    }
-  }
-  else return 0;
-}
-
-int16_t memory::load_half_word_from_instruction(int pc_position){
-  uint32_t real_pc_position = (pc_position - (pc_position % 4) - 0x10000000)/4;
-  if(real_pc_position < ADDR_INSTR.size()){
-    switch (pc_position % 4) {
-      case 0: return((ADDR_INSTR[real_pc_position]&0xFFFF0000)>>16); break;
-      case 2: return(ADDR_INSTR[real_pc_position]&0x0000FFFF); break;
-    }
-  }
-  else return 0;
-}
-
-void memory::store_to_memory(int pc_position, int32_t value)
-{
-  //CHECKING FOR PUTCHAR
+void memory::store_to_memory(int pc_position, int32_t value){
   if(pc_position==0x30000004){
     char data_out= int8_t(value&0xFF);
     if(!std::cout.good()) std::exit(-21);
-    std::putchar(data_out);//how to return char from the function
+    std::putchar(data_out);
     return;
   }
 
@@ -234,12 +69,11 @@ void memory::store_to_memory(int pc_position, int32_t value)
     ADDR_DATA[real_pc_position+2] = int8_t((value&0xFF00)>>8);
     ADDR_DATA[real_pc_position+3] = int8_t(value&0xFF);
   }
-  else  std::exit(-11); // memory exception
+  else  std::exit(-11);
 }
 
-void memory::store_byte_to_memory(int pc_position, int8_t value)
-{
-  if((pc_position>=0x30000004)&&(pc_position<0x30000008))//putc
+void memory::store_byte_to_memory(int pc_position, int8_t value){
+  if((pc_position>=0x30000004)&&(pc_position<0x30000008))
   {
       char data_out= value&0xFF;
       if(!std::cout.good())
@@ -269,8 +103,7 @@ void memory::store_byte_to_memory(int pc_position, int8_t value)
   }
 }
 
-void memory::store_halfword_to_memory(int pc_position, int16_t value)
-{
+void memory::store_halfword_to_memory(int pc_position, int16_t value){
   if((pc_position==0x30000004) || (pc_position==0x30000006))
   {
     char data_out= int8_t(value&0xFF);
@@ -288,3 +121,157 @@ void memory::store_halfword_to_memory(int pc_position, int16_t value)
   }
   else std::exit(-11);
 }
+
+int32_t memory::load_from_memory(int pc_position){
+  if(pc_position==0x30000000){
+    int data_input = std::getchar();
+    if(std::cin.eof()) return 0xFFFFFFFF;
+    if(!std::cin.good()) std::exit(-21);
+    return (data_input);
+  }
+  if((pc_position % 4 == 0) && (pc_position >= 0x20000000) && (pc_position < 0x24000000)){
+    uint32_t real_pc_position = (pc_position-0x20000000);
+    return (((int32_t(ADDR_DATA[real_pc_position]<<24))&0xFF000000)|((int32_t(ADDR_DATA[real_pc_position+1]<<16))&0x00FF0000)|((int32_t(ADDR_DATA[real_pc_position+2])<<8)&0x0000FF00)|(int32_t(ADDR_DATA[real_pc_position+3])&0x000000FF));
+  }
+  else std::exit(-11);
+  
+}
+
+int32_t memory::load_byte_from_memory(int pc_position){
+  if((pc_position>=0x30000000)&&(pc_position<0x30000004)){
+    char data_input = std::getchar();
+    if(std::cin.eof() || feof(stdin)) return -1;
+    if(!std::cin.good()) std::exit(-21);
+    if(pc_position==0x30000003) return int32_t(data_input);
+    return 0x00000000;
+  }
+
+  if((pc_position >= 0x20000000) && (pc_position < 0x24000000)){
+    uint32_t real_pc_position = (pc_position-0x20000000);
+    int result = (0x000000FF & ADDR_DATA[real_pc_position]);
+    int  bitmask = 0x00000080;
+    if(bitmask & ADDR_DATA[real_pc_position]) result = result + 0xFFFFFF00;
+    return result;
+  }
+  else std::exit(-11);
+}
+
+uint32_t memory::load_unsigned_byte_from_memory(int pc_position){
+  if((pc_position >= 0x30000000) && (pc_position < 0x30000004)){
+    char data_input = std::getchar();
+    if(std::cin.eof() || feof(stdin)) return 0x000000FF;
+    if(!std::cin.good()) std::exit(-21);
+    if(pc_position==0x30000003) return (int32_t(data_input)&0x000000FF);
+    return 0;
+  }
+  if((pc_position >= 0x20000000) && (pc_position < 0x24000000)){
+    uint32_t real_pc_position = (pc_position - 0x20000000);
+    return uint32_t(int32_t(ADDR_DATA[real_pc_position])&0x000000FF);
+  }
+  else std::exit(-11);
+}
+
+int32_t memory::load_half_word_from_memory(int pc_position){
+  if((pc_position==0x30000000) || (pc_position==0x30000002)){
+    char data_input = std::getchar();
+    if(std::cin.eof() || feof(stdin))   return 0xFFFFFFFF;
+    if(!std::cin.good()) std::exit(-21);
+    if(pc_position==0x30000002) return (int32_t)(data_input) & 0xFF;
+    return 0;
+  }
+  if((pc_position >= 0x20000000) && (pc_position < 0x24000000) && (pc_position % 2 == 0)){
+    uint32_t real_pc_position = (pc_position-0x20000000);
+    int16_t sign_ext_halfword = (((ADDR_DATA[real_pc_position]<<8)&0xFF00)|(ADDR_DATA[real_pc_position+1]&0xFF));
+    return (int32_t)sign_ext_halfword;
+  }
+  else std::exit(-11);
+}
+
+uint32_t memory::load_unsigned_half_word_from_memory(int pc_position){
+  if((pc_position==0x30000000) || (pc_position==0x30000002)){
+    char data_input = std::getchar();
+    if(std::cin.eof() || feof(stdin)) return 0x0000FFFF;
+    if(!std::cin.good()) std::exit(-21);
+    if(pc_position==0x30000002) return (int32_t(data_input)&0x000000FF);
+    return 0;
+  }
+  if((pc_position >= 0x20000000) && (pc_position < 0x24000000) && (pc_position % 2 == 0)){
+    uint32_t real_pc_position = (pc_position-0x20000000);
+    return (int32_t((int16_t(ADDR_DATA[real_pc_position]<<8)&0xFF00)|(int16_t(ADDR_DATA[real_pc_position+1])&0xFF))&0xFFFF);
+  }
+  else std::exit(-11);
+}
+
+int32_t memory::load_word_right_from_memory(int pc_position){
+  if(pc_position >= 0x30000000 && pc_position < 0x30000004){
+    int data_input = std::getchar();
+    if(std::cin.eof() || feof(stdin)) return 0xFFFFFFFF;
+    if(!std::cin.good()) std::exit(-21);
+    if(pc_position==0x30000003) return (data_input);
+    else return 0;
+  }
+  if((pc_position >= 0x20000000) && (pc_position < 0x24000000)){
+    uint32_t real_pc_position = (pc_position-0x20000000);
+    switch (real_pc_position % 4) {
+      case 0: return(int32_t(ADDR_DATA[real_pc_position])&0x000000FF); break;
+      case 1: return(int32_t(((ADDR_DATA[real_pc_position-1]<<8)&0x0000FF00)|(ADDR_DATA[real_pc_position]&0x000000FF))); break;
+      case 2: return(int32_t(((ADDR_DATA[real_pc_position-2]<<16)&0x00FF0000)|((ADDR_DATA[real_pc_position-1]<<8)&0x0000FF00)|(ADDR_DATA[real_pc_position]&0x000000FF))); break;
+      case 3: return(int32_t(((ADDR_DATA[real_pc_position-3]<<24)&0xFF000000)|((ADDR_DATA[real_pc_position-2]<<16)&0x00FF0000)|((ADDR_DATA[real_pc_position-1]<<8)&0x0000FF00)|(ADDR_DATA[real_pc_position]&0x000000FF))); break;
+    }
+  }
+  else std::exit(-11);
+}
+
+int32_t memory::load_word_left_from_memory(int pc_position){
+  if(pc_position >= 0x30000000 && pc_position < 0x30000004){
+    int data_input = std::getchar();
+    if(std::cin.eof() || feof(stdin)) return 0xFFFFFFFF;
+    if(!std::cin.good()) std::exit(-21);
+    if(pc_position == 0x30000000) return (data_input);
+    else return 0;
+  }
+  if((pc_position >= 0x20000000) && (pc_position < 0x24000000)){
+    uint32_t real_pc_position = (pc_position - 0x20000000);
+    switch (real_pc_position % 4){
+      case 0: return (((ADDR_DATA[real_pc_position]<<24)&0xFF000000)|((ADDR_DATA[real_pc_position+1]<<16)&0x00FF0000)|((ADDR_DATA[real_pc_position+2]<<8)&0x0000FF00)|(ADDR_DATA[real_pc_position+3]&0x000000FF)); break;
+      case 1: return (int32_t(((ADDR_DATA[real_pc_position]<<24)&0xFF000000)|((ADDR_DATA[real_pc_position+1]<<16)&0x00FF0000)|((ADDR_DATA[real_pc_position+2]<<8)&0x0000FF00))&0xFFFFFF00); break;
+      case 2: return (int32_t(((ADDR_DATA[real_pc_position]<<24)&0xFF000000)|((ADDR_DATA[real_pc_position+1]<<16)&0x00FF0000))&0xFFFF0000); break;
+      case 3: return(int32_t(ADDR_DATA[real_pc_position]<<24)&0xFF000000); break;
+      }
+  }
+  else std::exit(-11);
+}
+
+int8_t memory::load_byte_from_instruction(int pc_position){
+  int offset = pc_position % 4;
+  uint32_t real_pc_position = (pc_position - offset - 0x10000000)/4;
+  if(real_pc_position<ADDR_INSTR.size())
+  {
+    switch (offset) {
+      case 0: return((ADDR_INSTR[real_pc_position]&0xFF000000)>>24); break;
+      case 1: return((ADDR_INSTR[real_pc_position]&0x00FF0000)>>16); break;
+      case 2: return((ADDR_INSTR[real_pc_position]&0x0000FF00)>>8); break;
+      case 3: return(ADDR_INSTR[real_pc_position]&0x000000FF); break;
+    }
+  }
+  else return 0;
+
+}
+
+int16_t memory::load_half_word_from_instruction(int pc_position){
+  int offset = pc_position % 4;
+  uint32_t real_pc_position = (pc_position - offset - 0x10000000)/4;
+  if(real_pc_position < ADDR_INSTR.size()){
+    switch (offset) {
+      case 0: return((ADDR_INSTR[real_pc_position]&0xFFFF0000)>>16); break;
+      case 2: return(ADDR_INSTR[real_pc_position]&0x0000FFFF); break;
+    }
+  }
+  else return 0;
+
+}
+
+
+
+
+

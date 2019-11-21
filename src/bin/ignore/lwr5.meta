@@ -1,0 +1,11 @@
+#lwr5
+#lwr
+#255
+#ha6017
+#unalighned word at 00
+
+lui $1, 0x2000
+addi $3, $3, 0xA294
+sw $3, 0($1)
+lwr $2, 0($1)
+jr $0

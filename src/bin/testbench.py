@@ -55,10 +55,13 @@ for index, test in enumerate(tests):
         if (p.returncode != test['retcode']):
             print('\t\t\tExpected retcode {} but got {}'.format(test['retcode'], p.returncode))
 
+    #p.wait(timeout =400)
+    #p.terminate()
+
 file1.close()
 if (failed):
     c = len(tets) - c
-    k = str(c) +" of 10 tests have passed\n"
+    k = str(c) +" of " + str(len(tests)) + " tests have passed\n"
     print(k)
     sys.exit("Some tests have failed")
 

@@ -1,0 +1,9 @@
+#lw15
+#lw
+#245
+#ha6017
+#above mem bound
+
+lui $1, 0x2400
+lw $2, 2($0)
+jr $0
