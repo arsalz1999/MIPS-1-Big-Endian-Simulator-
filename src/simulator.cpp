@@ -15,7 +15,7 @@ void simulator::execute(){
     if((register_map.program_counter >= 0x10000000) && (register_map.program_counter < 0x11000000)){
     uint32_t instruction_current = mem.read_instruction(register_map.program_counter);
     opcode = (instruction_current & 0xFC000000) >> 26;
-    std::cout << "opcode is "<<opcode <<std::endl;
+    std::cout << "pc is " << register_map.program_counter << std::endl;
     if((opcode & 0b111111) == 0){
       std::cout<<"executed R type"<<std::endl;
       execute_R(instruction_current);
@@ -28,7 +28,6 @@ void simulator::execute(){
       std::cout<<"executed I type"<<std::endl;
       execute_I(instruction_current);
     }
-    std::cout << "pc is " << register_map.program_counter << std::endl;
     register_map.program_counter += 4; //increment PC
   }
   else{
@@ -112,8 +111,9 @@ void simulator::execute_J(uint32_t instruction){
 void simulator::execute_I(uint32_t instruction){
   opcode = (instruction & 0xFC000000) >> 26;
   u_immediate = instruction & 0xFFFF;
-  immediate = instruction & 0xFFFF;
+  // immediate = instruction & 0xFFFF;
   imm_16 = instruction & 0xFFFF;
+  immediate = imm_16;
   ext_immediate = instruction & 0xFFFF;
   rt = (instruction>>16) & 0b11111;
   rs = (instruction>>21) & 0b11111;
@@ -324,6 +324,7 @@ void simulator::ADDI(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2){
     std::exit(-10);
   }
   else{
+    std::cout << "op1 + op2 = " <<operand1 << " + " << operand2 << " = " << operand1 + operand2 << std::endl;
     register_map.write_register(rt, (operand1 + operand2));
   }
 }
@@ -382,9 +383,12 @@ void simulator::BNE(int32_t& operand1, int32_t& operand2, int16_t& offset){
 
 //Opcode = 6
 void simulator::BLEZ(int32_t& operand1,int16_t& offset){
+  std::cout <<std::endl <<"BLEZ: OFFSET is " << offset << std::endl;
+  std::cout <<"operand1 is " << operand1 << std::endl;
   if(operand1<=0){
     BRANCH(offset);
   }
+  std::cout << "BLEZ END" << std::endl<<std::endl;
 }
 
 //Opcode = 7
