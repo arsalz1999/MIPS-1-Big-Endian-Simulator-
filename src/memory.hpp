@@ -13,20 +13,22 @@ class memory{
 
     public:
         memory(std::string binaryfile);
+        void check_flags();
+        bool end_of_file();
         uint32_t read_instruction(uint32_t pc);
-        int32_t load_from_memory(int pc_position);
-        int32_t load_byte_from_memory(int pc_position);
-        uint32_t load_unsigned_byte_from_memory(int pc_position);
-        int32_t load_half_word_from_memory(int pc_position);
-        uint32_t load_unsigned_half_word_from_memory(int pc_oosition);
-        int32_t load_word_right_from_memory(int pc_position);
-        int32_t load_word_left_from_memory(int pc_position);
-        int8_t load_byte_from_instruction(int pc_position);
-        int16_t load_half_word_from_instruction(int pc_position);
+        int32_t load_mem(int pc_position);
+        int32_t load_mem_s_b(int pc_position);
+        uint32_t load_mem_u_b(int pc_position);
+        int32_t load_mem_hw(int pc_position);
+        uint32_t load_mem_uhw(int pc_oosition);
+        int32_t load_mem_wr(int pc_position);
+        int32_t load_mem_wl(int pc_position);
+        int8_t load_instr_b(int pc_position);
+        int16_t load_instr_hw(int pc_position);
 
-        void store_to_memory(int pc_position, int32_t value);
-        void store_byte_to_memory(int pc_position, int8_t value);
-        void store_halfword_to_memory(int pc_position, int16_t value);
+        void store_mem(int pc_position, int32_t to_store);
+        void store_mem_b(int pc_position, int8_t to_store);
+        void store_mem_hw(int pc_position, int16_t to_store);
 
 
 };

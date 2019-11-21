@@ -2,9 +2,7 @@
 #include <iostream>
 
 registers::registers(){
-    for(int i = 0; i < 32; i++){
-        register_vector[i] = 0;
-    }
+    std::fill(register_vector, register_vector + 32, 0);
 }
 
 void registers::write_register(int current, uint32_t data){
@@ -13,16 +11,10 @@ void registers::write_register(int current, uint32_t data){
 
     else if((current > 0) && (current < 32)) register_vector[current] = data;
 
-    else{ 
-    std::cout << "write register failed" << std::endl;
-    std::exit(-11);
-    }
+    else std::exit(-11);
 }
 
 uint32_t registers::read_register(int current){
     if(current >= 0 && current < 32) return register_vector[current];
-    else {
-        std::cout << "fails at read register" <<std::endl;
-        std::exit(-11);
-    }
+    else std::exit(-11);
 }
