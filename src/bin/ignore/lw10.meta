@@ -1,9 +1,0 @@
-#lw10
-#lw
-#245
-#ha6017
-#below instr bound
-
-lui $1, 0x1000
-lw $2, -2($0)
-jr $0

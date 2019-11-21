@@ -114,7 +114,6 @@ void simulator::execute_I(uint32_t instruction){
   // immediate = instruction & 0xFFFF;
   imm_16 = instruction & 0xFFFF;
   immediate = imm_16;
-  ext_immediate = instruction & 0xFFFF;
   rt = (instruction>>16) & 0b11111;
   rs = (instruction>>21) & 0b11111;
 
@@ -461,7 +460,7 @@ void simulator::JAL(uint32_t& target){
 }
 
 void simulator::LB(){
-  uint32_t address = (uint32_t)(op1_s + ext_immediate);
+  uint32_t address = (uint32_t)(op1_s + imm_16);
   if((address < 0x11000000) && (address >= 0x10000000))
   {
     int8_t instr_byte = mem.load_byte_from_instruction(address);
@@ -477,7 +476,7 @@ void simulator::LB(){
 }
 
 void simulator::LBU(){
-  uint32_t address = (op1_s + ext_immediate);
+  uint32_t address = (op1_s + imm_16);
   if((address < 0x11000000) && (address >= 0x10000000)){
     int8_t instr_byte = mem.load_byte_from_instruction(address);
     register_map.write_register(rt,(uint32_t(instr_byte)&0x000000FF));
@@ -488,7 +487,7 @@ void simulator::LBU(){
 }
 
 void simulator::LH(){
-  uint32_t address = (op1_s + ext_immediate);
+  uint32_t address = (op1_s + imm_16);
   if((address < 0x11000000) && (address >= 0x10000000) && (address % 2 == 0))
   {
     int16_t instr_half_word = mem.load_half_word_from_instruction(address);
@@ -498,7 +497,7 @@ void simulator::LH(){
 }
 
 void simulator::LHU(){
-  uint32_t address = (op1_s + ext_immediate);
+  uint32_t address = (op1_s + imm_16);
   if((address < 0x11000000) && (address >= 0x10000000))
   {
     int16_t instr_half_word = mem.load_half_word_from_instruction(address);
@@ -508,8 +507,9 @@ void simulator::LHU(){
 }
 
 void simulator::LW(){
-  uint32_t address = (op1_s + ext_immediate);
-  std::cout<<"this is the adress its accessing " << address <<std::endl;
+  uint32_t address = (op1_s + imm_16);
+  std::cout << "op1_s is " << op1_s << " imm_16 is " << imm_16 << std::endl;
+  std::cout<<"lmao " << std::hex << address<<std::endl;
   if((address < 0x11000000) && (address >= 0x10000000)){
     std::cout << "fails at mem read or reg write" << std::endl;
     register_map.write_register(rt, mem.read_instruction(address));
@@ -518,7 +518,7 @@ void simulator::LW(){
 }
 
 void simulator::LWL(){
-  uint32_t address = (op1_s + ext_immediate);
+  uint32_t address = (op1_s + imm_16);
   if((address < 0x11000000) && (address >= 0x10000000))
   {
     int32_t instr_word = mem.read_instruction(address-(address % 4));
@@ -543,7 +543,7 @@ void simulator::LWL(){
 
 void simulator::LWR()
 {
-  uint32_t address = (op1_s+ext_immediate);
+  uint32_t address = (op1_s+imm_16);
   if((address < 0x11000000) && (address >= 0x10000000)){
     int32_t instr_word = mem.read_instruction(address-(address % 4));
     switch ((address % 4))
@@ -569,12 +569,12 @@ void simulator::LWR()
 
 void simulator::SB(){
   int8_t value = op2_s&0xFF;
-  mem.store_byte_to_memory((op1_s+ext_immediate),value);
+  mem.store_byte_to_memory((op1_s+imm_16),value);
 }
 
 void simulator::SH(){
   int16_t val16 = op2_s&0xFFFF;
-  mem.store_halfword_to_memory((op1_s + ext_immediate), val16);
+  mem.store_halfword_to_memory((op1_s + imm_16), val16);
 }
 
-void simulator::SW() {mem.store_to_memory((op1_s+ext_immediate),op2_s);}
+void simulator::SW() {mem.store_to_memory((op1_s+imm_16),op2_s);}
