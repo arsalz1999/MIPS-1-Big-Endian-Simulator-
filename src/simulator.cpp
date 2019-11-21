@@ -151,7 +151,7 @@ void simulator::execute_I(uint32_t instruction){
     case 10: SLTI(rt,op1_s,immediate);  break;
     case 11: SLTIU(rt,op1,u_immediate);  break;
     case 12: ANDI(rt,op1,immediate); break;
-    case 13: ORI(rt,op1,immediate); break;
+    case 13: ORI(rt,op1,u_immediate); break;
     case 14: XORI(rt,op1,immediate); break;
     case 15: LUI(rt,u_immediate); break;
     case 4: BEQ(op1_s,op2_s,imm_16); break;
@@ -180,6 +180,7 @@ void simulator::ADD(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2){
         std::exit(-10);
     }
     else{
+      std::cout << "op1 + op2 = " <<operand1 << " + " << operand2 << " = " << operand1 + operand2 << std::endl;
       register_map.write_register(dest_reg, (operand1 + operand2));
     }
 }
@@ -341,7 +342,7 @@ void simulator::SLTI(uint16_t& dest_reg, int32_t& operand1, int32_t& operand2){
 }
 
 //Opcode = 11
-void simulator::SLTIU(uint16_t& dest_reg, uint32_t& operand1, uint32_t& operand2){
+void simulator::SLTIU(uint16_t& dest_reg, uint32_t& operand1, int32_t& operand2){
   if(op1<uint32_t(immediate)) register_map.write_register(rt,1);
   else register_map.write_register(rt,0);
 }
@@ -353,6 +354,7 @@ void simulator::ANDI(uint16_t& dest_reg, uint32_t& operand1, int32_t& imm){
 
 //Opcode = 13
 void simulator::ORI(uint16_t& dest_reg, uint32_t& operand1, int32_t& imm){
+  std::cout << "op1 | op2 = " <<operand1 << " | " << imm << " = " << (operand1|imm) << std::endl;
   register_map.write_register(dest_reg,(operand1|imm));
 }
 
@@ -362,7 +364,7 @@ void simulator::XORI(uint16_t& dest_reg, uint32_t& operand1, int32_t& imm){
 }
 
 //Opcode = 15
-void simulator::LUI(uint16_t& dest_reg, uint32_t& imm){
+void simulator::LUI(uint16_t& dest_reg, int32_t& imm){
   register_map.write_register(dest_reg, (imm<<16));
 }
 
