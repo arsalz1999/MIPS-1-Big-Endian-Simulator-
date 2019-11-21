@@ -1,0 +1,9 @@
+#sh7
+#sh
+#245
+#ha6017
+#address null
+
+sh $2, 0($1)
+addi $2, $2, 0x22
+jr $0

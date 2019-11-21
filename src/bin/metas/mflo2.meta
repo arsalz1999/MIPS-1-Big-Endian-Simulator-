@@ -1,0 +1,21 @@
+#mflo2
+#mflo
+#0
+#ca2217
+#pos
+
+lui $1, 0x7FFF
+ori $1, $1, 0xFFFF
+
+lui $3, 0x8000
+
+multu $1, $3
+mfhi $4
+mtlo $4
+mflo $5
+
+lui $6, 0x3FFF
+ori $6, $6, 0xFFF
+sub $2, $6, $5
+
+jr $0

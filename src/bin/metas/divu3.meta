@@ -1,0 +1,12 @@
+#divu3
+#divu
+#1
+#ca2217
+# -ve / -ve no R
+
+addiu $1, $0, 0xFFFF
+addiu $3, $0, 0xFFFF
+divu $3, $1
+mflo $2
+jr $0
+

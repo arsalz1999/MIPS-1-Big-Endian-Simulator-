@@ -1,0 +1,12 @@
+#lhu9
+#lhu
+#127
+#ha6017
+#instr mem
+
+lui $1, 0x7F01
+lui $3, 0x1000
+lhu $2, 2($3)
+nop
+srl $2, $2, 8
+jr $0

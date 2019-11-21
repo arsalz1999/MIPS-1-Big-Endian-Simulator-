@@ -1,0 +1,9 @@
+#lw13
+#lw
+#0
+#ha6017
+#low instr bound
+
+lui $1, 0x1000
+lw $2, 0($1)
+jr $0

@@ -1,0 +1,12 @@
+#sw3
+#sw
+#241
+#ha6017
+#normal store with byte 3
+
+lui $1, 0x2000
+ori $1, $1, 0x0
+addi $3, $3, 0xF0F1
+sw $3, 0($1)
+lb $2, 3($1)
+jr $0

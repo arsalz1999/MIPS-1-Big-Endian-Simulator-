@@ -1,0 +1,11 @@
+#sra5
+#sra
+#1
+#ca2217
+#decreasing value (+ve)
+
+addi $3, $0, 0x7675
+sra $4, $3, 1
+slt $2, $4, $3
+jr $0
+

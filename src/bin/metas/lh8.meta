@@ -1,0 +1,9 @@
+#lh8
+#lh
+#245
+#ha6017
+#check range of function
+
+lui $1, 0x2400
+lh $2, 0($1)
+jr $0

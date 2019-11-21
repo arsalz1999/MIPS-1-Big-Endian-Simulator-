@@ -1,0 +1,16 @@
+#lbu5
+#lbu
+#2
+#ha6017
+#sign extension
+
+lui $1, 0x2000
+addi $3, $1, 0x0080
+sw $3, 4($3)
+lbu $5, 7($3)
+lui $6, 0xFFFF
+ori $6, $6, 0xFF80
+beq $5, $6, 8
+nop
+addi $2, $2, 2
+jr $0

@@ -1,0 +1,11 @@
+#lwl1
+#lwl
+#148
+#ha6017
+#alighned word
+
+lui $1, 0x2000
+addi $3, $3, 0xA294
+sw $3, 0($1)
+lwl $2, 0($1)
+jr $0

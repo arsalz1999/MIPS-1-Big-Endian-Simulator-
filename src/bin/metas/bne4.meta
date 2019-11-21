@@ -1,0 +1,15 @@
+#beq4
+#bne
+#245
+#ca2217
+#out of range PC
+
+addi $1, $2, 3
+addi $3, $2, 4
+bne $1, $3, -16 
+addi $4, $2, 1
+addi $5, $2, 5
+add $2, $1, $5
+add $2, $2, $4
+add $2, $2, $3
+jr $0

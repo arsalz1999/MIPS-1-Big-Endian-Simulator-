@@ -1,0 +1,18 @@
+#jal1
+#jal
+#37
+#ca2217
+#Jump back and forth saving link
+
+addi $1, $0, 1
+jal 0x014
+nop
+add $2, $31, $3
+jr $0
+nop
+add $3, $1, $0
+jal 0x0C
+nop
+add $2, $3, $1
+jr $0
+

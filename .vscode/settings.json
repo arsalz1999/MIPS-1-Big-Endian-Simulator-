@@ -39,5 +39,8 @@
         "ostream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp"
-    }
+    },
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.linting.mypyEnabled": false
 }

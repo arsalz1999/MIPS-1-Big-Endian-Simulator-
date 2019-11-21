@@ -1,0 +1,12 @@
+#srav4
+#srav
+#0
+#ca2217
+#increasing value (-ve)
+
+addi $3, $0, 0xF675
+addi $1, $0, 1
+srav $4, $3, $1
+slt $2, $4, $3
+jr $0
+

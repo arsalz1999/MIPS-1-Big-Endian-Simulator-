@@ -1,0 +1,12 @@
+#div2
+#div
+#3
+#ca2217
+#+ve / +ve with R
+
+addi $1, $0, 5
+addi $3, $0, 8
+div $3, $1
+mfhi $2
+jr $0
+

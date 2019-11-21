@@ -1,0 +1,13 @@
+#lh2
+#lh
+#127
+#ha6017
+#top half of word loaded check top 8 bits
+
+lui $1, 0x7F01
+lui $3, 0x2000
+sw $1, 0($3)
+lh $2, 0($3)
+nop
+srl $2, $2, 8
+jr $0

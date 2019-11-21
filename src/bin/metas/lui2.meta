@@ -1,0 +1,11 @@
+#lui2
+#lui
+#0
+#ca2217
+#positive immediate
+
+lui $2, 0x7000
+slt $2, $2, $0
+
+jr $0
+

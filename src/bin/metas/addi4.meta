@@ -1,0 +1,11 @@
+#addi4
+#addi
+#246
+#ca2217
+#overflow negative
+
+lui $2, 0x8000
+addi $2, $2, -1
+
+jr $0
+

@@ -1,0 +1,9 @@
+#sh10
+#sh
+#0
+#ha6017
+#data top boundary
+
+lui $1, 0x2400
+sh $2, -2($1)
+jr $0

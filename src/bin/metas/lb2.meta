@@ -1,0 +1,11 @@
+#lb2
+#lb
+#31
+#ha6017
+#load byte 0 from word
+
+lui $1, 0x2000
+addi $3, $1, 0xF0FF
+sw $3, 0($1)
+lb $2, 0($1)
+jr $0

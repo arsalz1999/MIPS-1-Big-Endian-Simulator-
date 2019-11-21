@@ -1,0 +1,10 @@
+#sh2
+#sh
+#245
+#ha6017
+#above mem bound
+
+lui $1, 0x2400
+addi $3, $3, 0x3FA1
+sh $3, 0($1)
+jr $0

@@ -1,0 +1,23 @@
+#jalr1
+#jalr
+#0
+#ca2217
+#Jump from saved link
+
+addi $1, $0, 28
+bltzal $1, 4
+nop
+add $3, $31, $1
+jalr $3
+nop
+add $2, $4, $5
+jr $0
+nop
+addi $4, $0, 5
+addi $6, $31, 0
+jalr $6
+nop
+addi $5, $0, 5
+sub $3, $3, $5
+jr $0
+

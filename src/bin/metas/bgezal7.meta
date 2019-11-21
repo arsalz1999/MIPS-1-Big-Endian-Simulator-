@@ -1,0 +1,16 @@
+#bgezal7
+#bgezal
+#37
+#ca2217
+#linker
+
+addi $1, $0, 1
+bgezal $1, 4
+nop
+addi $3, $31, 0
+addi $5, $0, -3
+bgezal $5, 4
+nop
+add $2, $3, $31
+add $2, $5, $2
+jr $0

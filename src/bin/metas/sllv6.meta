@@ -1,0 +1,11 @@
+#sllv6
+#sllv
+#103
+#ca2217
+#byte shift
+
+addi $3, $0, 0x4567
+addi $4, $0, 0xFF00
+sllv $2, $3, $4
+jr $0
+

@@ -1,0 +1,10 @@
+#lb13
+#lb
+#243
+#ha6017
+#instr addr
+
+lui $1, 0x1000
+addi $2, $1, 0x0FF3
+lb $2, 7($1)
+jr $0

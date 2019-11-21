@@ -1,0 +1,10 @@
+#andi3
+#andi
+#68
+#ca2217
+#combining registers
+
+addi $3, $0, 0xF956
+andi $2, $3, 0xFF45
+jr $0
+

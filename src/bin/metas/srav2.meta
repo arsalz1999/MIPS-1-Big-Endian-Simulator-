@@ -1,0 +1,11 @@
+#srav2
+#srav
+#17
+#ca2217
+#odd shift
+
+addi $3, $0, 0x4567
+addi $10, $0, 10
+srav $2, $3, $10
+jr $0
+

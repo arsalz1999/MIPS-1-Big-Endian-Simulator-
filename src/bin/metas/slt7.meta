@@ -1,0 +1,10 @@
+#slt7
+#slt
+#0
+#ca2217
+# num < num
+
+addi $1, $0, 4
+slt $2, $1, $1
+jr $0
+

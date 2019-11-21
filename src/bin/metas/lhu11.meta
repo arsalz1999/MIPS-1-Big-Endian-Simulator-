@@ -1,0 +1,9 @@
+#lhu11
+#lhu
+#97
+#ha6017
+#getc bottom half alighned
+
+lui $3, 0x3000
+lhu $2, 2($3)
+jr $0

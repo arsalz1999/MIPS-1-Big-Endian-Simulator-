@@ -1,0 +1,9 @@
+#add6
+#add
+#0
+#ca2217
+#most -ve and 0
+
+lui $1, 0x8000
+add $2, $1, $0
+jr $0

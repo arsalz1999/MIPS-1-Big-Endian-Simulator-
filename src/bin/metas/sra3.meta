@@ -1,0 +1,14 @@
+#sra3
+#sra
+#1
+#ca2217
+#ones added
+
+addi $1, $0, 0xFFAC
+sra $2, $1, 4
+bgtz $2, 8
+nop
+addi $2, $0, 1
+jr $0
+
+

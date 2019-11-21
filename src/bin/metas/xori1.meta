@@ -1,0 +1,10 @@
+#xori1
+#xori
+#173
+#ca2217
+#or all 1s
+
+addi $3, $0, 0x3452
+xori $2, $3, 0xFFFF
+jr $0
+

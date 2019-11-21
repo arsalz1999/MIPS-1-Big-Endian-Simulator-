@@ -1,0 +1,11 @@
+#sw12
+#sw
+#245
+#ha6017
+#mem below bound
+
+lui $1, 0x2000
+addi $3, $3, 0x1234
+sw $3, -4($1)
+lw $2, 0($1)
+jr $0

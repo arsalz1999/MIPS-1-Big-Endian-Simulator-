@@ -1,0 +1,23 @@
+#beq6
+#beq
+#2
+#ca2217
+#don’t branch second
+
+addi $1, $2, 1
+addi $3, $2, 1
+beq $1, $3, 28
+nop
+add $2, $1, $3
+jr $0
+nop
+add $2, $4, $5
+jr $0
+nop
+addi $4, $2, 0
+addi $5, $2, 2
+beq $4, $5, -24
+nop
+add $2, $5, $4
+jr $0
+nop

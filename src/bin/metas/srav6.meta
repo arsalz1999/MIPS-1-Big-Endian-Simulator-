@@ -1,0 +1,13 @@
+#srav6
+#srav
+#255
+#ca2217
+#shift by zero
+
+addi $2, $0, 0x7FFF
+srav $1, $2, $0
+beq $1, $2, 8
+nop
+addi $2, $0, -1
+jr $0
+

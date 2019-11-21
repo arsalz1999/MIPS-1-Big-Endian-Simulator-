@@ -1,0 +1,10 @@
+#j2
+#j
+#245
+#ca2217
+#Jump to unalligned memory
+
+j 0x011
+nop
+jr $0
+

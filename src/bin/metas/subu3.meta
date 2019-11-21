@@ -1,0 +1,10 @@
+#subu3
+#subu
+#254
+#ca2217
+#pos - pos = neg
+
+addiu $1, $0, 7
+addiu $3, $0, 9
+subu $2, $1, $3
+jr $0

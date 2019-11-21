@@ -1,0 +1,10 @@
+#lbu11
+#lbu
+#255
+#ha6017
+#getc null eof
+
+lui $1, 0x3000
+addi $1, $1, 0x0003
+lb $2, 0($1)
+jr $0
