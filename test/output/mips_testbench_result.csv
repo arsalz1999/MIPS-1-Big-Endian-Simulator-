@@ -2,3 +2,343 @@ add1,add,PASS,ca2217,no problem +ve
 add2,add,PASS,ca2217,no problem -ve
 add3,add,PASS,ca2217,most +ve give -2 
 add4,add,PASS,ca2217,most -ve overflow
+add5,add,PASS,ca2217,most +ve and 0
+add6,add,PASS,ca2217,most -ve and 0
+add7,add,PASS,ca2217,one -ve and +ve
+addi1,addi,PASS,ca2217,no problem +ve
+addi2,addi,PASS,ca2217,no problem -ve
+addi3,addi,PASS,ca2217,overflow positive
+addi4,addi,PASS,ca2217,overflow negative
+addi5,addi,PASS,ca2217,large immediate
+addi6,addi,PASS,ca2217,check sign extension
+addiu1,addiu,PASS,ca2217,no problem +ve
+addiu2,addiu,PASS,ca2217,no overflow with highest
+addiu3,addiu,PASS,ca2217,large immediate
+addu1,addu,PASS,ca2217,no problem +ve
+addu2,addu,PASS,ca2217,most +ve
+addu3,addu,PASS,ca2217,no overflow (even most -ve)
+and1,and,PASS,ca2217,contents one register
+and2,and,PASS,ca2217,contents both registers
+and3,and,PASS,ca2217,and all 0
+and1,and,PASS,ca2217,and register with itself
+andi1,andi,PASS,ca2217,extending and anding correctly
+andi2,andi,PASS,ca2217,anding upper 16 bits
+andi3,andi,PASS,ca2217,combining registers
+beq1,beq,PASS,ca2217,should branch rt = rs
+beq2,beq,PASS,ca2217,should not branch rt != rs
+beq3,beq,PASS,ca2217,should branch rt = rs (negative)
+beq4,beq,PASS,ca2217,out of range PC
+beq5,beq,PASS,ca2217,correct negative branch PC
+beq6,beq,PASS,ca2217,don’t branch second
+bgez1,bgez,PASS,ca2217,should branch positive rt
+bgez2,bgez,PASS,ca2217,shouldn’t branch negative rt
+bgez3,bgez,PASS,ca2217,should branch rt zero
+bgez4,bgez,PASS,ca2217,out of range PC
+bgez5,bgez,PASS,ca2217,out of range PC
+bgez6,bgez,PASS,ca2217,correct negative offset
+bgezal1,bgezal,PASS,ca2217,should branch positive rt
+bgezal2,bgezal,PASS,ca2217,shouldn’t branch negative rt
+bgezal3,bgezal,PASS,ca2217,should branch rt zero
+bgezal4,bgezal,PASS,ca2217,out of range PC
+bgezal5,bgezal,PASS,ca2217,take both branches +ve and -ve
+bgezal6,bgezal,PASS,ca2217,don’t take second branch
+bgezal7,bgezal,PASS,ca2217,linker
+bgtz1,bgtz,PASS,ca2217,should branch +ve rt
+bgtz2,bgtz,PASS,ca2217,shouldn’t branch -ve rt
+bgtz3,bgtz,PASS,ca2217,should not branch rt zero
+bgtz4,bgtz,PASS,ca2217,out of range PC
+bgtz5,bgtz,PASS,ca2217,take both branches
+bgtz6,bgtz,PASS,ca2217,don’t take second branch
+blez1,blez,PASS,ca2217,should branch -ve rt
+blez2,blez,PASS,ca2217,shouldn’t branch +ve rt
+blez3,blez,PASS,ca2217,should branch rt zero
+blez4,blez,PASS,ca2217,out of range PC
+blez5,blez,PASS,ca2217,out of range PC
+blez6,blez,PASS,ca2217,correct negative offset
+bltz1,bltz,PASS,ca2217,should branch negative rt
+bltz2,bltz,PASS,ca2217,shouldn’t branch positive rt
+bltz3,bltz,PASS,ca2217,should not branch rt zero
+bltz4,bltz,PASS,ca2217,out of range PC
+bltz5,bltz,PASS,ca2217,take both branches
+bltz6,bltz,PASS,ca2217,don’t take second branch
+bltzal1,bltzal,PASS,ca2217,should branch -ve rt
+bltzal2,bltzal,PASS,ca2217,shouldn’t branch +ve rt
+bltzal3,bltzal,PASS,ca2217,should not branch rt zero
+bltzal4,bltzal,PASS,ca2217,out of range PC
+bltzal5,bltzal,PASS,ca2217,take both branches +ve and -ve
+bltzal6,bltzal,PASS,ca2217,don’t take second branch
+bltzal7,bltzal,PASS,ca2217,linker
+bne1,bne,PASS,ca2217,should branch rt != rs
+bne2,bne,PASS,ca2217,should not branch rt = rs
+bne3,bne,PASS,ca2217,should branch rt != rs (negative)
+beq4,bne,PASS,ca2217,out of range PC
+bne5,bne,PASS,ca2217,correct negative branch PC
+beq6,bne,PASS,ca2217,don’t branch second
+div1,div,PASS,ca2217,+ve / +ve no R
+div2,div,PASS,ca2217,+ve / +ve with R
+div3,div,PASS,ca2217,-ve / -ve no R
+div4,div,PASS,ca2217,-ve / +ve no R
+div5,div,PASS,ca2217, +ve / -ve with R
+div6,div,PASS,ca2217, 0 / +ve
+div7,div,PASS,ca2217, +ve / 0
+div8,div,PASS,ca2217, 1 / +ve
+divu1,divu,PASS,ca2217, num / num no R
+divu2,divu,PASS,ca2217,+ve / +ve with R
+divu3,divu,PASS,ca2217, -ve / -ve no R
+divu4,divu,PASS,ca2217, 0 / +ve
+divu5,divu,PASS,ca2217, +ve / 0
+divu6,divu,PASS,ca2217, 1 / +ve
+function1,function,PASS,ca2217,factorial 5
+internal1,internal,PASS,ca2217,changing $0
+internal2,internal,PASS,ca2217,exiting after multiple nops
+j1,j,PASS,ca2217,Jump back and forth saving link
+j2,j,PASS,ca2217,Jump to unalligned memory
+jal1,jal,PASS,ca2217,Jump back and forth saving link
+jal2,jal,PASS,ca2217,Jump from saved link
+jal3,jal,PASS,ca2217,Illegal jump to unalligned memory
+jalr1,jalr,PASS,ca2217,Jump and save link
+jalr1,jalr,PASS,ca2217,Jump from saved link
+jalr3,jalr,PASS,ca2217,Illegal jump to unalligned memory
+jalr1,jalr,PASS,ca2217,Different format of JALR with rd specified
+jr1,jr,PASS,ca2217,correct PC
+jr2,jr,PASS,ca2217,out of range
+jr3,jr,PASS,ca2217,unalligned memory
+lb1,lb,PASS,ha6017,load byte 2 from word
+lb10,lb,PASS,ha6017,getc in range at 003
+lb11,lb,PASS,ha6017,getc null eof
+lb12,lb,PASS,ha6017,instr no-ops
+lb13,lb,PASS,ha6017,instr addr
+lb2,lb,PASS,ha6017,load byte 0 from word
+lb3,lb,PASS,ha6017,load byte 1 from word
+lb4,lb,PASS,ha6017,load byte 3 from word
+lb5,lb,PASS,ha6017,sign extension
+lb6,lb,PASS,ha6017,invalid memory access lower limit
+lb7,lb,PASS,ha6017,invalid memory access upper limit
+lb8,lb,PASS,ha6017,putc out of range
+lb9,lb,PASS,ha6017,getc in range but not at 003
+lbu1,lbu,PASS,ha6017,load unisgned byte 0 from word
+lbu10,lbu,PASS,ha6017,getc in range at 003
+lbu11,lbu,PASS,ha6017,getc null eof
+lbu12,lbu,PASS,ha6017,instr no-ops
+lbu13,lbu,PASS,ha6017,instr addr
+lbu2,lbu,PASS,ha6017,load byte 1 from word
+lbu3,lbu,PASS,ha6017,load byte 2 from word
+lbu4,lbu,PASS,ha6017,load unsigned byte 3 from word
+lbu5,lbu,PASS,ha6017,sign extension
+lbu6,lbu,PASS,ha6017,invalid memory access lower limit
+lbu7,lbu,PASS,ha6017,invalid memory access upper limit
+lbu8,lbu,PASS,ha6017,putc out of range
+lbu9,lbu,PASS,ha6017,getc in range but not at 003
+lh1,lh,PASS,ha6017,top half of word loaded check last 8 bits
+lh10,lh,PASS,ha6017,instr mem no-ops
+lh11,lh,PASS,ha6017,getc bottom half alighned
+lh12,lh,PASS,ha6017,getc offset
+lh13,lh,PASS,ha6017,getc null eof
+lh2,lh,PASS,ha6017,top half of word loaded check top 8 bits
+lh3,lh,PASS,ha6017,bottom half of word loaded check top 8 bits
+lh4,lh,PASS,ha6017,bottom half of word loaded check bottom 8 bits
+lh5,lh,PASS,ha6017,unalighned offset
+lh6,lh,PASS,ha6017,unalighned offset2
+lh7,lh,PASS,ha6017,sign extension
+lh8,lh,PASS,ha6017,check range of function
+lh9,lh,PASS,ha6017,instr mem
+lhu1,lhu,PASS,ha6017,top half of word loaded check last 8 bits
+lhu10,lhu,PASS,ha6017,instr mem no-ops
+lhu11,lhu,PASS,ha6017,getc bottom half alighned
+lhu12,lhu,PASS,ha6017,getc offset
+lhu13,lhu,PASS,ha6017,getc null eof
+lhu2,lhu,PASS,ha6017,top half of word loaded check top 8 bits
+lhu3,lhu,PASS,ha6017,bottom half of word loaded check top 8 bits
+lhu4,lhu,PASS,ha6017,bottom half of word loaded check bottom 8 bits
+lhu5,lhu,PASS,ha6017,unalighned offset
+lhu6,lhu,PASS,ha6017,unalighned offset2
+lhu7,lhu,PASS,ha6017,zero extension
+lhu8,lhu,PASS,ha6017,check top range of function
+lhu9,lhu,PASS,ha6017,instr mem
+lui1,lui,PASS,ca2217,negative immediate
+lui2,lui,PASS,ca2217,positive immediate
+lui3,lui,PASS,ca2217,too immediate
+lw1,lw,PASS,ha6017,normal word load
+lw10,lw,PASS,ha6017,below instr bound
+lw11,lw,PASS,ha6017,high mem bound
+lw12,lw,PASS,ha6017,high instr bound
+lw13,lw,PASS,ha6017,low instr bound
+lw14,lw,PASS,ha6017,low mem bound
+lw15,lw,PASS,ha6017,above mem bound
+lw16,lw,PASS,ha6017,below mem bound
+lw2,lw,PASS,ha6017,unallighned load word
+lw3,lw,PASS,ha6017,uninitialsied word
+lw4,lw,PASS,ha6017,high out of range
+lw5,lw,PASS,ha6017,getc
+lw6,lw,PASS,ha6017,putc
+lw7,lw,PASS,ha6017,instr mem access
+lw8,lw,PASS,ha6017,instr nops
+lw9,lw,PASS,ha6017,null address
+lwl1,lwl,PASS,ha6017,alighned word
+lwl2,lwl,PASS,ha6017,unalighned offset 1
+lwl3,lwl,PASS,ha6017,unalighned offset 2
+lwl4,lwl,PASS,ha6017,unalighned offset 3
+lwl5,lwl,PASS,ha6017,Instr alighnned
+lwl6,lwl,PASS,ha6017,Instr unalighnned 1
+lwl7,lwl,PASS,ha6017,Instr unalighnned 2
+lwl8,lwl,PASS,ha6017,Instr unalighnned 3
+lwl11,lwl,PASS,ha6017,putc
+lwr1,lwr,PASS,ha6017,alighned word at 03
+lwr12,lwr,PASS,ha6017,putc
+lwr2,lwr,PASS,ha6017,unalighned word at 02
+lwr3,lwr,PASS,ha6017,unalighned word at 03 byte shifted by 8
+lwr4,lwr,PASS,ha6017,unalighned word at 01
+lwr5,lwr,PASS,ha6017,unalighned word at 00
+lwr6,lwr,PASS,ha6017,instr alighned word at 03
+lwr7,lwr,PASS,ha6017,instr unalighned word at 02
+lwr8,lwr,PASS,ha6017,instr unalighned word at 01
+lwr9,lwr,PASS,ha6017,instr unalighned word at 00
+mfhi1,mfhi,PASS,ca2217,neg
+mfhi2,mfhi,PASS,ca2217,pos
+mfhi3,mfhi,PASS,ca2217,overwrite
+mflo1,mflo,PASS,ca2217,neg
+mflo2,mflo,PASS,ca2217,pos
+mflo3,mflo,PASS,ca2217,overwrite
+mthi1,mthi,PASS,ca2217,pos
+mthi2,mthi,PASS,ca2217,neg
+mtlo1,mtlo,PASS,ca2217,pos
+mtlo2,mtlo,PASS,ca2217,neg
+mult1,mult,PASS,ca2217,LO register mult 2 positive
+mult2,mult,PASS,ca2217,HI mult two positive
+mult3,mult,PASS,ca2217,neg x neg
+mult4,mult,PASS,ca2217,neg x pos
+mult5,mult,PASS,ca2217,(-1) x most neg
+mult6,mult,PASS,ca2217,most +ve x most -ve
+mult7,mult,PASS,ca2217,num x 0
+multu1,multu,PASS,ca2217,LO register must 2 positive
+multu2,multu,PASS,ca2217,HI multu two positive
+multu3,multu,PASS,ca2217,most +ve x most +ve
+multu4,multu,PASS,ca2217,num x 0
+multu5,multu,PASS,ca2217,most +ve x most -ve hi we here
+or1,or,PASS,ca2217,or all 1s
+or2,or,PASS,ca2217,or all 0s
+or3,or,PASS,ca2217,changing register contents
+ori1,ori,PASS,ca2217,or all 1s
+ori2,ori,PASS,ca2217,or all 0s
+ori3,ori,PASS,ca2217,changing register contents
+ori4,ori,PASS,ca2217,checking correct range
+sb1,sb,PASS,ha6017,store byte at LSB
+sb10,sb,PASS,ha6017,mem top bound
+sb11,sb,PASS,ha6017,mem above bound
+sb2,sb,PASS,ha6017,store byte at LSB
+sb3,sb,PASS,ha6017,above mem range
+sb4,sb,PASS,ha6017,putc at 07
+sb5,sb,PASS,ha6017,putc at starting
+sb6,sb,PASS,ha6017,getc at 003
+sb7,sb,PASS,ha6017,getc at 000
+sb8,sb,PASS,ha6017,instr access
+sb9,sb,PASS,ha6017,null address
+sh1,sh,PASS,ha6017,normal store word
+sh10,sh,PASS,ha6017,data top boundary
+sh2,sh,PASS,ha6017,above mem bound
+sh3,sh,PASS,ha6017,putc at 004
+sh4,sh,PASS,ha6017,getc offset
+sh5,sh,PASS,ha6017,putc at 006
+sh6,sh,PASS,ha6017,instr access
+sh7,sh,PASS,ha6017,address null
+sh8,sh,PASS,ha6017,unalighned
+sh9,sh,PASS,ha6017,data boundary
+sll1,sll,PASS,ca2217,byte shift
+sll2,sll,PASS,ca2217,odd shift
+sll3,sll,PASS,ca2217,zeros added
+sll4,sll,PASS,ca2217,increasing value
+sll5,sll,PASS,ca2217,shift by zero
+sllv1,sllv,PASS,ca2217,byte shift
+sllv2,sllv,PASS,ca2217,odd shift
+sllv3,sllv,PASS,ca2217,zeros added
+sllv4,sllv,PASS,ca2217,increasing value
+sllv5,sllv,PASS,ca2217,shift by zero
+sllv6,sllv,PASS,ca2217,byte shift
+slt1,slt,PASS,ca2217, 0 < +ve
+slt2,slt,PASS,ca2217, 0 < -ve
+slt3,slt,PASS,ca2217, -ve < +ve
+slt4,slt,PASS,ca2217, -ve < 0
+slt5,slt,PASS,ca2217, +ve < 0
+slt6,slt,PASS,ca2217, 0 < 0
+slt7,slt,PASS,ca2217, num < num
+slti1,slti,PASS,ca2217, 0 < +ve
+slti2,slti,PASS,ca2217, 0 < -ve
+slti3,slti,PASS,ca2217, -ve < +ve
+slti4,slti,PASS,ca2217, -ve < 0
+slti5,slti,PASS,ca2217, +ve < 0
+slti6,slti,PASS,ca2217, 0 < 0
+slti7,slti,PASS,ca2217, num < num
+sltiu1,sltiu,PASS,ca2217, 0 < +ve
+sltiu2,sltiu,PASS,ca2217, +ve < 0
+sltiu3,sltiu,PASS,ca2217, 0 < 0
+sltiu4,sltiu,PASS,ca2217, num1 < num2
+sltu1,sltu,PASS,ca2217, 0 < +ve
+sltu2,sltu,PASS,ca2217, +ve < 0
+sltu3,sltu,PASS,ca2217, 0 < 0
+sltu4,sltu,PASS,ca2217, num1 < num2
+sra1,sra,PASS,ca2217,byte shift
+sra2,sra,PASS,ca2217,odd shift
+sra3,sra,PASS,ca2217,ones added
+sra4,sra,PASS,ca2217,increasing value (-ve)
+sra5,sra,PASS,ca2217,decreasing value (+ve)
+sra6,sra,PASS,ca2217,shift by zero
+srav1,srav,PASS,ca2217,byte shift
+srav2,srav,PASS,ca2217,odd shift
+srav3,srav,PASS,ca2217,ones added
+srav4,srav,PASS,ca2217,increasing value (-ve)
+srav5,srav,PASS,ca2217,decreasing value (+ve)
+srav6,srav,PASS,ca2217,shift by zero
+srav7,srav,PASS,ca2217,shift by neg
+srl1,srl,PASS,ca2217,byte shift
+srl2,srl,PASS,ca2217,odd shift
+srl3,srl,PASS,ca2217,zeros added
+srl4,srl,PASS,ca2217,decreasing value
+srl5,srl,PASS,ca2217,shift by zero
+srlv1,srlv,PASS,ca2217,byte shift
+srlv2,srlv,PASS,ca2217,odd shift
+srlv3,srlv,PASS,ca2217,zeros added
+srlv4,srlv,PASS,ca2217,decreasing value
+srlv5,srlv,PASS,ca2217,shift by zero
+srlv6,srlv,PASS,ca2217,shift by neg
+sub1,sub,PASS,ca2217,pos - pos = pos
+sub10,sub,PASS,ca2217,0 - most neg = pos
+sub11,sub,PASS,ca2217,0 - neg = pos
+sub2,sub,PASS,ca2217,neg - neg = neg
+sub3,sub,PASS,ca2217,pos - pos = neg
+sub4,sub,PASS,ca2217,neg - neg = pos
+sub5,sub,PASS,ca2217,pos - neg = pos
+sub6,sub,PASS,ca2217,pos - neg = neg OVERFLOW
+sub7,sub,PASS,ca2217,neg - pos = neg
+sub8,sub,PASS,ca2217,neg - pos = pos OVERFLOW
+sub9,sub,PASS,ca2217,0 - most pos = neg
+subu1,subu,PASS,ca2217,pos - pos = pos
+subu10,subu,PASS,ca2217,0 - neg = pos
+subu2,subu,PASS,ca2217,neg - neg = neg
+subu3,subu,PASS,ca2217,pos - pos = neg
+subu4,subu,PASS,ca2217,neg - neg = pos
+subu5,subu,PASS,ca2217,pos - neg = pos
+subu6,subu,PASS,ca2217,pos - neg = neg OVERFLOW
+subu7,subu,PASS,ca2217,neg - pos = neg
+subu8,subu,PASS,ca2217,neg - pos = pos
+subu9,subu,PASS,ca2217,0 - most pos = neg
+sw1,sw,PASS,ha6017,normal store with byte 1
+sw10,sw,PASS,ha6017,Address Null
+sw11,sw,PASS,ha6017,mem low bound
+sw12,sw,PASS,ha6017,mem below bound
+sw13,sw,PASS,ha6017,mem up bound
+sw14,sw,PASS,ha6017,mem above bound
+sw2,sw,PASS,ha6017,normal store with byte 2
+sw3,sw,PASS,ha6017,normal store with byte 3
+sw4,sw,PASS,ha6017,misaligned
+sw5,sw,PASS,ha6017,above data limit
+sw6,sw,PASS,ha6017,putc at 004
+sw7,sw,PASS,ha6017,putc offset
+sw8,sw,PASS,ha6017,getc
+sw9,sw,PASS,ha6017,instr access
+xor1,xor,PASS,ca2217,xor all 1s
+xor2,xor,PASS,ca2217,xor all 0s
+xor3,xor,PASS,ca2217,changing register contents
+xori1,xori,PASS,ca2217,or all 1s
+xori2,xori,PASS,ca2217,or all 0s
+xori3,xori,PASS,ca2217,changing register contents
+xori4,xori,PASS,ca2217,checking correct range
