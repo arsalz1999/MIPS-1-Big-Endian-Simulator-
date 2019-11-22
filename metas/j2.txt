@@ -1,8 +1,12 @@
 #j2
 #j
-#6
-#smb18
+#20
+#moinbukhari
 
-addi $2, $0, 3
-j 0
-add $2, $2, $2
+addi $2, $2, 10
+j 5
+nop
+addi $2, $2, 3
+addi $2, $2, 10
+jr $0
+nop

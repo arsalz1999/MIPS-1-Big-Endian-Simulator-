@@ -1,7 +1,7 @@
 #beq2
 #beq
 #15
-#smb18
+#moinbukhari
 #not equal
 
 addi $1, $1, 0x0500

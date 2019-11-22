@@ -1,7 +1,7 @@
 #addi6
 #addi
 #0
-#smb18
+#moinbukhari
 #adding_zeroes
 
 addi $1, $1, 0

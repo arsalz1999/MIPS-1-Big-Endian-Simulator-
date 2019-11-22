@@ -1,7 +1,7 @@
 #divu2
 #divu
 #2
-#smb18
+#moinbukhari
 #hi only
 
 addi $1, $1, 10

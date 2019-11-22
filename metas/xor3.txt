@@ -1,7 +1,7 @@
 #xor3
 #xor
 #253
-#smb18
+#moinbukhari
 #xor 0x0002 with 0xFFFFFFFF
 
 addi $1, $1, 0xFFFF

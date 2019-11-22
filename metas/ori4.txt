@@ -1,7 +1,7 @@
 #ori4
 #ori
 #223
-#smb18
+#moinbukhari
 #or with large 32bit number
 
 lui $1, 0xF0CE

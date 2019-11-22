@@ -1,8 +1,12 @@
 #jal2
 #jal
-#6
-#smb18
+#20
+#moinbukhari
 
-addi $2, $0, 3
-jal 0
-add $2, $2, $2
+addi $2, $2, 10
+jal 5
+nop
+addi $2, $2, 3
+addi $2, $2, 10
+jr $0
+nop

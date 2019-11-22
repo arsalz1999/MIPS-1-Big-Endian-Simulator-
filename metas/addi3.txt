@@ -1,7 +1,7 @@
 #addi3
 #addi
 #127
-#smb18
+#moinbukhari
 #add_+ve_-ve_numbers
 
 addi $1, $1, 0x7FFF

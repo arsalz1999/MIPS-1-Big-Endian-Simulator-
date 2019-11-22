@@ -1,7 +1,7 @@
 #andi5
 #andi
 #52
-#smb18
+#moinbukhari
 #and with itself
 
 addi $1, $1, 0x1234

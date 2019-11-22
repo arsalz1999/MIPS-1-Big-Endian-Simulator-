@@ -1,7 +1,7 @@
 #ori5
 #ori
 #52
-#smb18
+#moinbukhari
 #or with itself
 
 addi $1, $1, 0x1234

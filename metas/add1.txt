@@ -1,8 +1,7 @@
 #add1
 #add
 #230
-#smb18
-#add_+ve_numbers
+#moinbukhari
 
 addi $1, $1, 200
 addi $3, $3, 30

@@ -1,7 +1,7 @@
 #or1
 #or
 #0
-#smb18
+#moinbukhari
 #or 0 with 0
 
 or $2, $0, $0

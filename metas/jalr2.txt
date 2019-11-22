@@ -1,7 +1,7 @@
 #jalr2
 #jalr
 #6
-#smb18
+#moinbukhari
 
 addi $2, $0, 3
 jalr $0, $5

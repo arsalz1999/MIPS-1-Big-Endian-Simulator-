@@ -1,7 +1,7 @@
 #xor2
 #xor
 #255
-#smb18
+#moinbukhari
 #xor 0xFFFF with 0
 
 addi $1, $1, 0xFFFF

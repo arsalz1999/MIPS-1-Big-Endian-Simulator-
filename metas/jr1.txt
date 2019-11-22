@@ -1,7 +1,7 @@
 #jr1
 #jr
 #3
-#smb18
+#moinbukhari
 
 addi $2, $0, 3
 jr $0

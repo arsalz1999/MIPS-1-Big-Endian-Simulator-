@@ -1,7 +1,7 @@
 #or2
 #or
 #255
-#smb18
+#moinbukhari
 #or 0xFFFF with 0
 
 addi $1, $1, 0xFFFF

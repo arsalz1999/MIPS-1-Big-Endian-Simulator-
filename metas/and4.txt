@@ -1,7 +1,7 @@
 #and4
 #and
 #0
-#smb18
+#moinbukhari
 #and with large 32bit number
 
 lui $1, 0x00CE

@@ -1,7 +1,7 @@
 #andi3
 #andi
 #2
-#smb18
+#moinbukhari
 #and 0x0002 with 0xFFFF
 
 addi $3, $3, 2

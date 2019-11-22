@@ -1,7 +1,7 @@
 #addi7
 #addi
 #10
-#smb18
+#moinbukhari
 #zero_and_+ve
 
 addi $2, $0, 10

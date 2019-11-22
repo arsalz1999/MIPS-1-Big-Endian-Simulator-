@@ -1,7 +1,7 @@
 #bltz2
 #bltz
 #15
-#smb18
+#moinbukhari
 #zero
 
 addi $1, $1, 0

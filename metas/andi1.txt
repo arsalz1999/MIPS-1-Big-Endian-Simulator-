@@ -1,7 +1,7 @@
 #andi1
 #andi
 #0
-#smb18
+#moinbukhari
 #and 0 with 0
 
 andi $2, $0, 0

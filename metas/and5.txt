@@ -1,7 +1,7 @@
 #and5
 #and
 #52
-#smb18
+#moinbukhari
 #and with itself
 
 lui $1, 0x1234

@@ -1,7 +1,7 @@
 #bgezal1
 #bgezal
 #10
-#smb18
+#moinbukhari
 #positive
 
 addi $1, $1, 0x0500

@@ -1,7 +1,7 @@
 #ori3
 #ori
 #255
-#smb18
+#moinbukhari
 #or 0x0002 with 0xFFFF
 
 addi $3, $3, 2

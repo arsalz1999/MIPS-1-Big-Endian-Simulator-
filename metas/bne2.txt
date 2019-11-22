@@ -1,7 +1,7 @@
 #bne2
 #bne
 #10
-#smb18
+#moinbukhari
 #notequal
 
 addi $1, $1, 0x0500

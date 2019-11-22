@@ -1,7 +1,7 @@
 #xor1
 #xor
 #0
-#smb18
+#moinbukhari
 #xor 0 with 0
 
 xor $2, $0, $0

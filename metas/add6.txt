@@ -1,8 +1,7 @@
 #add6
 #add
 #246
-#smb18
-#large_-ve_numbers
+#moinbukhari
 
 addi $1, $1, 0x8000
 sll $1, $1, 16

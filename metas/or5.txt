@@ -1,7 +1,7 @@
 #or5
 #or
 #52
-#smb18
+#moinbukhari
 #or with itself
 
 lui $1, 0x1234
