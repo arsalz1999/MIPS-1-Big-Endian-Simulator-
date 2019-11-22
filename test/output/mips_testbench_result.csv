@@ -1,73 +1,82 @@
-add1,add,PASS,smb18,add_+ve_numbers
-add2,add,PASS,smb18,add_-ve_numbers
-add3,add,PASS,smb18,add_+ve_-ve_numbers
-add4,add,PASS,smb18,add_-ve_+ve_numbers
-add5,add,PASS,smb18,large_+ve_numbers
-add6,add,PASS,smb18,large_-ve_numbers
-add7,add,PASS,smb18,adding_zeroes
-add8,add,PASS,smb18,zero_and_+ve
-add9,add,PASS,smb18,zero_and_-ve
-addi1,addi,PASS,smb18,add_+ve_numbers
-addi2,addi,PASS,smb18,add_-ve_numbers
-addi3,addi,PASS,smb18,add_+ve_-ve_numbers
-addi4,addi,PASS,smb18,large_+ve_numbers
-addi5,addi,PASS,smb18,large_-ve_numbers
-addi6,addi,PASS,smb18,adding_zeroes
-addi7,addi,PASS,smb18,zero_and_+ve
-addi8,addi,PASS,smb18,zero_and_-ve
-addiu1,addiu,PASS,smb18,add_+ve_numbers
-addiu2,addiu,PASS,smb18,add_-ve_numbers
-addiu3,addiu,PASS,smb18,add_+ve_-ve_numbers
-addiu4,addiu,PASS,smb18,large_+ve_numbers
-addiu5,addiu,PASS,smb18,large_-ve_numbers
-addiu6,addiu,PASS,smb18,adding_zeroes
-addiu7,addiu,PASS,smb18,zero_and_+ve
-addiu8,addiu,PASS,smb18,zero_and_-ve
-addu1,addu,PASS,smb18,add_+ve_numbers
-addu2,addu,PASS,smb18,addu_-ve_numbers
-addu3,addu,PASS,smb18,add_+ve_-ve_numbers
-addu4,addu,PASS,smb18,add_-ve_+ve_numbers
-addu5,addu,PASS,smb18,large_+ve_numbers
-addu6,addu,PASS,smb18,large_-ve_numbers
-addu7,addu,PASS,smb18,adding_zeroes
-addu8,addu,PASS,smb18,zero_and_+ve
-addu9,addu,PASS,smb18,zero_and_-ve
-and1,and,PASS,smb18,and 0 with 0
-and2,and,PASS,smb18,and 0xFFFF with 0
-and3,and,PASS,smb18,and 0x0002 with 0xFFFFFFFF
-and4,and,PASS,smb18,and with large 32bit number
-and5,and,PASS,smb18,and with itself
-andi1,andi,PASS,smb18,and 0 with 0
-andi2,andi,PASS,smb18,and 0xFFFF with 0
-andi3,andi,PASS,smb18,and 0x0002 with 0xFFFF
-andi4,andi,PASS,smb18,and with large 32bit number
-andi5,andi,PASS,smb18,and with itself
-beq1,beq,PASS,smb18,equal
-beq2,beq,PASS,smb18,not equal
-bgez1,bgez,PASS,smb18,positive
-bgez2,bgez,PASS,smb18,zero
-bgez3,bgez,PASS,smb18,negative
-bgezal1,bgezal,PASS,smb18,positive
-bgezal2,bgezal,PASS,smb18,zero
-bgezal3,bgezal,PASS,smb18,negative
-bgtz1,bgtz,PASS,smb18,positive
-bgtz2,bgtz,PASS,smb18,zero
-bgtz3,bgtz,PASS,smb18,negative
-blez1,blez,PASS,smb18,positive
-blez2,blez,PASS,smb18,zero
-blez3,blez,PASS,smb18,negative
-bltz1,bltz,PASS,smb18,positive
-bltz2,bltz,PASS,smb18,zero
-bltz3,bltz,PASS,smb18,negative
-bltzal1,bltzal,PASS,smb18,positive
-bltzal2,bltzal,PASS,smb18,zero
-bltzal3,bltzal,PASS,smb18,negative
-bne2,bne,PASS,smb18,equal
-bne2,bne,PASS,smb18,notequal
-div1,div,PASS,smb18,lo only
-div2,div,PASS,smb18,hi only
-div2,div,PASS,smb18,divide by zero
-divu1,divu,PASS,smb18,lo only
+add1,add,PASS,moinbukhari,
+add2,add,PASS,moinbukhari,
+add3,add,PASS,moinbukhari,
+add4,add,PASS,moinbukhari,
+add5,add,PASS,moinbukhari,
+add6,add,PASS,moinbukhari,
+add7,add,PASS,moinbukhari,adding_zeroes
+add8,add,PASS,moinbukhari,zero_and_+ve
+add9,add,PASS,moinbukhari,zero_and_-ve
+addi1,addi,PASS,moinbukhari,add_+ve_numbers
+addi2,addi,PASS,moinbukhari,add_-ve_numbers
+addi3,addi,PASS,moinbukhari,add_+ve_-ve_numbers
+addi4,addi,PASS,moinbukhari,large_+ve_numbers
+addi5,addi,PASS,moinbukhari,large_-ve_numbers
+addi6,addi,PASS,moinbukhari,adding_zeroes
+addi7,addi,PASS,moinbukhari,zero_and_+ve
+addi8,addi,PASS,moinbukhari,zero_and_-ve
+addiu1,addiu,PASS,moinbukhari,add_+ve_numbers
+addiu2,addiu,PASS,moinbukhari,add_-ve_numbers
+addiu3,addiu,PASS,moinbukhari,add_+ve_-ve_numbers
+addiu4,addiu,PASS,moinbukhari,large_+ve_numbers
+addiu5,addiu,PASS,moinbukhari,large_-ve_numbers
+addiu6,addiu,PASS,moinbukhari,adding_zeroes
+addiu7,addiu,PASS,moinbukhari,zero_and_+ve
+addiu8,addiu,PASS,moinbukhari,zero_and_-ve
+addu1,addu,PASS,moinbukhari,add_+ve_numbers
+addu2,addu,PASS,moinbukhari,addu_-ve_numbers
+addu3,addu,PASS,moinbukhari,add_+ve_-ve_numbers
+addu4,addu,PASS,moinbukhari,add_-ve_+ve_numbers
+addu5,addu,PASS,moinbukhari,large_+ve_numbers
+addu6,addu,PASS,moinbukhari,large_-ve_numbers
+addu7,addu,PASS,moinbukhari,adding_zeroes
+addu8,addu,PASS,moinbukhari,zero_and_+ve
+addu9,addu,PASS,moinbukhari,zero_and_-ve
+and1,and,PASS,moinbukhari,and 0 with 0
+and2,and,PASS,moinbukhari,and 0xFFFF with 0
+and3,and,PASS,moinbukhari,and 0x0002 with 0xFFFFFFFF
+and4,and,PASS,moinbukhari,and with large 32bit number
+and5,and,PASS,moinbukhari,and with itself
+andi1,andi,PASS,moinbukhari,and 0 with 0
+andi2,andi,PASS,moinbukhari,and 0xFFFF with 0
+andi3,andi,PASS,moinbukhari,and 0x0002 with 0xFFFF
+andi4,andi,PASS,moinbukhari,and with large 32bit number
+andi5,andi,PASS,moinbukhari,and with itself
+beq1,beq,PASS,moinbukhari,equal
+beq2,beq,PASS,moinbukhari,not equal
+bgez1,bgez,PASS,moinbukhari,positive
+bgez2,bgez,PASS,moinbukhari,zero
+bgez3,bgez,PASS,moinbukhari,negative
+bgezal1,bgezal,PASS,moinbukhari,positive
+bgezal2,bgezal,PASS,moinbukhari,zero
+bgezal3,bgezal,PASS,moinbukhari,negative
+bgtz1,bgtz,PASS,moinbukhari,positive
+bgtz2,bgtz,PASS,moinbukhari,zero
+bgtz3,bgtz,PASS,moinbukhari,negative
+blez1,blez,PASS,moinbukhari,positive
+blez2,blez,PASS,moinbukhari,zero
+blez3,blez,PASS,moinbukhari,negative
+bltz1,bltz,PASS,moinbukhari,positive
+bltz2,bltz,PASS,moinbukhari,zero
+bltz3,bltz,PASS,moinbukhari,negative
+bltzal1,bltzal,PASS,moinbukhari,positive
+bltzal2,bltzal,PASS,moinbukhari,zero
+bltzal3,bltzal,PASS,moinbukhari,negative
+bne2,bne,PASS,moinbukhari,equal
+bne2,bne,PASS,moinbukhari,notequal
+div1,div,PASS,moinbukhari,lo only
+div2,div,PASS,moinbukhari,hi only
+div2,div,PASS,moinbukhari,divide by zero
+divu1,divu,PASS,moinbukhari,lo only
+divu2,divu,PASS,moinbukhari,hi only
+j1,j,PASS,moinbukhari,
+j2,j,PASS,moinbukhari,
+jal1,jal,PASS,moinbukhari,
+jal2,jal,PASS,moinbukhari,
+jalr1,jalr,PASS,moinbukhari,
+jalr2,jalr,PASS,moinbukhari,
+jr1,jr,PASS,moinbukhari,
+jr2,jr,PASS,moinbukhari,
 lui1,lui,PASS,moinbukhari,
 mfhi1,mfhi,PASS,moinbukhari,
 mflo1,mflo,PASS,moinbukhari,
@@ -75,16 +84,16 @@ mthi1,mthi,PASS,moinbukhari,
 mtlo1,mtlo,PASS,moinbukhari,
 mult1,mult,PASS,moinbukhari,lo only
 multu1,multu,PASS,moinbukhari,lo only
-or1,or,PASS,smb18,or 0 with 0
-or2,or,PASS,smb18,or 0xFFFF with 0
-or3,or,PASS,smb18,or 0x0002 with 0xFFFFFFFF
-or4,or,PASS,smb18,or with large 32bit number
-or5,or,PASS,smb18,or with itself
-ori1,ori,PASS,smb18,or 0 with 0
-ori2,ori,PASS,smb18,or 0xFFFF with 0
-ori3,ori,PASS,smb18,or 0x0002 with 0xFFFF
-ori4,ori,PASS,smb18,or with large 32bit number
-ori5,ori,PASS,smb18,or with itself
+or1,or,PASS,moinbukhari,or 0 with 0
+or2,or,PASS,moinbukhari,or 0xFFFF with 0
+or3,or,PASS,moinbukhari,or 0x0002 with 0xFFFFFFFF
+or4,or,PASS,moinbukhari,or with large 32bit number
+or5,or,PASS,moinbukhari,or with itself
+ori1,ori,PASS,moinbukhari,or 0 with 0
+ori2,ori,PASS,moinbukhari,or 0xFFFF with 0
+ori3,ori,PASS,moinbukhari,or 0x0002 with 0xFFFF
+ori4,ori,PASS,moinbukhari,or with large 32bit number
+ori5,ori,PASS,moinbukhari,or with itself
 sll1,sll,PASS,moinbukhari,
 sllv1,sllv,PASS,moinbukhari,
 slt1,slt,PASS,moinbukhari,
@@ -97,13 +106,13 @@ srl1,srl,PASS,moinbukhari,
 srlv1,srlv,PASS,moinbukhari,
 sub1,sub,PASS,moinbukhari,
 subu1,subu,PASS,moinbukhari,
-xor1,xor,PASS,smb18,xor 0 with 0
-xor2,xor,PASS,smb18,xor 0xFFFF with 0
-xor3,xor,PASS,smb18,xor 0x0002 with 0xFFFFFFFF
-xor4,xor,PASS,smb18,xor with large 32bit number
-xor5,xor,PASS,smb18,or with itself
-xori1,xori,PASS,smb18,xor 0 with 0
-xori2,xori,PASS,smb18,xor 0xFFFF with 0
-xori3,xori,PASS,smb18,xor 0x0002 with 0xFFFF
-xori4,xori,PASS,smb18,xor with large 32bit number
-xori5,xori,PASS,smb18,xor with itself
+xor1,xor,PASS,moinbukhari,xor 0 with 0
+xor2,xor,PASS,moinbukhari,xor 0xFFFF with 0
+xor3,xor,PASS,moinbukhari,xor 0x0002 with 0xFFFFFFFF
+xor4,xor,PASS,moinbukhari,xor with large 32bit number
+xor5,xor,PASS,moinbukhari,or with itself
+xori1,xori,PASS,moinbukhari,xor 0 with 0
+xori2,xori,PASS,moinbukhari,xor 0xFFFF with 0
+xori3,xori,PASS,moinbukhari,xor 0x0002 with 0xFFFF
+xori4,xori,PASS,moinbukhari,xor with large 32bit number
+xori5,xori,PASS,moinbukhari,xor with itself
