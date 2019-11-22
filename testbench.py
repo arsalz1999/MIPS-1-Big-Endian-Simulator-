@@ -45,8 +45,13 @@ testbench = open("test/output/mips_testbench_result.csv", "w")
 print('TestId' , "," ,'instruction' , "," , 'Status' , ',' , 'Author' , "," , 'Message' '\n')
 
 for test in tests:
+    if len(sys.argv)==1:
+        path = "./bin/mips_simulator"
+    else:
+        path = sys.argv[1]    
 
-    p = subprocess.run(['./bin/mips_simulator', test['path']], stdout=subprocess.PIPE, input=test['stdin'], timeout = 10)
+    print(path)
+    p = subprocess.run( [path, test['path']], stdout=subprocess.PIPE, input=test['stdin'], timeout = 10)
     
     if ((p.stdout == test['stdout']) or str((p.returncode) == test['retcode'])):
         print(test['testid'] , " , " , test['instruction'] , " , " , "PASS",' , ', test['Author'], " , " , test['Message'])

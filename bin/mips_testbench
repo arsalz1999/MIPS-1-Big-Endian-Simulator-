@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 testbench.py
+python3 testbench.py $1

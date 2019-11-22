@@ -4,7 +4,7 @@ simulator: src/main.o src/memory.o src/simulator.o src/register.o
 
 testbench:
 	mkdir -p bin
-	echo "#!/bin/bash\npython3 testbench.py" > bin/mips_testbench
+	echo '#!/bin/bash\npython3 testbench.py $$1' > bin/mips_testbench
 	chmod +x bin/mips_testbench
 
 
