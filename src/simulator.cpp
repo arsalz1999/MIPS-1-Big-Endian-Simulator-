@@ -283,8 +283,8 @@ void simulator::DIV(int32_t& operand1, int32_t& operand2){
     std::exit(-10);
   }
   else{
-    register_map.hi = operand1 / operand2;
-    register_map.lo = operand1 % operand2;
+    register_map.lo = operand1 / operand2;
+    register_map.hi = operand1 % operand2;
   }
 
 }
@@ -294,8 +294,8 @@ void simulator::DIVU(uint32_t& operand1, uint32_t& operand2){
     std::exit(-10);
   }
   else{
-    register_map.hi = op1 / operand2;
-    register_map.lo = op1 % operand2;
+    register_map.lo = op1 / operand2;
+    register_map.hi = op1 % operand2;
   }
 }
 
