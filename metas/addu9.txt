@@ -1,0 +1,9 @@
+#addu9
+#addu
+#216
+#smb18
+#zero_and_-ve
+
+addiu $1, $1, -40
+addu $2, $0, $1
+jr $0

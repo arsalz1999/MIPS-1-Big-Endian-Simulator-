@@ -1,9 +1,0 @@
-#lbu7
-#lbu
-#245
-#ha6017
-#invalid memory access upper limit
-
-lui $1, 0x2400
-lbu $2, 0($1)
-jr $0

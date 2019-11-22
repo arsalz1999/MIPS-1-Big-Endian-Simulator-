@@ -1,0 +1,10 @@
+#xor3
+#xor
+#253
+#smb18
+#xor 0x0002 with 0xFFFFFFFF
+
+addi $1, $1, 0xFFFF
+addi $3, $3, 2
+xor $2, $1, $3
+jr $0

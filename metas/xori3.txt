@@ -1,0 +1,9 @@
+#xori3
+#xori
+#253
+#smb18
+#xor 0x0002 with 0xFFFF
+
+addi $3, $3, 2
+xori $2, $3, 0xFFFF
+jr $0

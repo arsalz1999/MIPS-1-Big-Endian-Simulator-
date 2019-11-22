@@ -1,0 +1,12 @@
+#bltzal1
+#bltzal
+#15
+#smb18
+#positive
+
+addi $1, $1, 0x0500
+bltzal $1, 3
+nop
+addi $2, $0, 5
+addi $2, $2, 10
+jr $0

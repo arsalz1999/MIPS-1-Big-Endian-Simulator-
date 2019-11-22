@@ -1,0 +1,8 @@
+#andi2
+#andi
+#0
+#smb18
+#and 0xFFFF with 0
+
+andi $2, $0, 0xFFFF
+jr $0

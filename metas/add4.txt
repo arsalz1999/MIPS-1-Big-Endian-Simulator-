@@ -1,0 +1,13 @@
+#add4
+#add
+#255
+#smb18
+#add_-ve_+ve_numbers
+
+addi $1, $1, 0x7FFF
+sll $1, $1, 16
+ori $1, $1, 0xFFFF
+addi $3, $3, 0x8000
+sll $3, $3, 16
+add $2, $1, $3
+jr $0

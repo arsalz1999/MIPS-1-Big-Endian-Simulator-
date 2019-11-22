@@ -1,0 +1,8 @@
+#jal1
+#jal
+#3
+#smb18
+
+addi $2, $0, 3
+jal 0
+nop

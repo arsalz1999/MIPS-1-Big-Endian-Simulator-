@@ -1,9 +1,0 @@
-#lw4
-#lw
-#245
-#ha6017
-#high out of range
-
-lui $1, 0x2400
-lw $2, 0($1)
-jr $0

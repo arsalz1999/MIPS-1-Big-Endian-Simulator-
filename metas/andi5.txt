@@ -1,0 +1,9 @@
+#andi5
+#andi
+#52
+#smb18
+#and with itself
+
+addi $1, $1, 0x1234
+andi $2, $1, 0x1234
+jr $0

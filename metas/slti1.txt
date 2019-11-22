@@ -1,0 +1,8 @@
+#slti1
+#slti
+#1
+#moinbukhari
+
+addi $1, $1, -8
+slti  $2, $1, 3
+jr $0

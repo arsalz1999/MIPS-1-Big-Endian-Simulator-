@@ -1,0 +1,8 @@
+#andi1
+#andi
+#0
+#smb18
+#and 0 with 0
+
+andi $2, $0, 0
+jr $0

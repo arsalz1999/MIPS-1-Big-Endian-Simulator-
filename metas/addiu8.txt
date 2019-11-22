@@ -1,0 +1,8 @@
+#addiu8
+#addiu
+#216
+#smb18
+#zero_and_-ve
+
+addiu $2, $0, -40
+jr $0

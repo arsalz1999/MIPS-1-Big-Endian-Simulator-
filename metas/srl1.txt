@@ -1,0 +1,8 @@
+#srl1
+#srl
+#5
+#moinbukhari
+
+addi $1, $1, 10
+srl  $2, $1, 1
+jr $0

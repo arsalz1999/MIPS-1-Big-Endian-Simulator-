@@ -1,0 +1,8 @@
+#addi7
+#addi
+#10
+#smb18
+#zero_and_+ve
+
+addi $2, $0, 10
+jr $0

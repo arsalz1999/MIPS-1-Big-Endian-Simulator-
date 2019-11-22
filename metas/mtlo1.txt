@@ -1,0 +1,9 @@
+#mtlo1
+#mtlo
+#8
+#moinbukhari
+
+addi $1, $1, 8
+mtlo $1
+mflo $2
+jr $0

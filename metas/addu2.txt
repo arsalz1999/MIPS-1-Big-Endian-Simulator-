@@ -1,0 +1,10 @@
+#addu2
+#addu
+#26
+#smb18
+#addu_-ve_numbers
+
+addiu $1, $1, -200
+addiu $3, $3, -30
+addu $2, $3, $1
+jr $0

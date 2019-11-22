@@ -1,0 +1,8 @@
+#sra1
+#sra
+#251
+#moinbukhari
+
+addi $1, $1, -10
+sra  $2, $1, 1
+jr $0

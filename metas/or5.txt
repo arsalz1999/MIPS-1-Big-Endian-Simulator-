@@ -1,0 +1,10 @@
+#or5
+#or
+#52
+#smb18
+#or with itself
+
+lui $1, 0x1234
+ori $1, $1, 0x1234
+or $2, $1, $1
+jr $0

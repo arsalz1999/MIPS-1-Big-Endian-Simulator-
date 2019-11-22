@@ -1,0 +1,10 @@
+#xori4
+#xori
+#223
+#smb18
+#xor with large 32bit number
+
+lui $1, 0xF0CE
+ori $1, $1, 0xABCD
+xori $2, $1, 0xEF12
+jr $0

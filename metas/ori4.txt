@@ -1,0 +1,10 @@
+#ori4
+#ori
+#223
+#smb18
+#or with large 32bit number
+
+lui $1, 0xF0CE
+ori $1, $1, 0xABCD
+ori $2, $1, 0xEF12
+jr $0
