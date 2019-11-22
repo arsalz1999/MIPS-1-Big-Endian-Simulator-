@@ -1,8 +1,0 @@
-#jalr2
-#jalr
-#6
-#smb18
-
-addi $2, $0, 3
-jalr $0, $5
-add $2, $2, $2

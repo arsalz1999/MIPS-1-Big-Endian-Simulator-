@@ -17,8 +17,8 @@ tests = []
 #reads the metas and extracts test location, id, and retcodes
 for file in os.listdir(directory):
      filename = os.fsdecode(file)
-     if filename.endswith(".meta"):
-         name = filename[:-5]
+     if filename.endswith(".txt"):
+         name = filename[:-4]
          f = open('metas/' + filename)
          all_lines = f.readlines()[0:7]
          all_lines[1] = all_lines[1][1:]
@@ -46,14 +46,13 @@ print('TestId' , "," ,'instruction' , "," , 'Status' , ',' , 'Author' , "," , 'M
 
 for test in tests:
     if len(sys.argv)==1:
-        path = "./bin/mips_simulator"
+        path = "bin/mips_simulator"
     else:
         path = sys.argv[1]    
-
-    print(path)
-    p = subprocess.run( [path, test['path']], stdout=subprocess.PIPE, input=test['stdin'], timeout = 10)
+    path = '.' + os.path.join('/', path)
+    p = subprocess.run( [path, test['path']], stdout=subprocess.PIPE, input=test['stdin'].encode('utf-8'), timeout = 1000)
     
-    if ((p.stdout == test['stdout']) or str((p.returncode) == test['retcode'])):
+    if ((p.stdout.decode('utf-8') == test['stdout']) or str((p.returncode) == test['retcode'])):
         print(test['testid'] , " , " , test['instruction'] , " , " , "PASS",' , ', test['Author'], " , " , test['Message'])
         L = [test['testid'] , "," , test['instruction'] , "," , "PASS",',', test['Author'] , "," , test['Message'],'\n']
         testbench.writelines(L)
