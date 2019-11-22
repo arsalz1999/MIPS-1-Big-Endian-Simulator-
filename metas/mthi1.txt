@@ -1,0 +1,9 @@
+#mthi1
+#mthi
+#8
+#moinbukhari
+
+addi $1, $1, 8
+mthi $1
+mfhi $2
+jr $0

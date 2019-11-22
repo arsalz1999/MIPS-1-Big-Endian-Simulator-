@@ -1,0 +1,8 @@
+#sll1
+#sll
+#64
+#moinbukhari
+
+addi $1, $1, 8
+sll  $2, $1, 3
+jr $0

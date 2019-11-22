@@ -1,0 +1,9 @@
+#xori5
+#xori
+#0
+#smb18
+#xor with itself
+
+addi $1, $1, 0x1234
+xori $2, $1, 0x1234
+jr $0

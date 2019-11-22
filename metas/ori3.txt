@@ -1,0 +1,9 @@
+#ori3
+#ori
+#255
+#smb18
+#or 0x0002 with 0xFFFF
+
+addi $3, $3, 2
+ori $2, $3, 0xFFFF
+jr $0

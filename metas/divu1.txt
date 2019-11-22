@@ -1,0 +1,11 @@
+#divu1
+#divu
+#25
+#smb18
+#lo only
+
+addi $1, $1, 50
+addi $3, $3, 2
+divu $1, $3
+mflo $2
+jr $0

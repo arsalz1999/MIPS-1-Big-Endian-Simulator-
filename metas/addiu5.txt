@@ -1,0 +1,10 @@
+#addiu5
+#addiu
+#22
+#smb18
+#large_-ve_numbers
+
+addiu $1, $1, 0x8000
+sll $1, $1, 16
+addiu $2, $1, -10
+jr $0

@@ -1,9 +1,0 @@
-#lw3
-#lw
-#0
-#ha6017
-#uninitialsied word
-
-lui $1, 0x2000
-lw $2, 0($1)
-jr $0

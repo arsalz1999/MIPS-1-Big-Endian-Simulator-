@@ -1,9 +1,0 @@
-#sltiu1
-#sltiu
-#1
-#ca2217
-# 0 < +ve
-
-sltiu $2, $0, 4
-jr $0
-

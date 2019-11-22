@@ -1,0 +1,10 @@
+#andi4
+#andi
+#0
+#smb18
+#and with large 32bit number
+
+lui $1, 0xF0CE
+ori $1, $1, 0xABCD
+andi $2, $1, 0xEF12
+jr $0

@@ -1,0 +1,10 @@
+#and5
+#and
+#52
+#smb18
+#and with itself
+
+lui $1, 0x1234
+ori $1, $1, 0x1234
+and $2, $1, $1
+jr $0

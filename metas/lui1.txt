@@ -1,0 +1,8 @@
+#lui1
+#lui
+#1
+#moinbukhari
+
+lui $2, 1
+srl $2, $2, 16
+jr $0

@@ -1,9 +1,0 @@
-#jal3
-#jal
-#245
-#ca2217
-#Illegal jump to unalligned memory
-
-jal 0x011
-nop
-jr $0

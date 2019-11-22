@@ -1,0 +1,12 @@
+#bgez2
+#bgez
+#10
+#smb18
+#zero
+
+addi $1, $1, 0
+bgez $1, 3
+nop
+addi $2, $0, 5
+addi $2, $2, 10
+jr $0

@@ -1,0 +1,9 @@
+#ori5
+#ori
+#52
+#smb18
+#or with itself
+
+addi $1, $1, 0x1234
+ori $2, $1, 0x1234
+jr $0

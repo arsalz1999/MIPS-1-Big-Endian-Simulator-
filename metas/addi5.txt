@@ -1,0 +1,10 @@
+#addi5
+#addi
+#246
+#smb18
+#large_-ve_numbers
+
+addi $1, $1, 0x8000
+sll $1, $1, 16
+addi $2, $1, -10
+jr $0

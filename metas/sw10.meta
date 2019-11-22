@@ -1,8 +1,0 @@
-#sw10
-#sw
-#245
-#ha6017
-#Address Null
-
-sw $3, 0($1)
-jr $0

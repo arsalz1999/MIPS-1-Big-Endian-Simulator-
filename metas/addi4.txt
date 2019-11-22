@@ -1,0 +1,11 @@
+#addi4
+#addi
+#246
+#smb18
+#large_+ve_numbers
+
+addi $1, $1, 0x7FFF
+sll $1, $1, 16
+ori $1, $1, 0xFFFF
+addi $2, $1, 10
+jr $0

@@ -1,0 +1,12 @@
+#xor4
+#xor
+#223
+#smb18
+#xor with large 32bit number
+
+lui $1, 0xF0CE
+ori $1, $1, 0xABCD
+lui $3, 0xABCD
+ori $3, $3, 0xEF12
+xor $2, $1, $3
+jr $0

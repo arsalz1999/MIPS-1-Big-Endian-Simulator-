@@ -1,0 +1,10 @@
+#xor5
+#xor
+#0
+#smb18
+#or with itself
+
+lui $1, 0x1234
+ori $1, $1, 0x1234
+xor $2, $1, $1
+jr $0

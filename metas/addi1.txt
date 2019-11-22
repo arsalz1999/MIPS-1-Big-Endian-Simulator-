@@ -1,0 +1,9 @@
+#addi1
+#addi
+#230
+#smb18
+#add_+ve_numbers
+
+addi $2, $1, 200
+addi $2, $2, 30
+jr $0

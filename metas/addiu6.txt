@@ -1,0 +1,9 @@
+#addiu6
+#addiu
+#0
+#smb18
+#adding_zeroes
+
+addiu $1, $1, 0
+addiu $2, $1, 0
+jr $0
