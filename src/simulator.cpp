@@ -1,9 +1,7 @@
 #include "simulator.hpp"
 #include <iostream>
 
-simulator::simulator(std::string binaryfile) : mem(binaryfile), register_map(){
-
-}
+simulator::simulator(std::string binaryfile) : mem(binaryfile), register_map(){}
 
 //all the functions go here
 
@@ -463,7 +461,7 @@ void simulator::LB(){
   uint32_t address = (uint32_t)(op1_s + imm_16);
   if((address < 0x11000000) && (address >= 0x10000000))
   {
-    int8_t instr_byte = mem.load_byte_from_instruction(address);
+    int8_t instr_byte = mem.load_instr_b(address);
     int byte = (0x000000FF & instr_byte);
     int  bitmask = 0x00000080;
     if(bitmask & instr_byte)
@@ -472,17 +470,17 @@ void simulator::LB(){
     }
     register_map.write_register(rt, byte);
   }
-  else register_map.write_register(rt, mem.load_byte_from_memory(address));
+  else register_map.write_register(rt, mem.load_mem_s_b(address));
 }
 
 void simulator::LBU(){
   uint32_t address = (op1_s + imm_16);
   if((address < 0x11000000) && (address >= 0x10000000)){
-    int8_t instr_byte = mem.load_byte_from_instruction(address);
+    int8_t instr_byte = mem.load_instr_b(address);
     register_map.write_register(rt,(uint32_t(instr_byte)&0x000000FF));
   }
   else{
-    register_map.write_register(rt, mem.load_unsigned_byte_from_memory(address));
+    register_map.write_register(rt, mem.load_mem_u_b(address));
   }
 }
 
@@ -490,20 +488,20 @@ void simulator::LH(){
   uint32_t address = (op1_s + imm_16);
   if((address < 0x11000000) && (address >= 0x10000000) && (address % 2 == 0))
   {
-    int16_t instr_half_word = mem.load_half_word_from_instruction(address);
+    int16_t instr_half_word = mem.load_instr_hw(address);
     register_map.write_register(rt, (int32_t)instr_half_word);
   }
-  else register_map.write_register(rt, mem.load_half_word_from_memory(address));
+  else register_map.write_register(rt, mem.load_mem_hw(address));
 }
 
 void simulator::LHU(){
   uint32_t address = (op1_s + imm_16);
   if((address < 0x11000000) && (address >= 0x10000000))
   {
-    int16_t instr_half_word = mem.load_half_word_from_instruction(address);
+    int16_t instr_half_word = mem.load_instr_hw(address);
     register_map.write_register(rt, int32_t(instr_half_word)&0x0000FFFF);
   }
-  else register_map.write_register(rt, mem.load_unsigned_half_word_from_memory(address));
+  else register_map.write_register(rt, mem.load_mem_uhw(address));
 }
 
 void simulator::LW(){
@@ -514,7 +512,7 @@ void simulator::LW(){
     std::cout << "fails at mem read or reg write" << std::endl;
     register_map.write_register(rt, mem.read_instruction(address));
     }
-  else register_map.write_register(rt, mem.load_from_memory(address));
+  else register_map.write_register(rt, mem.load_mem(address));
 }
 
 void simulator::LWL(){
@@ -531,7 +529,7 @@ void simulator::LWL(){
   }
   else
   {
-    int32_t lwl_word = mem.load_word_left_from_memory(address);
+    int32_t lwl_word = mem.load_mem_wl(address);
     switch ((address % 4)) {
       case 0: register_map.write_register(rt,lwl_word); break;
       case 1: register_map.write_register(rt, (op2_s&0x000000FF)|lwl_word); break;
@@ -541,8 +539,7 @@ void simulator::LWL(){
   }
 }
 
-void simulator::LWR()
-{
+void simulator::LWR(){
   uint32_t address = (op1_s+imm_16);
   if((address < 0x11000000) && (address >= 0x10000000)){
     int32_t instr_word = mem.read_instruction(address-(address % 4));
@@ -556,7 +553,7 @@ void simulator::LWR()
   }
   else
   {
-    int32_t lwr_word = mem.load_word_right_from_memory(address);
+    int32_t lwr_word = mem.load_mem_wr(address);
     switch ((address % 4))
     {
       case 3: register_map.write_register(rt,lwr_word); break;
@@ -569,12 +566,12 @@ void simulator::LWR()
 
 void simulator::SB(){
   int8_t value = op2_s&0xFF;
-  mem.store_byte_to_memory((op1_s+imm_16),value);
+  mem.store_mem_b((op1_s+imm_16),value);
 }
 
 void simulator::SH(){
   int16_t val16 = op2_s&0xFFFF;
-  mem.store_halfword_to_memory((op1_s + imm_16), val16);
+  mem.store_mem_hw((op1_s + imm_16), val16);
 }
 
-void simulator::SW() {mem.store_to_memory((op1_s+imm_16),op2_s);}
+void simulator::SW() {mem.store_mem((op1_s+imm_16),op2_s);}
